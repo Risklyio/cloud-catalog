@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect } from "react";
+import { useEffect, type ReactNode } from "react";
 import { useCatalogStore } from "@/store/catalog-store";
 import type { CatalogData } from "@/types";
 
@@ -9,7 +9,7 @@ export function CatalogProvider({
   children,
 }: {
   data: CatalogData;
-  children: React.ReactNode;
+  children: ReactNode;
 }) {
   const init = useCatalogStore((s) => s.init);
 

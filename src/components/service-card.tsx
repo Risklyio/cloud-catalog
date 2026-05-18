@@ -24,14 +24,13 @@ function ServiceLogo({ name, logoUrl }: { name: string; logoUrl: string | null }
     );
   }
 
-  const Tag = "div" as const;
   return (
-    <Tag
+    <span
       className="flex h-12 w-12 items-center justify-center rounded-xl bg-gradient-to-br from-sky-500 to-indigo-600 text-lg font-bold text-white"
       aria-hidden
     >
       {name.charAt(0)}
-    </Tag>
+    </span>
   );
 }
 

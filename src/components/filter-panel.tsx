@@ -1,5 +1,6 @@
 "use client";
 
+import type { ReactNode } from "react";
 import { SAAS_DEPARTMENTS } from "@/lib/departments";
 import { useCatalogStore } from "@/store/catalog-store";
 import type { ServiceCategory } from "@/types";
@@ -20,7 +21,7 @@ function Chip({
 }: {
   active: boolean;
   onClick: () => void;
-  children: React.ReactNode;
+  children: ReactNode;
   className?: string;
 }) {
   return (
