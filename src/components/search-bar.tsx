@@ -1,0 +1,47 @@
+"use client";
+
+import { useEffect, useState } from "react";
+import { useDebouncedValue } from "@/hooks/use-debounced-value";
+import { useCatalogStore } from "@/store/catalog-store";
+
+export function SearchBar() {
+  const query = useCatalogStore((s) => s.query);
+  const setQuery = useCatalogStore((s) => s.setQuery);
+  const [local, setLocal] = useState(query);
+  const debounced = useDebouncedValue(local, 200);
+
+  useEffect(() => {
+    setQuery(debounced);
+  }, [debounced, setQuery]);
+
+  useEffect(() => {
+    setLocal(query);
+  }, [query]);
+
+  return (
+    <div className="relative w-full">
+      <svg
+        className="pointer-events-none absolute left-4 top-1/2 h-5 w-5 -translate-y-1/2 text-slate-400"
+        fill="none"
+        viewBox="0 0 24 24"
+        stroke="currentColor"
+        aria-hidden
+      >
+        <path
+          strokeLinecap="round"
+          strokeLinejoin="round"
+          strokeWidth={2}
+          d="M21 21l-4.35-4.35M11 18a7 7 0 100-14 7 7 0 000 14z"
+        />
+      </svg>
+      <input
+        type="search"
+        value={local}
+        onChange={(e) => setLocal(e.target.value)}
+        placeholder="Search services by name, vendor, tags…"
+        className="w-full rounded-2xl border border-slate-200/80 bg-white/90 py-3.5 pl-12 pr-4 text-slate-900 shadow-sm outline-none ring-sky-500/0 transition placeholder:text-slate-400 focus:border-sky-300 focus:ring-4 focus:ring-sky-500/15 dark:border-slate-700 dark:bg-slate-900/80 dark:text-slate-100 dark:placeholder:text-slate-500 dark:focus:border-sky-600"
+        aria-label="Search cloud services"
+      />
+    </div>
+  );
+}
