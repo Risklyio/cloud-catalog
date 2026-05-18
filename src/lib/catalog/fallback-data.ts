@@ -1,5 +1,7 @@
 import type { CatalogData } from "@/types";
 
+const none: CatalogData["services"][0]["departments"] = [];
+
 /** Demo catalog when Supabase env vars are not set (local dev / preview). */
 export const fallbackCatalog: CatalogData = {
   services: [
@@ -14,6 +16,7 @@ export const fallbackCatalog: CatalogData = {
       logo_url: "https://logo.clearbit.com/snowflake.com",
       website_url: "https://www.snowflake.com",
       tags: ["data-warehouse", "analytics", "sql"],
+      departments: ["finance", "it", "engineering"],
       created_at: new Date().toISOString(),
     },
     {
@@ -27,6 +30,7 @@ export const fallbackCatalog: CatalogData = {
       logo_url: "https://logo.clearbit.com/cloud.google.com",
       website_url: "https://cloud.google.com/bigquery",
       tags: ["data-warehouse", "analytics", "serverless"],
+      departments: ["finance", "it", "engineering"],
       created_at: new Date().toISOString(),
     },
     {
@@ -40,6 +44,7 @@ export const fallbackCatalog: CatalogData = {
       logo_url: "https://logo.clearbit.com/aws.amazon.com",
       website_url: "https://aws.amazon.com/redshift/",
       tags: ["data-warehouse", "analytics", "aws"],
+      departments: ["finance", "it", "engineering"],
       created_at: new Date().toISOString(),
     },
     {
@@ -53,6 +58,7 @@ export const fallbackCatalog: CatalogData = {
       logo_url: "https://logo.clearbit.com/databricks.com",
       website_url: "https://www.databricks.com",
       tags: ["lakehouse", "spark", "ml"],
+      departments: none,
       created_at: new Date().toISOString(),
     },
     {
@@ -66,6 +72,7 @@ export const fallbackCatalog: CatalogData = {
       logo_url: "https://logo.clearbit.com/datadoghq.com",
       website_url: "https://www.datadoghq.com",
       tags: ["monitoring", "apm", "observability"],
+      departments: ["it", "site-operations", "engineering"],
       created_at: new Date().toISOString(),
     },
     {
@@ -79,6 +86,7 @@ export const fallbackCatalog: CatalogData = {
       logo_url: "https://logo.clearbit.com/grafana.com",
       website_url: "https://grafana.com/products/cloud/",
       tags: ["monitoring", "dashboards", "observability"],
+      departments: ["it", "site-operations", "engineering"],
       created_at: new Date().toISOString(),
     },
     {
@@ -92,6 +100,7 @@ export const fallbackCatalog: CatalogData = {
       logo_url: "https://logo.clearbit.com/newrelic.com",
       website_url: "https://newrelic.com",
       tags: ["monitoring", "apm", "observability"],
+      departments: ["it", "site-operations", "engineering"],
       created_at: new Date().toISOString(),
     },
     {
@@ -105,6 +114,7 @@ export const fallbackCatalog: CatalogData = {
       logo_url: "https://cdn.simpleicons.org/prometheus/E6522C",
       website_url: "https://prometheus.io",
       tags: ["monitoring", "metrics", "open-source"],
+      departments: ["it", "site-operations", "engineering"],
       created_at: new Date().toISOString(),
     },
     {
@@ -118,6 +128,7 @@ export const fallbackCatalog: CatalogData = {
       logo_url: "https://logo.clearbit.com/vercel.com",
       website_url: "https://vercel.com",
       tags: ["hosting", "serverless", "edge"],
+      departments: none,
       created_at: new Date().toISOString(),
     },
     {
@@ -131,6 +142,7 @@ export const fallbackCatalog: CatalogData = {
       logo_url: "https://logo.clearbit.com/heroku.com",
       website_url: "https://www.heroku.com",
       tags: ["hosting", "paas", "containers"],
+      departments: none,
       created_at: new Date().toISOString(),
     },
     {
@@ -144,6 +156,7 @@ export const fallbackCatalog: CatalogData = {
       logo_url: "https://logo.clearbit.com/aws.amazon.com",
       website_url: "https://aws.amazon.com/ec2/",
       tags: ["compute", "vms", "aws"],
+      departments: none,
       created_at: new Date().toISOString(),
     },
     {
@@ -157,6 +170,7 @@ export const fallbackCatalog: CatalogData = {
       logo_url: "https://logo.clearbit.com/cloud.google.com",
       website_url: "https://cloud.google.com/compute",
       tags: ["compute", "vms", "gcp"],
+      departments: none,
       created_at: new Date().toISOString(),
     },
     {
@@ -170,6 +184,7 @@ export const fallbackCatalog: CatalogData = {
       logo_url: "https://logo.clearbit.com/azure.microsoft.com",
       website_url: "https://azure.microsoft.com/products/virtual-machines",
       tags: ["compute", "vms", "azure"],
+      departments: none,
       created_at: new Date().toISOString(),
     },
     {
@@ -183,6 +198,7 @@ export const fallbackCatalog: CatalogData = {
       logo_url: "https://logo.clearbit.com/stripe.com",
       website_url: "https://stripe.com",
       tags: ["payments", "billing", "fintech"],
+      departments: ["finance", "operations"],
       created_at: new Date().toISOString(),
     },
     {
@@ -196,6 +212,7 @@ export const fallbackCatalog: CatalogData = {
       logo_url: "https://logo.clearbit.com/auth0.com",
       website_url: "https://auth0.com",
       tags: ["auth", "identity", "security"],
+      departments: ["it", "legal", "engineering"],
       created_at: new Date().toISOString(),
     },
     {
@@ -209,6 +226,77 @@ export const fallbackCatalog: CatalogData = {
       logo_url: "https://logo.clearbit.com/supabase.com",
       website_url: "https://supabase.com",
       tags: ["database", "postgres", "backend"],
+      departments: none,
+      created_at: new Date().toISOString(),
+    },
+    {
+      id: "17",
+      name: "HubSpot",
+      slug: "hubspot",
+      description:
+        "CRM and marketing automation for inbound campaigns, email, and lead nurturing.",
+      category: "SaaS",
+      vendor: "HubSpot",
+      logo_url: "https://logo.clearbit.com/hubspot.com",
+      website_url: "https://www.hubspot.com",
+      tags: ["crm", "marketing", "automation"],
+      departments: ["marketing", "customer-support", "operations"],
+      created_at: new Date().toISOString(),
+    },
+    {
+      id: "18",
+      name: "Greenhouse",
+      slug: "greenhouse",
+      description:
+        "Applicant tracking and hiring workflow software for recruiting teams.",
+      category: "SaaS",
+      vendor: "Greenhouse Software",
+      logo_url: "https://logo.clearbit.com/greenhouse.io",
+      website_url: "https://www.greenhouse.com",
+      tags: ["ats", "hiring", "hr-tech"],
+      departments: ["recruitment", "hr"],
+      created_at: new Date().toISOString(),
+    },
+    {
+      id: "19",
+      name: "Docebo",
+      slug: "docebo",
+      description:
+        "Learning management system for employee training, onboarding, and compliance courses.",
+      category: "SaaS",
+      vendor: "Docebo",
+      logo_url: "https://logo.clearbit.com/docebo.com",
+      website_url: "https://www.docebo.com",
+      tags: ["lms", "elearning", "compliance"],
+      departments: ["training", "hr", "health-safety"],
+      created_at: new Date().toISOString(),
+    },
+    {
+      id: "20",
+      name: "SafetyCulture",
+      slug: "safetyculture",
+      description:
+        "Digital checklists, inspections, and incident reporting for frontline safety.",
+      category: "SaaS",
+      vendor: "SafetyCulture",
+      logo_url: "https://logo.clearbit.com/safetyculture.com",
+      website_url: "https://safetyculture.com",
+      tags: ["safety", "compliance", "inspections"],
+      departments: ["health-safety", "site-operations", "operations"],
+      created_at: new Date().toISOString(),
+    },
+    {
+      id: "21",
+      name: "Workday",
+      slug: "workday",
+      description:
+        "Enterprise cloud suite for HR, payroll, finance, and workforce planning.",
+      category: "SaaS",
+      vendor: "Workday",
+      logo_url: "https://logo.clearbit.com/workday.com",
+      website_url: "https://www.workday.com",
+      tags: ["hr", "erp", "payroll"],
+      departments: ["hr", "finance", "recruitment", "procurement"],
       created_at: new Date().toISOString(),
     },
   ],

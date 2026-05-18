@@ -5,7 +5,7 @@ A static-first, read-only web app for discovering cloud services (SaaS, PaaS, Ia
 ## Features
 
 - **Global fuzzy search** (debounced) across name, description, tags, and vendor
-- **Filters** for category, tags, and vendor
+- **Filters** for category, tags, vendor, and SaaS department (marketing, recruitment, finance, and more — shown when SaaS is selected)
 - **Service cards** with logo, category badge, description, and tags
 - **Curated groups** (e.g. “Alternatives to Snowflake”, “Best Monitoring Tools”)
 - **SPA-like UX** with server-rendered catalog data and client-side interactivity

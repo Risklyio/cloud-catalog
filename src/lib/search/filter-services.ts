@@ -1,9 +1,11 @@
+import type { SaasDepartment } from "@/lib/departments";
 import type { CloudService, ServiceCategory } from "@/types";
 
 export interface ServiceFilters {
   categories: ServiceCategory[];
   tags: string[];
   vendors: string[];
+  departments: SaasDepartment[];
 }
 
 export function filterServices(
@@ -30,6 +32,13 @@ export function filterServices(
       !filters.tags.some((tag) => service.tags.includes(tag))
     ) {
       return false;
+    }
+
+    if (filters.departments.length > 0) {
+      if (service.category !== "SaaS") return false;
+      if (!filters.departments.some((d) => service.departments.includes(d))) {
+        return false;
+      }
     }
 
     return true;

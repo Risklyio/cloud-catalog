@@ -1,5 +1,6 @@
 "use client";
 
+import { SAAS_DEPARTMENTS } from "@/lib/departments";
 import { useCatalogStore } from "@/store/catalog-store";
 import type { ServiceCategory } from "@/types";
 
@@ -44,16 +45,20 @@ export function FilterPanel() {
   const toggleCategory = useCatalogStore((s) => s.toggleCategory);
   const toggleTag = useCatalogStore((s) => s.toggleTag);
   const toggleVendor = useCatalogStore((s) => s.toggleVendor);
+  const toggleDepartment = useCatalogStore((s) => s.toggleDepartment);
   const clearFilters = useCatalogStore((s) => s.clearFilters);
+
+  const saasSelected = filters.categories.includes("SaaS");
 
   const hasFilters =
     filters.categories.length > 0 ||
     filters.tags.length > 0 ||
-    filters.vendors.length > 0;
+    filters.vendors.length > 0 ||
+    filters.departments.length > 0;
 
   return (
     <aside className="space-y-6 rounded-2xl border border-slate-200/80 bg-white/70 p-5 shadow-sm backdrop-blur dark:border-slate-800 dark:bg-slate-900/60">
-      <div className="flex items-center justify-between">
+      <section className="flex items-center justify-between">
         <h2 className="text-sm font-semibold uppercase tracking-wide text-slate-500">
           Filters
         </h2>
@@ -66,52 +71,76 @@ export function FilterPanel() {
             Clear all
           </button>
         )}
-      </div>
-
-      <section>
-        <h3 className="mb-2 text-xs font-medium text-slate-500">Category</h3>
-        <div className="flex flex-wrap gap-2">
-          {CATEGORIES.map((cat) => (
-            <Chip
-              key={cat}
-              active={filters.categories.includes(cat)}
-              onClick={() => toggleCategory(cat)}
-              className={filters.categories.includes(cat) ? "" : categoryStyles[cat]}
-            >
-              {cat}
-            </Chip>
-          ))}
-        </div>
       </section>
 
       <section>
-        <h3 className="mb-2 text-xs font-medium text-slate-500">Vendor</h3>
-        <div className="flex max-h-36 flex-wrap gap-2 overflow-y-auto">
-          {allVendors.map((vendor) => (
-            <Chip
-              key={vendor}
-              active={filters.vendors.includes(vendor)}
-              onClick={() => toggleVendor(vendor)}
-            >
-              {vendor}
-            </Chip>
+        <h3 className="mb-2 text-xs font-medium text-slate-500">Category</h3>
+        <ul className="flex flex-wrap gap-2">
+          {CATEGORIES.map((cat) => (
+            <li key={cat}>
+              <Chip
+                active={filters.categories.includes(cat)}
+                onClick={() => toggleCategory(cat)}
+                className={filters.categories.includes(cat) ? "" : categoryStyles[cat]}
+              >
+                {cat}
+              </Chip>
+            </li>
           ))}
-        </div>
+        </ul>
+      </section>
+
+      {saasSelected && (
+        <section>
+          <h3 className="mb-1 text-xs font-medium text-slate-500">Department</h3>
+          <p className="mb-2 text-xs text-slate-400">
+            Filter SaaS apps by the teams that use them
+          </p>
+          <ul className="flex max-h-52 flex-wrap gap-2 overflow-y-auto">
+            {SAAS_DEPARTMENTS.map((dept) => (
+              <li key={dept.id}>
+                <Chip
+                  active={filters.departments.includes(dept.id)}
+                  onClick={() => toggleDepartment(dept.id)}
+                >
+                  {dept.label}
+                </Chip>
+              </li>
+            ))}
+          </ul>
+        </section>
+      )}
+
+      <section>
+        <h3 className="mb-2 text-xs font-medium text-slate-500">Vendor</h3>
+        <ul className="flex max-h-36 flex-wrap gap-2 overflow-y-auto">
+          {allVendors.map((vendor) => (
+            <li key={vendor}>
+              <Chip
+                active={filters.vendors.includes(vendor)}
+                onClick={() => toggleVendor(vendor)}
+              >
+                {vendor}
+              </Chip>
+            </li>
+          ))}
+        </ul>
       </section>
 
       <section>
         <h3 className="mb-2 text-xs font-medium text-slate-500">Tags</h3>
-        <div className="flex max-h-48 flex-wrap gap-2 overflow-y-auto">
+        <ul className="flex max-h-48 flex-wrap gap-2 overflow-y-auto">
           {allTags.map((tag) => (
-            <Chip
-              key={tag}
-              active={filters.tags.includes(tag)}
-              onClick={() => toggleTag(tag)}
-            >
-              #{tag}
-            </Chip>
+            <li key={tag}>
+              <Chip
+                active={filters.tags.includes(tag)}
+                onClick={() => toggleTag(tag)}
+              >
+                #{tag}
+              </Chip>
+            </li>
           ))}
-        </div>
+        </ul>
       </section>
     </aside>
   );

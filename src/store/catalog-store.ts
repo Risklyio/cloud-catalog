@@ -1,13 +1,13 @@
 "use client";
 
 import { create } from "zustand";
+import type { SaasDepartment } from "@/lib/departments";
 import {
   extractFilterOptions,
   type ServiceFilters,
 } from "@/lib/search/filter-services";
 import type {
   CatalogData,
-  CloudService,
   ServiceCategory,
   ServiceGroup,
 } from "@/types";
@@ -26,6 +26,7 @@ interface CatalogState {
   toggleCategory: (category: ServiceCategory) => void;
   toggleTag: (tag: string) => void;
   toggleVendor: (vendor: string) => void;
+  toggleDepartment: (department: SaasDepartment) => void;
   clearFilters: () => void;
   setActiveGroup: (slug: string | null) => void;
 }
@@ -34,6 +35,7 @@ const emptyFilters: ServiceFilters = {
   categories: [],
   tags: [],
   vendors: [],
+  departments: [],
 };
 
 function toggleInList<T>(list: T[], value: T): T[] {
@@ -66,12 +68,17 @@ export const useCatalogStore = create<CatalogState>((set) => ({
   setQuery: (query) => set({ query }),
 
   toggleCategory: (category) =>
-    set((state) => ({
-      filters: {
-        ...state.filters,
-        categories: toggleInList(state.filters.categories, category),
-      },
-    })),
+    set((state) => {
+      const categories = toggleInList(state.filters.categories, category);
+      const saasSelected = categories.includes("SaaS");
+      return {
+        filters: {
+          ...state.filters,
+          categories,
+          departments: saasSelected ? state.filters.departments : [],
+        },
+      };
+    }),
 
   toggleTag: (tag) =>
     set((state) => ({
@@ -86,6 +93,14 @@ export const useCatalogStore = create<CatalogState>((set) => ({
       filters: {
         ...state.filters,
         vendors: toggleInList(state.filters.vendors, vendor),
+      },
+    })),
+
+  toggleDepartment: (department) =>
+    set((state) => ({
+      filters: {
+        ...state.filters,
+        departments: toggleInList(state.filters.departments, department),
       },
     })),
 

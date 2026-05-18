@@ -12,6 +12,7 @@ create table if not exists public.services (
   logo_url text,
   website_url text,
   tags text[] not null default '{}',
+  departments text[] not null default '{}',
   created_at timestamptz not null default now()
 );
 
@@ -27,6 +28,7 @@ create table if not exists public.service_groups (
 create index if not exists services_category_idx on public.services (category);
 create index if not exists services_vendor_idx on public.services (vendor);
 create index if not exists services_tags_gin_idx on public.services using gin (tags);
+create index if not exists services_departments_gin_idx on public.services using gin (departments);
 
 alter table public.services enable row level security;
 alter table public.service_groups enable row level security;

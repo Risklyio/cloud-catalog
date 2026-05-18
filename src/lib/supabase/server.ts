@@ -35,7 +35,9 @@ export async function fetchCatalogFromSupabase(): Promise<CatalogData | null> {
   }
 
   return {
-    services: (servicesResult.data ?? []) as CloudService[],
+    services: (servicesResult.data ?? []) as (CloudService & {
+      departments?: CloudService["departments"] | null;
+    })[],
     groups: (groupsResult.data ?? []) as ServiceGroup[],
   };
 }

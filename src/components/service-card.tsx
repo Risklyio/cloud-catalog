@@ -1,6 +1,7 @@
 "use client";
 
 import Image from "next/image";
+import { SAAS_DEPARTMENT_LABELS } from "@/lib/departments";
 import type { CloudService } from "@/types";
 
 const categoryBadge: Record<CloudService["category"], string> = {
@@ -53,6 +54,19 @@ export function ServiceCard({ service }: { service: CloudService }) {
       <p className="mt-3 line-clamp-3 flex-1 text-sm leading-relaxed text-slate-600 dark:text-slate-400">
         {service.description}
       </p>
+
+      {service.category === "SaaS" && service.departments.length > 0 && (
+        <ul className="mt-3 flex flex-wrap gap-1">
+          {service.departments.slice(0, 3).map((dept) => (
+            <li
+              key={dept}
+              className="rounded-md bg-violet-500/10 px-2 py-0.5 text-xs text-violet-700 dark:text-violet-300"
+            >
+              {SAAS_DEPARTMENT_LABELS[dept]}
+            </li>
+          ))}
+        </ul>
+      )}
 
       <section className="mt-4 flex flex-wrap gap-1.5">
         {service.tags.slice(0, 4).map((tag) => (
