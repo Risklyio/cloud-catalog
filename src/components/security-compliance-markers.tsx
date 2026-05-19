@@ -4,7 +4,7 @@ import Link from "next/link";
 import { useState } from "react";
 import type { SecurityCertification } from "@/types/security-certification";
 
-function ShieldIcon({ className }: { className?: string }) {
+function ShieldVerifiedIcon({ className }: { className?: string }) {
   return (
     <svg
       className={className}
@@ -28,12 +28,31 @@ function ShieldIcon({ className }: { className?: string }) {
   );
 }
 
-function ChevronIcon({ open }: { open: boolean }) {
+function ShieldUnverifiedIcon({ className }: { className?: string }) {
   return (
     <svg
-      className={`h-4 w-4 shrink-0 text-emerald-600 transition-transform duration-200 ${
+      className={className}
+      viewBox="0 0 24 24"
+      fill="none"
+      stroke="currentColor"
+      strokeWidth="1.75"
+      aria-hidden
+    >
+      <path
+        strokeLinecap="round"
+        strokeLinejoin="round"
+        d="M12 3l7.5 3v5.25c0 4.28-3.15 8.28-7.5 9.25-4.35-.97-7.5-4.97-7.5-9.25V6L12 3z"
+      />
+    </svg>
+  );
+}
+
+function ChevronIcon({ open, className }: { open: boolean; className?: string }) {
+  return (
+    <svg
+      className={`h-4 w-4 shrink-0 transition-transform duration-200 ${
         open ? "rotate-180" : ""
-      }`}
+      } ${className ?? ""}`}
       viewBox="0 0 20 20"
       fill="currentColor"
       aria-hidden
@@ -47,60 +66,103 @@ function ChevronIcon({ open }: { open: boolean }) {
   );
 }
 
+const verifiedStyles = {
+  buttonHover: "hover:bg-emerald-50/60",
+  label: "text-emerald-800",
+  icon: "text-emerald-600",
+  chevron: "text-emerald-600",
+  chip: "border-emerald-200/80 bg-emerald-50/90 text-emerald-900 hover:border-emerald-300 hover:bg-emerald-100 hover:text-emerald-950",
+} as const;
+
+const unverifiedStyles = {
+  buttonHover: "hover:bg-orange-50/80",
+  label: "text-orange-800",
+  icon: "text-orange-500",
+  chevron: "text-orange-500",
+  message: "text-orange-800/90",
+} as const;
+
 export function SecurityComplianceMarkers({
   certifications,
 }: {
   certifications: SecurityCertification[];
 }) {
   const [open, setOpen] = useState(false);
-
-  if (certifications.length === 0) return null;
+  const hasVerified = certifications.length > 0;
+  const styles = hasVerified ? verifiedStyles : unverifiedStyles;
 
   return (
     <section
       className="border-t border-stone-100 pt-3"
-      aria-label="Documented security certifications"
+      aria-label={
+        hasVerified
+          ? "Documented security certifications"
+          : "Compliance verification unavailable"
+      }
     >
       <button
         type="button"
         onClick={() => setOpen((v) => !v)}
         aria-expanded={open}
-        className="flex w-full items-center justify-between gap-2 rounded-lg py-1 text-left transition hover:bg-emerald-50/60"
+        className={`flex w-full items-center justify-between gap-2 rounded-lg py-1 text-left transition ${styles.buttonHover}`}
       >
-        <span className="flex items-center gap-1.5 text-xs font-medium text-emerald-800">
-          <ShieldIcon className="h-4 w-4 shrink-0 text-emerald-600" />
-          Verified compliance
+        <span className={`flex items-center gap-1.5 text-xs font-medium ${styles.label}`}>
+          {hasVerified ? (
+            <>
+              <ShieldVerifiedIcon className={`h-4 w-4 shrink-0 ${styles.icon}`} />
+              Verified compliance
+            </>
+          ) : (
+            <>
+              <ShieldUnverifiedIcon className={`h-4 w-4 shrink-0 ${styles.icon}`} />
+              No compliance can be verified
+            </>
+          )}
         </span>
-        <ChevronIcon open={open} />
+        <ChevronIcon open={open} className={styles.chevron} />
       </button>
 
-      {open && (
+      {open && hasVerified && (
         <>
-        <ul className="mt-2 flex flex-wrap gap-1.5">
-          {certifications.map((cert) => (
-            <li key={cert.id}>
-              <a
-                href={cert.evidence_url}
-                target="_blank"
-                rel="noopener noreferrer"
-                title={`${cert.label} — view evidence on provider site`}
-                className="inline-flex items-center rounded-md border border-emerald-200/80 bg-emerald-50/90 px-2 py-0.5 text-xs font-medium text-emerald-900 transition hover:border-emerald-300 hover:bg-emerald-100 hover:text-emerald-950"
-              >
-                {cert.label}
-              </a>
-            </li>
-          ))}
-        </ul>
-        <p className="mt-2 text-[11px] leading-snug text-stone-500">
-          Public evidence only—not a guarantee of your compliance scope.{" "}
+          <ul className="mt-2 flex flex-wrap gap-1.5">
+            {certifications.map((cert) => (
+              <li key={cert.id}>
+                <a
+                  href={cert.evidence_url}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  title={`${cert.label} — view evidence on provider site`}
+                  className={`inline-flex items-center rounded-md border px-2 py-0.5 text-xs font-medium transition ${verifiedStyles.chip}`}
+                >
+                  {cert.label}
+                </a>
+              </li>
+            ))}
+          </ul>
+          <p className="mt-2 text-[11px] leading-snug text-stone-500">
+            Public evidence only—not a guarantee of your compliance scope.{" "}
+            <Link
+              href="/verified-compliance"
+              className="font-medium text-[#6557ff] hover:text-[#f74dc7]"
+            >
+              Learn more
+            </Link>
+          </p>
+        </>
+      )}
+
+      {open && !hasVerified && (
+        <p className={`mt-2 text-[11px] leading-snug ${unverifiedStyles.message}`}>
+          We could not link this service to public compliance documentation in our
+          catalog. That does not mean the vendor is non-compliant—only that evidence
+          is not verified here.{" "}
           <Link
             href="/verified-compliance"
-            className="font-medium text-[#6557ff] hover:text-[#f74dc7]"
+            className="font-medium text-orange-600 hover:text-orange-700"
           >
             Learn more
           </Link>
         </p>
-        </>
       )}
     </section>
   );

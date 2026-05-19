@@ -127,12 +127,12 @@ function CardShell({
       href={service.website_url}
       target="_blank"
       rel="noopener noreferrer"
-      className={`${innerClass} p-5 ${certs.length > 0 ? "pb-3" : ""}`}
+      className={`${innerClass} p-5 pb-3`}
     >
       {children}
     </a>
   ) : (
-    <article className={`${innerClass} p-5 ${certs.length > 0 ? "pb-3" : ""}`}>
+    <article className={`${innerClass} p-5 pb-3`}>
       {children}
     </article>
   );
@@ -141,11 +141,9 @@ function CardShell({
     <section className="brand-gradient-border brand-gradient-border--hover service-card-glow group/card flex h-full flex-col">
       <div className="flex h-full flex-col rounded-[14px] bg-white">
         {mainContent}
-        {certs.length > 0 && (
-          <div className="px-5 pb-4">
-            <SecurityComplianceMarkers certifications={certs} />
-          </div>
-        )}
+        <div className="px-5 pb-4">
+          <SecurityComplianceMarkers certifications={certs} />
+        </div>
       </div>
     </section>
   );
