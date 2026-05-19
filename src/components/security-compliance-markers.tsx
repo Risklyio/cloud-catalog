@@ -1,3 +1,5 @@
+"use client";
+
 import type { SecurityCertification } from "@/lib/security-certifications";
 
 function ShieldIcon({ className }: { className?: string }) {
@@ -49,7 +51,6 @@ export function SecurityComplianceMarkers({
               rel="noopener noreferrer"
               title={`${cert.label} — view evidence on provider site`}
               className="inline-flex items-center rounded-md border border-emerald-200/80 bg-emerald-50/90 px-2 py-0.5 text-xs font-medium text-emerald-900 transition hover:border-emerald-300 hover:bg-emerald-100 hover:text-emerald-950"
-              onClick={(e) => e.stopPropagation()}
             >
               {cert.label}
             </a>
