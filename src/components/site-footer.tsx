@@ -13,6 +13,12 @@ export function SiteFooter() {
             Cloud definitions
           </Link>
           <Link
+            href="/verified-compliance"
+            className="font-medium text-[#6557ff] transition hover:text-[#f74dc7]"
+          >
+            Verified Compliance
+          </Link>
+          <Link
             href="/privacy"
             className="font-medium text-[#6557ff] transition hover:text-[#f74dc7]"
           >

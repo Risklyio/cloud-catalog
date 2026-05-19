@@ -1,5 +1,6 @@
 "use client";
 
+import Link from "next/link";
 import { useState } from "react";
 import type { SecurityCertification } from "@/types/security-certification";
 
@@ -74,6 +75,7 @@ export function SecurityComplianceMarkers({
       </button>
 
       {open && (
+        <>
         <ul className="mt-2 flex flex-wrap gap-1.5">
           {certifications.map((cert) => (
             <li key={cert.id}>
@@ -89,6 +91,16 @@ export function SecurityComplianceMarkers({
             </li>
           ))}
         </ul>
+        <p className="mt-2 text-[11px] leading-snug text-stone-500">
+          Public evidence only—not a guarantee of your compliance scope.{" "}
+          <Link
+            href="/verified-compliance"
+            className="font-medium text-[#6557ff] hover:text-[#f74dc7]"
+          >
+            Learn more
+          </Link>
+        </p>
+        </>
       )}
     </section>
   );
