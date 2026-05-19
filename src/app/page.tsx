@@ -1,5 +1,6 @@
 import { CatalogProvider } from "@/components/catalog-provider";
 import { CatalogShell } from "@/components/catalog-shell";
+import { SiteFooter } from "@/components/site-footer";
 import { getCatalog } from "@/lib/catalog/get-catalog";
 import { isSupabaseConfigured } from "@/lib/supabase/server";
 
@@ -32,9 +33,7 @@ export default async function HomePage() {
         <CatalogShell />
       </CatalogProvider>
 
-      <footer className="mt-16 border-t border-stone-200 pt-8 text-center text-sm text-stone-500">
-        Read-only catalog · Static-first · Deploy on Vercel
-      </footer>
+      <SiteFooter />
     </main>
   );
 }
