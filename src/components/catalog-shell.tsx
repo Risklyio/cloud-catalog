@@ -10,13 +10,10 @@ export function CatalogShell() {
     <>
       <header className="mb-8 space-y-4">
         <section>
-          <p className="text-sm font-medium text-sky-600 dark:text-sky-400">
-            Cloud Service Catalog
-          </p>
-          <h1 className="mt-1 text-3xl font-bold tracking-tight text-slate-900 sm:text-4xl dark:text-white">
+          <h1 className="text-3xl font-bold tracking-tight text-stone-900 sm:text-4xl">
             Discover the right cloud stack
           </h1>
-          <p className="mt-2 max-w-2xl text-slate-600 dark:text-slate-400">
+          <p className="mt-2 max-w-2xl text-stone-600">
             Browse SaaS, PaaS, and IaaS offerings with instant fuzzy search,
             filters, and curated groups — read-only, no sign-in required.
           </p>

@@ -32,7 +32,7 @@ export default async function HomePage() {
         <CatalogShell />
       </CatalogProvider>
 
-      <footer className="mt-16 border-t border-slate-200/80 pt-8 text-center text-sm text-slate-500 dark:border-slate-800">
+      <footer className="mt-16 border-t border-stone-200 pt-8 text-center text-sm text-stone-500">
         Read-only catalog · Static-first · Deploy on Vercel
       </footer>
     </main>

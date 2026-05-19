@@ -39,7 +39,7 @@ export function SearchBar() {
         value={local}
         onChange={(e) => setLocal(e.target.value)}
         placeholder="Search services by name, vendor, tags…"
-        className="w-full rounded-2xl border border-slate-200/80 bg-white/90 py-3.5 pl-12 pr-4 text-slate-900 shadow-sm outline-none ring-sky-500/0 transition placeholder:text-slate-400 focus:border-sky-300 focus:ring-4 focus:ring-sky-500/15 dark:border-slate-700 dark:bg-slate-900/80 dark:text-slate-100 dark:placeholder:text-slate-500 dark:focus:border-sky-600"
+        className="w-full rounded-2xl border border-stone-200 bg-white py-3.5 pl-12 pr-4 text-stone-900 shadow-sm outline-none transition placeholder:text-stone-400 focus:border-sky-300 focus:ring-4 focus:ring-sky-500/15"
         aria-label="Search cloud services"
       />
     </div>

@@ -84,7 +84,7 @@ export function ServiceCard({ service }: { service: CloudService }) {
   );
 
   const className =
-    "group flex h-full flex-col rounded-2xl border border-slate-200/80 bg-white/90 p-5 shadow-sm transition hover:-translate-y-0.5 hover:border-sky-200 hover:shadow-md dark:border-slate-800 dark:bg-slate-900/80 dark:hover:border-sky-800";
+    "group flex h-full flex-col rounded-2xl border border-stone-200 bg-white p-5 shadow-sm transition hover:-translate-y-0.5 hover:border-sky-200 hover:shadow-md";
 
   if (service.website_url) {
     return (

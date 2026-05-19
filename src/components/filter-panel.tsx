@@ -58,7 +58,7 @@ export function FilterPanel() {
     filters.departments.length > 0;
 
   return (
-    <aside className="space-y-6 rounded-2xl border border-slate-200/80 bg-white/70 p-5 shadow-sm backdrop-blur dark:border-slate-800 dark:bg-slate-900/60">
+    <aside className="space-y-6 rounded-2xl border border-stone-200 bg-white p-5 shadow-sm">
       <section className="flex items-center justify-between">
         <h2 className="text-sm font-semibold uppercase tracking-wide text-slate-500">
           Filters
