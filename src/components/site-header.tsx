@@ -12,10 +12,11 @@ export function SiteHeader() {
           <Image
             src="/logo.png"
             alt="Cloudiscover.io"
-            width={220}
-            height={48}
+            width={240}
+            height={52}
             priority
-            className="h-9 w-auto object-contain mix-blend-screen sm:h-10"
+            unoptimized
+            className="h-10 w-auto max-w-[min(100%,240px)] object-contain object-left"
           />
         </Link>
       </section>
