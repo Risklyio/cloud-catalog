@@ -1,6 +1,7 @@
 "use client";
 
 import { useId } from "react";
+import { TopRatedBadge } from "@/components/top-rated-badge";
 import { trustpilotDomainFromWebsite, trustpilotReviewUrl } from "@/lib/trustpilot-url";
 import type { ServiceReview } from "@/types/service-review";
 
@@ -75,9 +76,11 @@ function StarRow({
 export function ServiceRating({
   review,
   websiteUrl,
+  topRated = false,
 }: {
   review: ServiceReview | null | undefined;
   websiteUrl: string | null;
+  topRated?: boolean;
 }) {
   const gradientId = useId().replace(/:/g, "");
   const domain = trustpilotDomainFromWebsite(websiteUrl);
@@ -109,9 +112,12 @@ export function ServiceRating({
         </defs>
       </svg>
 
-      <p className="text-[10px] font-medium uppercase tracking-wide text-stone-400">
-        Trustpilot
-      </p>
+      <div className="flex items-center justify-between gap-2">
+        <p className="text-[10px] font-medium uppercase tracking-wide text-stone-400">
+          Trustpilot
+        </p>
+        {topRated && <TopRatedBadge />}
+      </div>
 
       {review ? (
         <>

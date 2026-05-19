@@ -2,6 +2,7 @@
 
 import Link from "next/link";
 import { useState } from "react";
+import { TopRatedBadge } from "@/components/top-rated-badge";
 import type { TrustpilotRatingsPageData } from "@/lib/catalog/get-trustpilot-ratings-page-data";
 
 type TopicId =
@@ -47,32 +48,60 @@ const TOPICS: {
   },
   {
     id: "top-rated",
-    title: "Top rated cloud services",
+    title: "What is Top rated, and how is the mark calculated?",
     body: (
       <>
         <p>
-          In the catalog, some services are highlighted as{" "}
-          <strong>Top rated</strong> when their verified Trustpilot profile meets
-          both of these thresholds:
+          <strong>Top rated</strong> is a Cloudiscover.io label for catalog
+          services whose <strong>verified</strong> Trustpilot data shows a
+          consistently strong public score with enough reviews to be meaningful.
+          It is not a Trustpilot badge or award.
         </p>
-        <ul className="mt-3 list-inside list-disc space-y-1.5 text-stone-600">
+        <h3 className="mt-4 text-sm font-semibold text-stone-900">
+          How the mark is calculated
+        </h3>
+        <p className="mt-2 text-stone-600">
+          We apply the mark only when <strong>all</strong> of the following are
+          true for the TrustScore and review count we display on the card (sourced
+          from the linked Trustpilot profile):
+        </p>
+        <ol className="mt-3 list-inside list-decimal space-y-2 text-stone-600">
           <li>
-            <strong>TrustScore above 4</strong> (4.0 does not qualify; 4.1 does)
+            The service has a <strong>verified Trustpilot mapping</strong> in our
+            catalog (not <strong>No reviews found</strong>).
           </li>
           <li>
-            <strong>More than 50 reviews</strong> on that Trustpilot profile
+            <strong>TrustScore is greater than 4</strong> — written as{" "}
+            <code className="text-xs">rating &gt; 4</code>. A score of exactly 4.0
+            does not qualify; 4.1 does.
+          </li>
+          <li>
+            <strong>Review count is greater than 50</strong> — written as{" "}
+            <code className="text-xs">review_count &gt; 50</code>. Exactly 50
+            reviews does not qualify; 51 does.
+          </li>
+        </ol>
+        <p className="mt-3 text-sm text-stone-600">
+          <strong>Examples:</strong> 4.2 stars with 1,200 reviews → Top rated. 4.0
+          with 200 reviews → not Top rated. 4.5 with 50 reviews → not Top rated.
+        </p>
+        <h3 className="mt-4 text-sm font-semibold text-stone-900">
+          Where it appears on cards
+        </h3>
+        <ul className="mt-2 list-inside list-disc space-y-1.5 text-stone-600">
+          <li>
+            A <strong>Top rated</strong> pill with a checkmark sits on the same
+            row as the <strong>Trustpilot</strong> title inside the Trustpilot box
+            on the card.
+          </li>
+          <li>
+            The service logo keeps the same size as other cards and shows an
+            always-on animated brand gradient ring around it (no larger footprint).
           </li>
         </ul>
-        <p className="mt-3">
-          On qualifying cards you will see a small <strong>Top rated</strong>{" "}
-          label with a checkmark, and the service logo sits inside an{" "}
-          <strong>always-on animated gradient ring</strong> using the Cloudiscover
-          brand colours—distinct from the hover-only gradient on other cards.
-        </p>
         <p className="mt-3 rounded-lg border border-violet-100 bg-violet-50/80 px-3 py-2.5 text-violet-950">
-          Top rated is a <strong>catalog signal</strong>, not a Trustpilot award.
-          It only applies where we already show a verified TrustScore; services
-          with <strong>No reviews found</strong> are never marked top rated.
+          Scores are updated periodically, not in real time. A service can lose or
+          gain Top rated when Trustpilot or our verified catalog data changes.
         </p>
       </>
     ),
@@ -281,13 +310,14 @@ export function TrustpilotRatingsExplorer({
           Top rated in the catalog
         </h2>
         <p className="mt-2 text-stone-600">
-          {topRatedCount} service{topRatedCount === 1 ? "" : "s"} currently meet
-          TrustScore &gt; {topRatedMinRating} with more than{" "}
-          {topRatedMinReviewCount} Trustpilot reviews. Browse the{" "}
+          {topRatedCount} service{topRatedCount === 1 ? "" : "s"} currently qualify:
+          TrustScore &gt; {topRatedMinRating} and review count &gt;{" "}
+          {topRatedMinReviewCount}. Browse the{" "}
           <Link href="/" className="font-medium text-[#6557ff] hover:text-[#f74dc7]">
             catalog
           </Link>{" "}
-          to see the gradient logo ring and badge on each card.
+          to see the Top rated mark in each card&apos;s Trustpilot box and the
+          logo gradient ring.
         </p>
         {topRatedServices.length > 0 ? (
           <ul className="mt-6 space-y-3">
@@ -303,21 +333,7 @@ export function TrustpilotRatingsExplorer({
                   >
                     {service.name}
                   </Link>
-                  <span className="inline-flex items-center gap-1 text-[10px] font-semibold uppercase tracking-wide text-[#6557ff]">
-                    <svg
-                      className="h-3 w-3"
-                      viewBox="0 0 20 20"
-                      fill="currentColor"
-                      aria-hidden
-                    >
-                      <path
-                        fillRule="evenodd"
-                        d="M16.704 5.612a1 1 0 010 1.414l-7.25 7.25a1 1 0 01-1.414 0l-3.25-3.25a1 1 0 111.414-1.414L8.5 12.086l6.543-6.543a1 1 0 011.414 0z"
-                        clipRule="evenodd"
-                      />
-                    </svg>
-                    Top rated
-                  </span>
+                  <TopRatedBadge />
                 </div>
                 <p className="mt-1 text-xs text-stone-500">
                   {service.vendor} · {service.category}

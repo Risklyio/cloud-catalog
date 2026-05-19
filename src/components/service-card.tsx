@@ -15,26 +15,6 @@ const categoryBadge: Record<CloudService["category"], string> = {
   AI: "bg-gradient-to-r from-[#6557ff]/20 to-[#f74dc7]/20 text-fuchsia-800 ring-fuchsia-500/25",
 };
 
-function TopRatedBadge() {
-  return (
-    <span className="inline-flex items-center gap-1 rounded-full border border-[#6557ff]/15 bg-gradient-to-r from-[#6557ff]/8 to-[#f74dc7]/8 px-2 py-0.5 text-[10px] font-semibold tracking-wide text-[#6557ff]">
-      <svg
-        className="h-3 w-3 shrink-0 text-[#6557ff]"
-        viewBox="0 0 20 20"
-        fill="currentColor"
-        aria-hidden
-      >
-        <path
-          fillRule="evenodd"
-          d="M16.704 5.612a1 1 0 010 1.414l-7.25 7.25a1 1 0 01-1.414 0l-3.25-3.25a1 1 0 111.414-1.414L8.5 12.086l6.543-6.543a1 1 0 011.414 0z"
-          clipRule="evenodd"
-        />
-      </svg>
-      Top rated
-    </span>
-  );
-}
-
 function ServiceLogo({
   name,
   logoUrl,
@@ -48,7 +28,7 @@ function ServiceLogo({
 
   const avatar = !logoUrl || failed ? (
     <span
-      className="flex h-12 w-12 items-center justify-center rounded-xl bg-gradient-to-br from-[#6557ff] to-[#f74dc7] text-lg font-bold text-white"
+      className="flex h-full w-full items-center justify-center rounded-lg bg-gradient-to-br from-[#6557ff] to-[#f74dc7] text-lg font-bold text-white"
       aria-hidden
     >
       {name.charAt(0)}
@@ -63,7 +43,7 @@ function ServiceLogo({
       decoding="async"
       referrerPolicy="no-referrer"
       onError={() => setFailed(true)}
-      className="h-12 w-12 rounded-xl object-contain p-1"
+      className="h-full w-full rounded-lg object-contain p-1"
     />
   );
 
@@ -81,9 +61,7 @@ function ServiceLogo({
       aria-label="Top rated on Trustpilot"
       title="Top rated: TrustScore above 4 with more than 50 Trustpilot reviews"
     >
-      <span className="logo-gradient-ring__inner flex h-12 w-12 items-center justify-center">
-        {avatar}
-      </span>
+      <span className="logo-gradient-ring__inner">{avatar}</span>
     </span>
   );
 }
@@ -95,10 +73,7 @@ function CardBody({ service }: { service: CloudService }) {
   return (
     <>
       <header className="mb-4 flex items-start justify-between gap-3">
-        <div className="flex min-w-0 flex-col gap-1.5">
-          <ServiceLogo name={service.name} logoUrl={logoSrc} topRated={topRated} />
-          {topRated && <TopRatedBadge />}
-        </div>
+        <ServiceLogo name={service.name} logoUrl={logoSrc} topRated={topRated} />
         <span
           className={`shrink-0 rounded-full px-2.5 py-0.5 text-xs font-semibold ring-1 ring-inset ${categoryBadge[service.category]}`}
         >
@@ -127,7 +102,11 @@ function CardBody({ service }: { service: CloudService }) {
         </ul>
       )}
 
-      <ServiceRating review={service.review} websiteUrl={service.website_url} />
+      <ServiceRating
+        review={service.review}
+        websiteUrl={service.website_url}
+        topRated={topRated}
+      />
     </>
   );
 }
