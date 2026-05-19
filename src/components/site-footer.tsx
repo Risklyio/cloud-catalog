@@ -12,6 +12,12 @@ export function SiteFooter() {
           >
             Privacy Policy
           </Link>
+          <Link
+            href="/terms"
+            className="font-medium text-[#6557ff] transition hover:text-[#f74dc7]"
+          >
+            Terms of Service
+          </Link>
         </nav>
       </section>
     </footer>
