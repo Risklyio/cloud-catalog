@@ -6,6 +6,13 @@ import {
   PAAS_GCP_IDS,
 } from "@/lib/catalog/paas-services";
 import {
+  IAAS_ALL_IDS,
+  IAAS_AWS_IDS,
+  IAAS_AZURE_IDS,
+  IAAS_GCP_IDS,
+  IAAS_INDEPENDENT_IDS,
+} from "@/lib/catalog/iaas-providers";
+import {
   SAAS_COMPLIANCE_IDS,
   SAAS_CYBER_IDS,
   SAAS_IT_IDS,
@@ -374,7 +381,43 @@ export const fallbackCatalog: CatalogData = {
       slug: "cloud-compute-iaas",
       title: "Cloud Compute (IaaS)",
       description: "Virtual machine and bare-metal compute from major clouds.",
-      service_ids: ["11", "12", "13", "1001", "1002", "1003", "1004", "1005", "1006", "1007"],
+      service_ids: [...IAAS_ALL_IDS],
+      created_at: new Date().toISOString(),
+    },
+    {
+      id: "g3-aws",
+      slug: "iaas-aws",
+      parent_slug: "cloud-compute-iaas",
+      title: "AWS",
+      description: "Amazon Web Services compute and infrastructure.",
+      service_ids: [...IAAS_AWS_IDS],
+      created_at: new Date().toISOString(),
+    },
+    {
+      id: "g3-azure",
+      slug: "iaas-azure",
+      parent_slug: "cloud-compute-iaas",
+      title: "Azure",
+      description: "Microsoft Azure virtual machines and infrastructure.",
+      service_ids: [...IAAS_AZURE_IDS],
+      created_at: new Date().toISOString(),
+    },
+    {
+      id: "g3-gcp",
+      slug: "iaas-gcp",
+      parent_slug: "cloud-compute-iaas",
+      title: "Google Cloud",
+      description: "Google Cloud compute engine and infrastructure.",
+      service_ids: [...IAAS_GCP_IDS],
+      created_at: new Date().toISOString(),
+    },
+    {
+      id: "g3-independent",
+      slug: "iaas-independent",
+      parent_slug: "cloud-compute-iaas",
+      title: "Independent clouds",
+      description: "Regional and specialist IaaS providers beyond the hyperscalers.",
+      service_ids: [...IAAS_INDEPENDENT_IDS],
       created_at: new Date().toISOString(),
     },
     {
