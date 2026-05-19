@@ -15,3 +15,54 @@ body {
   background-color: var(--color-eggshell);
   color: #292524;
 }
+
+@property --card-border-angle {
+  syntax: "<angle>";
+  initial-value: 0deg;
+  inherits: false;
+}
+
+@keyframes service-card-border-spin {
+  to {
+    --card-border-angle: 360deg;
+  }
+}
+
+.service-card-glow {
+  position: relative;
+  padding: 2px;
+  border-radius: 1rem;
+  background: transparent;
+}
+
+.service-card-glow::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  border-radius: inherit;
+  padding: 2px;
+  background: conic-gradient(
+    from var(--card-border-angle),
+    #6557ff,
+    #f74dc7,
+    #6557ff,
+    #f74dc7,
+    #6557ff
+  );
+  opacity: 0;
+  transition: opacity 0.25s ease;
+  pointer-events: none;
+  -webkit-mask:
+    linear-gradient(#fff 0 0) content-box,
+    linear-gradient(#fff 0 0);
+  -webkit-mask-composite: xor;
+  mask:
+    linear-gradient(#fff 0 0) content-box,
+    linear-gradient(#fff 0 0);
+  mask-composite: exclude;
+}
+
+.service-card-glow:hover::before {
+  opacity: 1;
+  animation: service-card-border-spin 2.5s linear infinite;
+}
