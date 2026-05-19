@@ -106,7 +106,9 @@ export function SecurityComplianceMarkers({
         aria-expanded={open}
         className={`flex w-full items-center justify-between gap-2 rounded-lg py-1 text-left transition ${styles.buttonHover}`}
       >
-        <span className={`flex items-center gap-1.5 text-xs font-medium ${styles.label}`}>
+        <span
+          className={`flex min-w-0 items-center gap-1.5 text-xs font-medium leading-none whitespace-nowrap ${styles.label}`}
+        >
           {hasVerified ? (
             <>
               <ShieldVerifiedIcon className={`h-4 w-4 shrink-0 ${styles.icon}`} />
@@ -115,11 +117,11 @@ export function SecurityComplianceMarkers({
           ) : (
             <>
               <ShieldUnverifiedIcon className={`h-4 w-4 shrink-0 ${styles.icon}`} />
-              Unverified compliance
+              Unverified{"\u00A0"}compliance
             </>
           )}
         </span>
-        <ChevronIcon open={open} className={styles.chevron} />
+        <ChevronIcon open={open} className={`${styles.chevron} shrink-0`} />
       </button>
 
       {open && hasVerified && (
