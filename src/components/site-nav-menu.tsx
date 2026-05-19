@@ -10,7 +10,11 @@ const NAV_LINKS = [
   { href: "/terms", label: "Terms of Service" },
 ] as const;
 
-export function SiteNavMenu() {
+type SiteNavMenuProps = {
+  align?: "left" | "right";
+};
+
+export function SiteNavMenu({ align = "right" }: SiteNavMenuProps) {
   const [open, setOpen] = useState(false);
   const menuId = useId();
   const panelRef = useRef<HTMLDivElement>(null);
@@ -44,12 +48,15 @@ export function SiteNavMenu() {
     };
   }, [open, close]);
 
+  const panelPosition =
+    align === "left" ? "left-0 origin-top-left" : "right-0 origin-top-right";
+
   return (
-    <div className="relative ml-auto">
+    <div className="relative shrink-0">
       <button
         ref={buttonRef}
         type="button"
-        className="flex h-10 w-10 items-center justify-center rounded-xl border border-stone-200 bg-white text-stone-700 shadow-sm transition hover:border-stone-300 hover:bg-stone-50 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#6557ff] focus-visible:ring-offset-2"
+        className="flex h-9 w-9 items-center justify-center rounded-full border border-stone-200/90 bg-stone-50/90 text-stone-700 transition hover:border-[#6557ff]/30 hover:bg-white hover:text-[#6557ff] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#6557ff]/40 focus-visible:ring-offset-2"
         aria-expanded={open}
         aria-controls={menuId}
         aria-haspopup="true"
@@ -57,23 +64,20 @@ export function SiteNavMenu() {
         onClick={() => setOpen((v) => !v)}
       >
         <span className="sr-only">{open ? "Close" : "Menu"}</span>
-        <span
-          className="relative block h-4 w-5"
-          aria-hidden
-        >
+        <span className="relative block h-3.5 w-4" aria-hidden>
           <span
-            className={`absolute left-0 top-0 block h-0.5 w-5 rounded-full bg-current transition-all duration-200 ${
-              open ? "top-[7px] rotate-45" : ""
+            className={`absolute left-0 top-0 block h-0.5 w-4 rounded-full bg-current transition-all duration-200 ${
+              open ? "top-[6px] rotate-45" : ""
             }`}
           />
           <span
-            className={`absolute left-0 top-[7px] block h-0.5 w-5 rounded-full bg-current transition-all duration-200 ${
+            className={`absolute left-0 top-[6px] block h-0.5 w-4 rounded-full bg-current transition-all duration-200 ${
               open ? "scale-x-0 opacity-0" : ""
             }`}
           />
           <span
-            className={`absolute left-0 top-3.5 block h-0.5 w-5 rounded-full bg-current transition-all duration-200 ${
-              open ? "top-[7px] -rotate-45" : ""
+            className={`absolute left-0 top-3 block h-0.5 w-4 rounded-full bg-current transition-all duration-200 ${
+              open ? "top-[6px] -rotate-45" : ""
             }`}
           />
         </span>
@@ -84,7 +88,7 @@ export function SiteNavMenu() {
           ref={panelRef}
           id={menuId}
           role="menu"
-          className="absolute right-0 z-50 mt-2 w-[min(100vw-2rem,18rem)] origin-top-right"
+          className={`absolute z-50 mt-2 w-[min(100vw-2rem,18rem)] ${panelPosition}`}
         >
           <div className="brand-gradient-border brand-gradient-border--active overflow-hidden rounded-2xl shadow-lg">
             <nav

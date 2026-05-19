@@ -1,13 +1,8 @@
-import { CatalogProvider } from "@/components/catalog-provider";
 import { CatalogShell } from "@/components/catalog-shell";
 import { SiteFooter } from "@/components/site-footer";
-import { getCatalog } from "@/lib/catalog/get-catalog";
 import { isSupabaseConfigured } from "@/lib/supabase/server";
 
-export const revalidate = 3600;
-
 export default async function HomePage() {
-  const catalog = await getCatalog();
   const usingFallback = !isSupabaseConfigured();
 
   return (
@@ -29,9 +24,7 @@ export default async function HomePage() {
         </p>
       )}
 
-      <CatalogProvider data={catalog}>
-        <CatalogShell />
-      </CatalogProvider>
+      <CatalogShell />
 
       <SiteFooter />
     </main>
