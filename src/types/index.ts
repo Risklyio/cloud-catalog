@@ -1,6 +1,7 @@
 import type { SaasDepartment } from "@/lib/departments";
 import type { PaasProvider } from "@/lib/paas-providers";
 import type { SaasSegment } from "@/lib/saas-segments";
+import type { SecurityCertification } from "@/lib/security-certifications";
 
 export type ServiceCategory = "SaaS" | "PaaS" | "IaaS" | "AI";
 
@@ -20,6 +21,8 @@ export interface CloudService {
   paas_provider?: PaasProvider | null;
   /** Solution area (SaaS only; normalized on load). */
   saas_segment?: SaasSegment | null;
+  /** Publicly documented frameworks with links to provider evidence. */
+  security_certifications?: SecurityCertification[];
   created_at: string;
 }
 

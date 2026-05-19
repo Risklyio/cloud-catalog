@@ -1,6 +1,7 @@
 "use client";
 
 import { useState, type ReactNode } from "react";
+import { SecurityComplianceMarkers } from "@/components/security-compliance-markers";
 import { SAAS_DEPARTMENT_LABELS } from "@/lib/departments";
 import { resolveServiceLogoUrl } from "@/lib/logo-url";
 import type { CloudService } from "@/types";
@@ -100,23 +101,35 @@ function CardShell({
   service: CloudService;
   children: ReactNode;
 }) {
+  const certs = service.security_certifications ?? [];
   const innerClass =
-    "relative z-[1] flex h-full flex-col rounded-[14px] bg-white p-5 shadow-sm transition duration-300 group-hover/card:-translate-y-0.5 group-hover/card:shadow-md";
+    "relative z-[1] flex flex-1 flex-col rounded-[14px] bg-white shadow-sm transition duration-300 group-hover/card:-translate-y-0.5 group-hover/card:shadow-md";
+
+  const mainContent = service.website_url ? (
+    <a
+      href={service.website_url}
+      target="_blank"
+      rel="noopener noreferrer"
+      className={`${innerClass} p-5 ${certs.length > 0 ? "pb-3" : ""}`}
+    >
+      {children}
+    </a>
+  ) : (
+    <article className={`${innerClass} p-5 ${certs.length > 0 ? "pb-3" : ""}`}>
+      {children}
+    </article>
+  );
 
   return (
-    <section className="brand-gradient-border brand-gradient-border--hover service-card-glow group/card h-full">
-      {service.website_url ? (
-        <a
-          href={service.website_url}
-          target="_blank"
-          rel="noopener noreferrer"
-          className={innerClass}
-        >
-          {children}
-        </a>
-      ) : (
-        <article className={innerClass}>{children}</article>
-      )}
+    <section className="brand-gradient-border brand-gradient-border--hover service-card-glow group/card flex h-full flex-col">
+      <div className="flex h-full flex-col rounded-[14px] bg-white">
+        {mainContent}
+        {certs.length > 0 && (
+          <div className="px-5 pb-4">
+            <SecurityComplianceMarkers certifications={certs} />
+          </div>
+        )}
+      </div>
     </section>
   );
 }
