@@ -313,10 +313,11 @@ export const fallbackCatalog: CatalogData = {
     },
     {
       id: "g2",
-      slug: "best-monitoring-tools",
-      title: "Best Monitoring Tools",
-      description: "Top observability and monitoring platforms for modern stacks.",
-      service_ids: ["5", "6", "7", "8"],
+      slug: "compliance-platforms",
+      title: "Compliance Platforms",
+      description:
+        "GRC and compliance automation for SOC 2, ISO 27001, and regulatory programs.",
+      service_ids: ["1201", "1202", "1203", "1204", "1205", "1206", "1207", "1208"],
       created_at: new Date().toISOString(),
     },
     {

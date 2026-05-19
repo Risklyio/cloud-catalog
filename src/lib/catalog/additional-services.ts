@@ -109,4 +109,14 @@ export const additionalServices: CloudService[] = [
   createService("1106", "Snyk", "Developer security for code, dependencies, containers, and cloud configs.", "Snyk", "https://snyk.io", ["devsecops", "sca", "container-security"], { departments: ["cyber-security", "engineering"] }),
   createService("1107", "GitHub Advanced Security", "Secret scanning, dependency review, and CodeQL analysis in GitHub.", "GitHub", "https://github.com/features/security", ["devsecops", "code-scanning", "secrets"], { departments: ["cyber-security", "engineering"] }),
   createService("1108", "Checkmarx One", "Application security testing platform for SAST, SCA, and supply chain.", "Checkmarx", "https://checkmarx.com", ["appsec", "sast", "sca"], { departments: ["cyber-security", "engineering"] }),
+
+  // Compliance platforms (SaaS)
+  createService("1201", "Vanta", "Automate SOC 2, ISO 27001, HIPAA, and GDPR compliance with continuous controls monitoring.", "Vanta", "https://www.vanta.com", ["grc", "soc2", "iso-27001"], { departments: ["compliance-platforms", "legal", "it"] }),
+  createService("1202", "Drata", "Security and compliance automation platform for SOC 2, ISO 27001, and more.", "Drata", "https://drata.com", ["grc", "soc2", "automation"], { departments: ["compliance-platforms", "legal", "it"] }),
+  createService("1203", "Secureframe", "End-to-end compliance management for SOC 2, ISO 27001, PCI DSS, and HIPAA.", "Secureframe", "https://secureframe.com", ["grc", "soc2", "pci"], { departments: ["compliance-platforms", "legal"] }),
+  createService("1204", "OneTrust", "Privacy, GRC, and ethics platform for regulatory and risk programs.", "OneTrust", "https://www.onetrust.com", ["grc", "privacy", "risk"], { departments: ["compliance-platforms", "legal"] }),
+  createService("1205", "Sprinto", "Compliance automation for SOC 2, ISO 27001, and GDPR with integrated audits.", "Sprinto", "https://sprinto.com", ["grc", "soc2", "audit"], { departments: ["compliance-platforms", "it"] }),
+  createService("1206", "LogicGate", "Flexible GRC workflow platform for risk, compliance, and audit management.", "LogicGate", "https://www.logicgate.com", ["grc", "risk", "workflow"], { departments: ["compliance-platforms", "legal", "operations"] }),
+  createService("1207", "Hyperproof", "Compliance operations platform for continuous control monitoring and audits.", "Hyperproof", "https://hyperproof.io", ["grc", "controls", "audit"], { departments: ["compliance-platforms", "it"] }),
+  createService("1208", "AuditBoard", "Connected risk platform for audit, compliance, and ESG programs.", "AuditBoard", "https://www.auditboard.com", ["grc", "audit", "risk"], { departments: ["compliance-platforms", "legal", "finance"] }),
 ];
