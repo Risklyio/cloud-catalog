@@ -2,8 +2,10 @@ import type { SaasDepartment } from "@/lib/departments";
 import type { PaasProvider } from "@/lib/paas-providers";
 import type { SaasSegment } from "@/lib/saas-segments";
 import type { SecurityCertification } from "@/types/security-certification";
+import type { ServiceReview } from "@/types/service-review";
 
 export type { SecurityCertId, SecurityCertification } from "@/types/security-certification";
+export type { ReviewSource, ServiceReview } from "@/types/service-review";
 
 export type ServiceCategory = "SaaS" | "PaaS" | "IaaS" | "AI";
 
@@ -25,6 +27,8 @@ export interface CloudService {
   saas_segment?: SaasSegment | null;
   /** Publicly documented frameworks with links to provider evidence. */
   security_certifications?: SecurityCertification[];
+  /** Aggregate rating from Trustpilot or Google Reviews when available. */
+  review?: ServiceReview | null;
   created_at: string;
 }
 

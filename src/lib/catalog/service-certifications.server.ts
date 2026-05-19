@@ -11,6 +11,7 @@ const LABELS: Record<SecurityCertId, string> = {
   soc2: "SOC 2",
   "cyber-essentials": "Cyber Essentials",
   fedramp: "FedRAMP",
+  "m365-certified": "M365 Certified",
 };
 
 function cert(id: SecurityCertId, evidence_url: string): SecurityCertification {

@@ -4,7 +4,8 @@ export type SecurityCertId =
   | "pci-dss"
   | "soc2"
   | "cyber-essentials"
-  | "fedramp";
+  | "fedramp"
+  | "m365-certified";
 
 export interface SecurityCertification {
   id: SecurityCertId;

@@ -2,6 +2,7 @@
 
 import { useState, type ReactNode } from "react";
 import { SecurityComplianceMarkers } from "@/components/security-compliance-markers";
+import { ServiceRating } from "@/components/service-rating";
 import { SAAS_DEPARTMENT_LABELS } from "@/lib/departments";
 import { resolveServiceLogoUrl } from "@/lib/logo-url";
 import type { CloudService } from "@/types";
@@ -77,19 +78,7 @@ function CardBody({ service }: { service: CloudService }) {
         </ul>
       )}
 
-      <section className="mt-4 flex flex-wrap gap-1.5">
-        {service.tags.slice(0, 4).map((tag) => (
-          <span
-            key={tag}
-            className="rounded-md bg-stone-100 px-2 py-0.5 text-xs text-stone-600"
-          >
-            {tag}
-          </span>
-        ))}
-        {service.tags.length > 4 && (
-          <span className="px-1 text-xs text-stone-400">+{service.tags.length - 4}</span>
-        )}
-      </section>
+      {service.review && <ServiceRating review={service.review} />}
     </>
   );
 }

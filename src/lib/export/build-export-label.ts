@@ -31,8 +31,14 @@ export function buildExportLabel(
     parts.push(`${filters.vendors.length} vendor${filters.vendors.length === 1 ? "" : "s"}`);
   }
 
-  if (filters.tags.length > 0) {
-    parts.push(`${filters.tags.length} tag${filters.tags.length === 1 ? "" : "s"}`);
+  if (filters.minRating !== null) {
+    parts.push(`${filters.minRating}+ stars`);
+  }
+
+  if (filters.verifiedCompliance === "yes") {
+    parts.push("Verified compliance");
+  } else if (filters.verifiedCompliance === "no") {
+    parts.push("No verified compliance");
   }
 
   if (query.trim()) {

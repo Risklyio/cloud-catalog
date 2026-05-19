@@ -79,7 +79,7 @@ export function SearchBar({ compact = false, className = "" }: SearchBarProps) {
           type="search"
           value={local}
           onChange={(e) => setLocal(e.target.value)}
-          placeholder="Search services by name, vendor, tags…"
+          placeholder="Search services by name, vendor, or description…"
           className="relative z-[1] w-full rounded-[14px] border-0 bg-transparent py-3.5 pl-12 pr-4 text-stone-900 outline-none ring-0 placeholder:text-stone-400 focus:ring-0"
           aria-label="Search cloud services"
         />

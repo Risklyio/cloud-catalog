@@ -68,16 +68,22 @@ function FilterChip({
   );
 }
 
+const RATING_OPTIONS = [
+  { value: 3, label: "3+ stars" },
+  { value: 4, label: "4+ stars" },
+  { value: 4.5, label: "4.5+ stars" },
+] as const;
+
 export function FilterPanel() {
   const filters = useCatalogStore((s) => s.filters);
-  const allTags = useCatalogStore((s) => s.allTags);
   const allVendors = useCatalogStore((s) => s.allVendors);
   const toggleCategory = useCatalogStore((s) => s.toggleCategory);
-  const toggleTag = useCatalogStore((s) => s.toggleTag);
   const toggleVendor = useCatalogStore((s) => s.toggleVendor);
   const toggleDepartment = useCatalogStore((s) => s.toggleDepartment);
   const togglePaasProvider = useCatalogStore((s) => s.togglePaasProvider);
   const toggleSaasSegment = useCatalogStore((s) => s.toggleSaasSegment);
+  const setMinRating = useCatalogStore((s) => s.setMinRating);
+  const setVerifiedCompliance = useCatalogStore((s) => s.setVerifiedCompliance);
   const clearFilters = useCatalogStore((s) => s.clearFilters);
 
   const saasSelected = filters.categories.includes("SaaS");
@@ -85,11 +91,12 @@ export function FilterPanel() {
 
   const hasFilters =
     filters.categories.length > 0 ||
-    filters.tags.length > 0 ||
     filters.vendors.length > 0 ||
     filters.departments.length > 0 ||
     filters.paasProviders.length > 0 ||
-    filters.saasSegments.length > 0;
+    filters.saasSegments.length > 0 ||
+    filters.minRating !== null ||
+    filters.verifiedCompliance !== null;
 
   return (
     <aside className="space-y-6 rounded-2xl border border-stone-200 bg-white p-5 shadow-sm">
@@ -202,17 +209,46 @@ export function FilterPanel() {
       </section>
 
       <section>
-        <h3 className="mb-2 text-xs font-medium text-stone-500">Tags</h3>
-        <ul className="flex max-h-48 flex-wrap gap-2 overflow-y-auto">
-          {allTags.map((tag) => (
+        <h3 className="mb-1 text-xs font-medium text-stone-500">Review rating</h3>
+        <p className="mb-2 text-xs text-stone-400">
+          Minimum score from Trustpilot or Google Reviews
+        </p>
+        <ul className="flex flex-wrap gap-2">
+          {RATING_OPTIONS.map((option) => (
             <FilterChip
-              key={tag}
-              active={filters.tags.includes(tag)}
-              onClick={() => toggleTag(tag)}
+              key={option.value}
+              active={filters.minRating === option.value}
+              onClick={() => setMinRating(option.value)}
+              inactiveClassName="border-amber-200 bg-amber-50/80 text-amber-900 hover:bg-amber-100"
             >
-              #{tag}
+              {option.label}
             </FilterChip>
           ))}
+        </ul>
+      </section>
+
+      <section>
+        <h3 className="mb-1 text-xs font-medium text-stone-500">
+          Verified compliance
+        </h3>
+        <p className="mb-2 text-xs text-stone-400">
+          Services with public compliance badges on the card
+        </p>
+        <ul className="flex flex-wrap gap-2">
+          <FilterChip
+            active={filters.verifiedCompliance === "yes"}
+            onClick={() => setVerifiedCompliance("yes")}
+            inactiveClassName="border-emerald-200 bg-emerald-50/80 text-emerald-900 hover:bg-emerald-100"
+          >
+            Yes
+          </FilterChip>
+          <FilterChip
+            active={filters.verifiedCompliance === "no"}
+            onClick={() => setVerifiedCompliance("no")}
+            inactiveClassName="border-stone-200 bg-stone-50/80 text-stone-700 hover:bg-stone-100"
+          >
+            No
+          </FilterChip>
         </ul>
       </section>
     </aside>

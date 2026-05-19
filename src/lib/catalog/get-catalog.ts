@@ -1,6 +1,7 @@
 import { additionalServices } from "@/lib/catalog/additional-services";
 import { fallbackCatalog } from "@/lib/catalog/fallback-data";
 import { attachSecurityCertifications } from "@/lib/catalog/attach-security-certifications";
+import { attachServiceReviews } from "@/lib/catalog/attach-service-reviews";
 import { normalizeCatalogServices } from "@/lib/catalog/normalize-service";
 import { fetchCatalogFromSupabase } from "@/lib/supabase/server";
 import type { CatalogData, CloudService, ServiceGroup } from "@/types";
@@ -39,7 +40,9 @@ function mergeGroups(remote: ServiceGroup[], canonical: ServiceGroup[]): Service
 }
 
 function finalizeServices(services: CloudService[]): CloudService[] {
-  return attachSecurityCertifications(normalizeCatalogServices(services));
+  return attachServiceReviews(
+    attachSecurityCertifications(normalizeCatalogServices(services)),
+  );
 }
 
 export async function getCatalog(): Promise<CatalogData> {

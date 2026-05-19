@@ -3,13 +3,21 @@ import type { PaasProvider } from "@/lib/paas-providers";
 import type { SaasSegment } from "@/lib/saas-segments";
 import type { CloudService, ServiceCategory } from "@/types";
 
+export type VerifiedComplianceFilter = "yes" | "no";
+
 export interface ServiceFilters {
   categories: ServiceCategory[];
-  tags: string[];
   vendors: string[];
   departments: SaasDepartment[];
   paasProviders: PaasProvider[];
   saasSegments: SaasSegment[];
+  /** Minimum star rating (1–5); services without a rating are excluded when set. */
+  minRating: number | null;
+  verifiedCompliance: VerifiedComplianceFilter | null;
+}
+
+export function hasVerifiedCompliance(service: CloudService): boolean {
+  return (service.security_certifications?.length ?? 0) > 0;
 }
 
 export function filterServices(
@@ -27,13 +35,6 @@ export function filterServices(
     if (
       filters.vendors.length > 0 &&
       !filters.vendors.includes(service.vendor)
-    ) {
-      return false;
-    }
-
-    if (
-      filters.tags.length > 0 &&
-      !filters.tags.some((tag) => service.tags.includes(tag))
     ) {
       return false;
     }
@@ -59,21 +60,32 @@ export function filterServices(
       }
     }
 
+    if (filters.minRating !== null) {
+      if (!service.review || service.review.rating < filters.minRating) {
+        return false;
+      }
+    }
+
+    if (filters.verifiedCompliance === "yes" && !hasVerifiedCompliance(service)) {
+      return false;
+    }
+
+    if (filters.verifiedCompliance === "no" && hasVerifiedCompliance(service)) {
+      return false;
+    }
+
     return true;
   });
 }
 
 export function extractFilterOptions(services: CloudService[]) {
-  const tags = new Set<string>();
   const vendors = new Set<string>();
 
   for (const service of services) {
     vendors.add(service.vendor);
-    for (const tag of service.tags) tags.add(tag);
   }
 
   return {
-    tags: [...tags].sort((a, b) => a.localeCompare(b)),
     vendors: [...vendors].sort((a, b) => a.localeCompare(b)),
   };
 }

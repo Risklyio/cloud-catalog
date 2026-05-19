@@ -7,6 +7,7 @@ import type { SaasSegment } from "@/lib/saas-segments";
 import {
   extractFilterOptions,
   type ServiceFilters,
+  type VerifiedComplianceFilter,
 } from "@/lib/search/filter-services";
 import type {
   CatalogData,
@@ -18,7 +19,6 @@ import type {
 interface CatalogState {
   services: CloudService[];
   groups: ServiceGroup[];
-  allTags: string[];
   allVendors: string[];
   query: string;
   filters: ServiceFilters;
@@ -27,22 +27,24 @@ interface CatalogState {
   init: (data: CatalogData) => void;
   setQuery: (query: string) => void;
   toggleCategory: (category: ServiceCategory) => void;
-  toggleTag: (tag: string) => void;
   toggleVendor: (vendor: string) => void;
   toggleDepartment: (department: SaasDepartment) => void;
   togglePaasProvider: (provider: PaasProvider) => void;
   toggleSaasSegment: (segment: SaasSegment) => void;
+  setMinRating: (minRating: number | null) => void;
+  setVerifiedCompliance: (value: VerifiedComplianceFilter | null) => void;
   clearFilters: () => void;
   setActiveGroup: (slug: string | null) => void;
 }
 
 const emptyFilters: ServiceFilters = {
   categories: [],
-  tags: [],
   vendors: [],
   departments: [],
   paasProviders: [],
   saasSegments: [],
+  minRating: null,
+  verifiedCompliance: null,
 };
 
 function toggleInList<T>(list: T[], value: T): T[] {
@@ -54,7 +56,6 @@ function toggleInList<T>(list: T[], value: T): T[] {
 export const useCatalogStore = create<CatalogState>((set) => ({
   services: [],
   groups: [],
-  allTags: [],
   allVendors: [],
   query: "",
   filters: emptyFilters,
@@ -62,11 +63,10 @@ export const useCatalogStore = create<CatalogState>((set) => ({
   hydrated: false,
 
   init: (data) => {
-    const { tags, vendors } = extractFilterOptions(data.services);
+    const { vendors } = extractFilterOptions(data.services);
     set({
       services: data.services,
       groups: data.groups,
-      allTags: tags,
       allVendors: vendors,
       hydrated: true,
     });
@@ -89,14 +89,6 @@ export const useCatalogStore = create<CatalogState>((set) => ({
         },
       };
     }),
-
-  toggleTag: (tag) =>
-    set((state) => ({
-      filters: {
-        ...state.filters,
-        tags: toggleInList(state.filters.tags, tag),
-      },
-    })),
 
   toggleVendor: (vendor) =>
     set((state) => ({
@@ -130,6 +122,23 @@ export const useCatalogStore = create<CatalogState>((set) => ({
       },
     })),
 
+  setMinRating: (minRating) =>
+    set((state) => ({
+      filters: {
+        ...state.filters,
+        minRating: state.filters.minRating === minRating ? null : minRating,
+      },
+    })),
+
+  setVerifiedCompliance: (value) =>
+    set((state) => ({
+      filters: {
+        ...state.filters,
+        verifiedCompliance:
+          state.filters.verifiedCompliance === value ? null : value,
+      },
+    })),
+
   clearFilters: () =>
     set({
       filters: emptyFilters,
@@ -143,5 +152,4 @@ export const useCatalogStore = create<CatalogState>((set) => ({
       query: "",
       filters: emptyFilters,
     }),
-
 }));
