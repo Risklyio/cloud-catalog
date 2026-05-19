@@ -19,6 +19,12 @@ export function SiteFooter() {
             Verified Compliance
           </Link>
           <Link
+            href="/trustpilot-ratings"
+            className="font-medium text-[#6557ff] transition hover:text-[#f74dc7]"
+          >
+            Trustpilot ratings
+          </Link>
+          <Link
             href="/privacy"
             className="font-medium text-[#6557ff] transition hover:text-[#f74dc7]"
           >

@@ -1,5 +1,6 @@
 "use client";
 
+import Link from "next/link";
 import { useId } from "react";
 import { trustpilotDomainFromWebsite, trustpilotReviewUrl } from "@/lib/trustpilot-url";
 import type { ServiceReview } from "@/types/service-review";
@@ -128,6 +129,13 @@ export function ServiceRating({
             >
               View on Trustpilot
             </a>
+            {" · "}
+            <Link
+              href="/trustpilot-ratings"
+              className="font-medium text-[#6557ff] hover:text-[#f74dc7]"
+            >
+              Learn more
+            </Link>
           </p>
         </>
       ) : (
@@ -151,6 +159,13 @@ export function ServiceRating({
                 </a>
               </>
             )}
+            {" · "}
+            <Link
+              href="/trustpilot-ratings"
+              className="font-medium text-[#6557ff] hover:text-[#f74dc7]"
+            >
+              Learn more
+            </Link>
           </p>
         </>
       )}

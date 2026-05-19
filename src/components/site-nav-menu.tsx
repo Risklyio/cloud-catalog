@@ -7,6 +7,7 @@ const NAV_LINKS = [
   { href: "/", label: "Catalog" },
   { href: "/cloud-definitions", label: "How cloud services are defined" },
   { href: "/verified-compliance", label: "Verified Compliance" },
+  { href: "/trustpilot-ratings", label: "Trustpilot ratings" },
   { href: "/privacy", label: "Privacy Policy" },
   { href: "/terms", label: "Terms of Service" },
 ] as const;
