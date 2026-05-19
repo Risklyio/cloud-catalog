@@ -78,7 +78,7 @@ function CardBody({ service }: { service: CloudService }) {
         </ul>
       )}
 
-      {service.review && <ServiceRating review={service.review} />}
+      <ServiceRating review={service.review} websiteUrl={service.website_url} />
     </>
   );
 }

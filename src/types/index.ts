@@ -5,7 +5,7 @@ import type { SecurityCertification } from "@/types/security-certification";
 import type { ServiceReview } from "@/types/service-review";
 
 export type { SecurityCertId, SecurityCertification } from "@/types/security-certification";
-export type { ReviewSource, ServiceReview } from "@/types/service-review";
+export type { ServiceReview } from "@/types/service-review";
 
 export type ServiceCategory = "SaaS" | "PaaS" | "IaaS" | "AI";
 

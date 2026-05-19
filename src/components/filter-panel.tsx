@@ -209,9 +209,9 @@ export function FilterPanel() {
       </section>
 
       <section>
-        <h3 className="mb-1 text-xs font-medium text-stone-500">Review rating</h3>
+        <h3 className="mb-1 text-xs font-medium text-stone-500">Trustpilot rating</h3>
         <p className="mb-2 text-xs text-stone-400">
-          Minimum score from Trustpilot or Google Reviews
+          Minimum TrustScore (services without Trustpilot data are hidden)
         </p>
         <ul className="flex flex-wrap gap-2">
           {RATING_OPTIONS.map((option) => (

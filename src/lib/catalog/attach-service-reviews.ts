@@ -10,6 +10,6 @@ export function attachServiceReviews(services: CloudService[]): CloudService[] {
     review:
       service.review !== undefined
         ? service.review
-        : resolveServiceReview(service.slug, service.vendor),
+        : resolveServiceReview(service.slug, service.website_url),
   }));
 }
