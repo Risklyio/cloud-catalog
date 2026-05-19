@@ -97,7 +97,7 @@ export function SecurityComplianceMarkers({
       aria-label={
         hasVerified
           ? "Documented security certifications"
-          : "Compliance verification unavailable"
+          : "Unverified compliance"
       }
     >
       <button
@@ -115,7 +115,7 @@ export function SecurityComplianceMarkers({
           ) : (
             <>
               <ShieldUnverifiedIcon className={`h-4 w-4 shrink-0 ${styles.icon}`} />
-              No compliance can be verified
+              Unverified compliance
             </>
           )}
         </span>
