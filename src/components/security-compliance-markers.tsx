@@ -1,6 +1,6 @@
 "use client";
 
-import type { SecurityCertification } from "@/lib/security-certifications";
+import type { SecurityCertification } from "@/types/security-certification";
 
 function ShieldIcon({ className }: { className?: string }) {
   return (

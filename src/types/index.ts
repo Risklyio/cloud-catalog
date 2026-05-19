@@ -1,7 +1,9 @@
 import type { SaasDepartment } from "@/lib/departments";
 import type { PaasProvider } from "@/lib/paas-providers";
 import type { SaasSegment } from "@/lib/saas-segments";
-import type { SecurityCertification } from "@/lib/security-certifications";
+import type { SecurityCertification } from "@/types/security-certification";
+
+export type { SecurityCertId, SecurityCertification } from "@/types/security-certification";
 
 export type ServiceCategory = "SaaS" | "PaaS" | "IaaS" | "AI";
 
