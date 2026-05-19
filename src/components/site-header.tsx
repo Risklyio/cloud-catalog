@@ -3,7 +3,7 @@ import Link from "next/link";
 
 export function SiteHeader() {
   return (
-    <header className="sticky top-0 z-50 border-b border-stone-200/90 bg-eggshell">
+    <header className="sticky top-0 z-50 border-b border-stone-200/90 bg-page">
       <section className="mx-auto flex h-16 max-w-7xl items-center px-4 sm:px-6 lg:px-8">
         <Link
           href="/"

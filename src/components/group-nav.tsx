@@ -2,6 +2,49 @@
 
 import { useCatalogStore } from "@/store/catalog-store";
 
+function GroupButton({
+  active,
+  onClick,
+  title,
+  description,
+}: {
+  active: boolean;
+  onClick: () => void;
+  title: string;
+  description?: string;
+}) {
+  const inner = (
+    <button
+      type="button"
+      onClick={onClick}
+      className={`group-nav-active-inner w-full rounded-[10px] px-3 py-2 text-left text-sm transition ${
+        active
+          ? "bg-white text-[#6557ff]"
+          : "bg-transparent text-stone-600 hover:bg-stone-100"
+      }`}
+    >
+      <span className={`block ${active ? "font-semibold" : "font-medium"}`}>{title}</span>
+      {description && (
+        <span
+          className={`mt-0.5 line-clamp-2 text-xs ${active ? "text-stone-500" : "text-stone-500"}`}
+        >
+          {description}
+        </span>
+      )}
+    </button>
+  );
+
+  if (active) {
+    return (
+      <li className="brand-gradient-border brand-gradient-border--active group-nav-active">
+        {inner}
+      </li>
+    );
+  }
+
+  return <li>{inner}</li>;
+}
+
 export function GroupNav() {
   const groups = useCatalogStore((s) => s.groups);
   const activeGroupSlug = useCatalogStore((s) => s.activeGroupSlug);
@@ -9,40 +52,23 @@ export function GroupNav() {
 
   return (
     <nav aria-label="Curated groups" className="space-y-2">
-      <h2 className="text-sm font-semibold uppercase tracking-wide text-slate-500">
+      <h2 className="text-sm font-semibold uppercase tracking-wide text-stone-500">
         Curated groups
       </h2>
       <ul className="space-y-1">
-        <li>
-          <button
-            type="button"
-            onClick={() => setActiveGroup(null)}
-            className={`w-full rounded-xl px-3 py-2 text-left text-sm transition ${
-              activeGroupSlug === null
-                ? "bg-sky-500/15 font-medium text-sky-800 dark:text-sky-200"
-                : "text-slate-600 hover:bg-slate-100 dark:text-slate-400 dark:hover:bg-slate-800"
-            }`}
-          >
-            All services
-          </button>
-        </li>
+        <GroupButton
+          active={activeGroupSlug === null}
+          onClick={() => setActiveGroup(null)}
+          title="All services"
+        />
         {groups.map((group) => (
-          <li key={group.id}>
-            <button
-              type="button"
-              onClick={() => setActiveGroup(group.slug)}
-              className={`w-full rounded-xl px-3 py-2 text-left text-sm transition ${
-                activeGroupSlug === group.slug
-                  ? "bg-sky-500/15 font-medium text-sky-800 dark:text-sky-200"
-                  : "text-slate-600 hover:bg-slate-100 dark:text-slate-400 dark:hover:bg-slate-800"
-              }`}
-            >
-              <span className="block font-medium">{group.title}</span>
-              <span className="mt-0.5 line-clamp-2 text-xs text-slate-500 dark:text-slate-500">
-                {group.description}
-              </span>
-            </button>
-          </li>
+          <GroupButton
+            key={group.id}
+            active={activeGroupSlug === group.slug}
+            onClick={() => setActiveGroup(group.slug)}
+            title={group.title}
+            description={group.description}
+          />
         ))}
       </ul>
     </nav>

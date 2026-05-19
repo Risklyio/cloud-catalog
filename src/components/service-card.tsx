@@ -103,7 +103,7 @@ function CardShell({
     "relative z-[1] flex h-full flex-col rounded-[14px] bg-white p-5 shadow-sm transition duration-300 group-hover/card:-translate-y-0.5 group-hover/card:shadow-md";
 
   return (
-    <section className="service-card-glow group/card h-full rounded-2xl">
+    <section className="brand-gradient-border brand-gradient-border--hover service-card-glow group/card h-full">
       {service.website_url ? (
         <a
           href={service.website_url}

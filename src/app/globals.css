@@ -3,7 +3,9 @@
 @theme inline {
   --font-sans: var(--font-geist-sans), ui-sans-serif, system-ui, sans-serif;
   --font-mono: var(--font-geist-mono), ui-monospace, monospace;
-  --color-eggshell: #f4f1ea;
+  --color-page: #fafafa;
+  --color-brand-purple: #6557ff;
+  --color-brand-pink: #f74dc7;
 }
 
 html {
@@ -12,37 +14,37 @@ html {
 
 body {
   min-height: 100vh;
-  background-color: var(--color-eggshell);
+  background-color: var(--color-page);
   color: #292524;
 }
 
-@property --card-border-angle {
+@property --brand-border-angle {
   syntax: "<angle>";
   initial-value: 0deg;
   inherits: false;
 }
 
-@keyframes service-card-border-spin {
+@keyframes brand-border-spin {
   to {
-    --card-border-angle: 360deg;
+    --brand-border-angle: 360deg;
   }
 }
 
-.service-card-glow {
+/* Shared animated gradient border (#6557ff → #f74dc7) */
+.brand-gradient-border {
   position: relative;
   padding: 2px;
-  border-radius: 1rem;
   background: transparent;
 }
 
-.service-card-glow::before {
+.brand-gradient-border::before {
   content: "";
   position: absolute;
   inset: 0;
   border-radius: inherit;
   padding: 2px;
   background: conic-gradient(
-    from var(--card-border-angle),
+    from var(--brand-border-angle),
     #6557ff,
     #f74dc7,
     #6557ff,
@@ -62,7 +64,21 @@ body {
   mask-composite: exclude;
 }
 
-.service-card-glow:hover::before {
+.brand-gradient-border--hover:hover::before,
+.brand-gradient-border--focus:focus-within::before,
+.brand-gradient-border--active::before {
   opacity: 1;
-  animation: service-card-border-spin 2.5s linear infinite;
+  animation: brand-border-spin 2.5s linear infinite;
+}
+
+.service-card-glow {
+  border-radius: 1rem;
+}
+
+.search-bar-glow {
+  border-radius: 1rem;
+}
+
+.group-nav-active {
+  border-radius: 0.75rem;
 }
