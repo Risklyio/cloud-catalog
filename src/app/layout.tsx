@@ -15,11 +15,12 @@ const geistMono = Geist_Mono({
 });
 
 export const metadata: Metadata = {
-  title: "Cloud Catalog — Discover SaaS, PaaS & IaaS",
+  title: "Cloudiscover.io — Discover SaaS, PaaS & IaaS",
   description:
     "A fast, read-only catalog for discovering cloud services with search, filters, and curated groups.",
   icons: {
-    icon: "/logo.svg",
+    icon: "/logo.png",
+    apple: "/logo.png",
   },
 };
 

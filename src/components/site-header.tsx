@@ -7,19 +7,16 @@ export function SiteHeader() {
       <section className="mx-auto flex h-16 max-w-7xl items-center px-4 sm:px-6 lg:px-8">
         <Link
           href="/"
-          className="flex items-center gap-3 rounded-lg outline-none ring-sky-500 focus-visible:ring-2"
+          className="rounded-lg outline-none ring-sky-500 focus-visible:ring-2"
         >
           <Image
-            src="/logo.svg"
-            alt=""
-            width={40}
-            height={40}
+            src="/logo.png"
+            alt="Cloudiscover.io"
+            width={220}
+            height={48}
             priority
-            className="h-10 w-10"
+            className="h-9 w-auto object-contain mix-blend-screen sm:h-10"
           />
-          <span className="text-lg font-semibold tracking-tight text-stone-800">
-            Cloud Catalog
-          </span>
         </Link>
       </section>
     </header>
