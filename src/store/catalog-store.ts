@@ -8,6 +8,7 @@ import {
 } from "@/lib/search/filter-services";
 import type {
   CatalogData,
+  CloudService,
   ServiceCategory,
   ServiceGroup,
 } from "@/types";
