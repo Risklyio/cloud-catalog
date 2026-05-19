@@ -1,4 +1,5 @@
 import type { SaasDepartment } from "@/lib/departments";
+import type { PaasProvider } from "@/lib/paas-providers";
 import type { CloudService, ServiceCategory } from "@/types";
 
 export interface ServiceFilters {
@@ -6,6 +7,7 @@ export interface ServiceFilters {
   tags: string[];
   vendors: string[];
   departments: SaasDepartment[];
+  paasProviders: PaasProvider[];
 }
 
 export function filterServices(
@@ -37,6 +39,13 @@ export function filterServices(
     if (filters.departments.length > 0) {
       if (service.category !== "SaaS" || service.departments.length === 0) return false;
       if (!filters.departments.some((d) => service.departments.includes(d))) {
+        return false;
+      }
+    }
+
+    if (filters.paasProviders.length > 0) {
+      if (service.category !== "PaaS" || !service.paas_provider) return false;
+      if (!filters.paasProviders.includes(service.paas_provider)) {
         return false;
       }
     }

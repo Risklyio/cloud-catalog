@@ -1,5 +1,6 @@
 import type { CloudService, ServiceCategory } from "@/types";
 import type { SaasDepartment } from "@/lib/departments";
+import type { PaasProvider } from "@/lib/paas-providers";
 
 const ts = () => new Date().toISOString();
 
@@ -13,9 +14,11 @@ export function createService(
   options: {
     category?: ServiceCategory;
     departments?: SaasDepartment[];
+    paas_provider?: PaasProvider;
     slug?: string;
   } = {},
 ): CloudService {
+  const category = options.category ?? "SaaS";
   const slug =
     options.slug ??
     name
@@ -28,13 +31,14 @@ export function createService(
     name,
     slug,
     description,
-    category: options.category ?? "SaaS",
+    category,
     vendor,
     logo_url: null,
     website_url: websiteUrl,
     tags,
-    departments:
-      (options.category ?? "SaaS") === "SaaS" ? (options.departments ?? []) : [],
+    departments: category === "SaaS" ? (options.departments ?? []) : [],
+    paas_provider:
+      category === "PaaS" ? (options.paas_provider ?? null) : null,
     created_at: ts(),
   };
 }

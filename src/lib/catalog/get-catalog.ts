@@ -16,8 +16,23 @@ function mergeBySlug(services: CloudService[], extras: CloudService[]): CloudSer
 function mergeGroups(remote: ServiceGroup[], canonical: ServiceGroup[]): ServiceGroup[] {
   const remoteBySlug = new Map(remote.map((g) => [g.slug, g]));
   return canonical
-    .map((group) => remoteBySlug.get(group.slug) ?? group)
-    .sort((a, b) => a.title.localeCompare(b.title));
+    .map((group) => {
+      const fromRemote = remoteBySlug.get(group.slug);
+      if (!fromRemote) return group;
+      return {
+        ...fromRemote,
+        parent_slug: group.parent_slug ?? fromRemote.parent_slug,
+        service_ids: group.service_ids,
+        title: group.title,
+        description: group.description,
+      };
+    })
+    .sort((a, b) => {
+      const order = canonical.findIndex((g) => g.slug === a.slug);
+      const orderB = canonical.findIndex((g) => g.slug === b.slug);
+      if (order !== -1 && orderB !== -1) return order - orderB;
+      return a.title.localeCompare(b.title);
+    });
 }
 
 export async function getCatalog(): Promise<CatalogData> {

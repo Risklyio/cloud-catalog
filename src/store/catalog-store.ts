@@ -2,6 +2,7 @@
 
 import { create } from "zustand";
 import type { SaasDepartment } from "@/lib/departments";
+import type { PaasProvider } from "@/lib/paas-providers";
 import {
   extractFilterOptions,
   type ServiceFilters,
@@ -28,6 +29,7 @@ interface CatalogState {
   toggleTag: (tag: string) => void;
   toggleVendor: (vendor: string) => void;
   toggleDepartment: (department: SaasDepartment) => void;
+  togglePaasProvider: (provider: PaasProvider) => void;
   clearFilters: () => void;
   setActiveGroup: (slug: string | null) => void;
 }
@@ -37,6 +39,7 @@ const emptyFilters: ServiceFilters = {
   tags: [],
   vendors: [],
   departments: [],
+  paasProviders: [],
 };
 
 function toggleInList<T>(list: T[], value: T): T[] {
@@ -72,11 +75,13 @@ export const useCatalogStore = create<CatalogState>((set) => ({
     set((state) => {
       const categories = toggleInList(state.filters.categories, category);
       const saasSelected = categories.includes("SaaS");
+      const paasSelected = categories.includes("PaaS");
       return {
         filters: {
           ...state.filters,
           categories,
           departments: saasSelected ? state.filters.departments : [],
+          paasProviders: paasSelected ? state.filters.paasProviders : [],
         },
       };
     }),
@@ -102,6 +107,14 @@ export const useCatalogStore = create<CatalogState>((set) => ({
       filters: {
         ...state.filters,
         departments: toggleInList(state.filters.departments, department),
+      },
+    })),
+
+  togglePaasProvider: (provider) =>
+    set((state) => ({
+      filters: {
+        ...state.filters,
+        paasProviders: toggleInList(state.filters.paasProviders, provider),
       },
     })),
 

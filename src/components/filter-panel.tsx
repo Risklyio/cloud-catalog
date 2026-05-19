@@ -2,6 +2,7 @@
 
 import type { ReactNode } from "react";
 import { SAAS_DEPARTMENTS } from "@/lib/departments";
+import { PAAS_PROVIDERS } from "@/lib/paas-providers";
 import { useCatalogStore } from "@/store/catalog-store";
 import type { ServiceCategory } from "@/types";
 
@@ -13,6 +14,12 @@ const categoryInactiveStyles: Record<ServiceCategory, string> = {
   IaaS: "border-amber-200 bg-amber-50/80 text-amber-800 hover:bg-amber-100",
   AI: "border-fuchsia-200 bg-fuchsia-50/80 text-fuchsia-800 hover:bg-fuchsia-100",
 };
+
+const paasProviderInactiveStyles = {
+  aws: "border-orange-200 bg-orange-50/80 text-orange-900 hover:bg-orange-100",
+  azure: "border-sky-200 bg-sky-50/80 text-sky-900 hover:bg-sky-100",
+  gcp: "border-blue-200 bg-blue-50/80 text-blue-900 hover:bg-blue-100",
+} as const;
 
 function FilterChip({
   active,
@@ -60,15 +67,18 @@ export function FilterPanel() {
   const toggleTag = useCatalogStore((s) => s.toggleTag);
   const toggleVendor = useCatalogStore((s) => s.toggleVendor);
   const toggleDepartment = useCatalogStore((s) => s.toggleDepartment);
+  const togglePaasProvider = useCatalogStore((s) => s.togglePaasProvider);
   const clearFilters = useCatalogStore((s) => s.clearFilters);
 
   const saasSelected = filters.categories.includes("SaaS");
+  const paasSelected = filters.categories.includes("PaaS");
 
   const hasFilters =
     filters.categories.length > 0 ||
     filters.tags.length > 0 ||
     filters.vendors.length > 0 ||
-    filters.departments.length > 0;
+    filters.departments.length > 0 ||
+    filters.paasProviders.length > 0;
 
   return (
     <aside className="space-y-6 rounded-2xl border border-stone-200 bg-white p-5 shadow-sm">
@@ -102,6 +112,27 @@ export function FilterPanel() {
           ))}
         </ul>
       </section>
+
+      {paasSelected && (
+        <section>
+          <h3 className="mb-1 text-xs font-medium text-stone-500">Cloud provider</h3>
+          <p className="mb-2 text-xs text-stone-400">
+            Filter PaaS services by hyperscaler
+          </p>
+          <ul className="flex flex-wrap gap-2">
+            {PAAS_PROVIDERS.map((provider) => (
+              <FilterChip
+                key={provider.id}
+                active={filters.paasProviders.includes(provider.id)}
+                onClick={() => togglePaasProvider(provider.id)}
+                inactiveClassName={paasProviderInactiveStyles[provider.id]}
+              >
+                {provider.label}
+              </FilterChip>
+            ))}
+          </ul>
+        </section>
+      )}
 
       {saasSelected && (
         <section>

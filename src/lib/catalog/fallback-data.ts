@@ -1,4 +1,10 @@
 import { additionalServices } from "@/lib/catalog/additional-services";
+import {
+  PAAS_AWS_IDS,
+  PAAS_AZURE_IDS,
+  PAAS_CLOUD_SERVICE_IDS,
+  PAAS_GCP_IDS,
+} from "@/lib/catalog/paas-services";
 import type { CatalogData } from "@/types";
 
 const none: CatalogData["services"][0]["departments"] = [];
@@ -334,6 +340,42 @@ export const fallbackCatalog: CatalogData = {
       title: "Developer Platforms",
       description: "PaaS and backend platforms for shipping apps faster.",
       service_ids: ["9", "10", "16"],
+      created_at: new Date().toISOString(),
+    },
+    {
+      id: "g7",
+      slug: "paas-platforms",
+      title: "PaaS Platforms",
+      description:
+        "Hyperscaler application, data, integration, and serverless platforms.",
+      service_ids: [...PAAS_CLOUD_SERVICE_IDS],
+      created_at: new Date().toISOString(),
+    },
+    {
+      id: "g7-aws",
+      slug: "paas-aws",
+      parent_slug: "paas-platforms",
+      title: "AWS",
+      description: "Amazon Web Services PaaS offerings.",
+      service_ids: [...PAAS_AWS_IDS],
+      created_at: new Date().toISOString(),
+    },
+    {
+      id: "g7-azure",
+      slug: "paas-azure",
+      parent_slug: "paas-platforms",
+      title: "Azure",
+      description: "Microsoft Azure PaaS offerings.",
+      service_ids: [...PAAS_AZURE_IDS],
+      created_at: new Date().toISOString(),
+    },
+    {
+      id: "g7-gcp",
+      slug: "paas-gcp",
+      parent_slug: "paas-platforms",
+      title: "Google Cloud",
+      description: "Google Cloud Platform PaaS offerings.",
+      service_ids: [...PAAS_GCP_IDS],
       created_at: new Date().toISOString(),
     },
     {

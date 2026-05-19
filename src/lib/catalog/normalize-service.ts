@@ -8,6 +8,10 @@ export function normalizeService(raw: CloudService & { departments?: SaasDepartm
   return {
     ...raw,
     departments,
+    paas_provider:
+      raw.category === "PaaS"
+        ? (raw.paas_provider ?? null)
+        : null,
   };
 }
 

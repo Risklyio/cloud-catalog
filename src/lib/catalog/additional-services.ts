@@ -1,4 +1,5 @@
 import { createService } from "@/lib/catalog/service-factory";
+import { paasCloudServices } from "@/lib/catalog/paas-services";
 import type { CloudService } from "@/types";
 
 /** Additional catalog entries (finance, marketing, HR, AI, etc.). */
@@ -119,4 +120,6 @@ export const additionalServices: CloudService[] = [
   createService("1206", "LogicGate", "Flexible GRC workflow platform for risk, compliance, and audit management.", "LogicGate", "https://www.logicgate.com", ["grc", "risk", "workflow"], { departments: ["compliance-platforms", "legal", "operations"] }),
   createService("1207", "Hyperproof", "Compliance operations platform for continuous control monitoring and audits.", "Hyperproof", "https://hyperproof.io", ["grc", "controls", "audit"], { departments: ["compliance-platforms", "it"] }),
   createService("1208", "AuditBoard", "Connected risk platform for audit, compliance, and ESG programs.", "AuditBoard", "https://www.auditboard.com", ["grc", "audit", "risk"], { departments: ["compliance-platforms", "legal", "finance"] }),
+
+  ...paasCloudServices,
 ];
