@@ -4,7 +4,12 @@ import Link from "next/link";
 import { useState } from "react";
 import type { TrustpilotRatingsPageData } from "@/lib/catalog/get-trustpilot-ratings-page-data";
 
-type TopicId = "what" | "how-discovered" | "limitations" | "trustscore";
+type TopicId =
+  | "what"
+  | "top-rated"
+  | "how-discovered"
+  | "limitations"
+  | "trustscore";
 
 const TOPICS: {
   id: TopicId;
@@ -36,6 +41,38 @@ const TOPICS: {
           same way. If we do not have a verified TrustScore for that vendor, the
           card shows <strong>No reviews found</strong>—not a score invented by
           Cloudiscover.io.
+        </p>
+      </>
+    ),
+  },
+  {
+    id: "top-rated",
+    title: "Top rated cloud services",
+    body: (
+      <>
+        <p>
+          In the catalog, some services are highlighted as{" "}
+          <strong>Top rated</strong> when their verified Trustpilot profile meets
+          both of these thresholds:
+        </p>
+        <ul className="mt-3 list-inside list-disc space-y-1.5 text-stone-600">
+          <li>
+            <strong>TrustScore above 4</strong> (4.0 does not qualify; 4.1 does)
+          </li>
+          <li>
+            <strong>More than 50 reviews</strong> on that Trustpilot profile
+          </li>
+        </ul>
+        <p className="mt-3">
+          On qualifying cards you will see a small <strong>Top rated</strong>{" "}
+          label with a checkmark, and the service logo sits inside an{" "}
+          <strong>always-on animated gradient ring</strong> using the Cloudiscover
+          brand colours—distinct from the hover-only gradient on other cards.
+        </p>
+        <p className="mt-3 rounded-lg border border-violet-100 bg-violet-50/80 px-3 py-2.5 text-violet-950">
+          Top rated is a <strong>catalog signal</strong>, not a Trustpilot award.
+          It only applies where we already show a verified TrustScore; services
+          with <strong>No reviews found</strong> are never marked top rated.
         </p>
       </>
     ),
@@ -186,9 +223,13 @@ function formatRating(rating: number): string {
 
 export function TrustpilotRatingsExplorer({
   vendorGroups,
+  topRatedServices,
   servicesWithRating,
   servicesWithoutRating,
+  topRatedCount,
   vendorCount,
+  topRatedMinRating,
+  topRatedMinReviewCount,
 }: TrustpilotRatingsPageData) {
   const [openTopic, setOpenTopic] = useState<TopicId | null>("what");
   const [openVendor, setOpenVendor] = useState<string | null>(null);
@@ -230,6 +271,91 @@ export function TrustpilotRatingsExplorer({
             );
           })}
         </ul>
+      </section>
+
+      <section aria-labelledby="top-rated-heading">
+        <h2
+          id="top-rated-heading"
+          className="text-xl font-semibold tracking-tight text-stone-900"
+        >
+          Top rated in the catalog
+        </h2>
+        <p className="mt-2 text-stone-600">
+          {topRatedCount} service{topRatedCount === 1 ? "" : "s"} currently meet
+          TrustScore &gt; {topRatedMinRating} with more than{" "}
+          {topRatedMinReviewCount} Trustpilot reviews. Browse the{" "}
+          <Link href="/" className="font-medium text-[#6557ff] hover:text-[#f74dc7]">
+            catalog
+          </Link>{" "}
+          to see the gradient logo ring and badge on each card.
+        </p>
+        {topRatedServices.length > 0 ? (
+          <ul className="mt-6 space-y-3">
+            {topRatedServices.map((service) => (
+              <li
+                key={service.slug}
+                className="rounded-xl border border-[#6557ff]/15 bg-gradient-to-r from-[#6557ff]/5 to-[#f74dc7]/5 px-4 py-3"
+              >
+                <div className="flex flex-wrap items-baseline justify-between gap-2">
+                  <Link
+                    href={`/?q=${encodeURIComponent(service.name)}`}
+                    className="font-medium text-[#6557ff] hover:text-[#f74dc7]"
+                  >
+                    {service.name}
+                  </Link>
+                  <span className="inline-flex items-center gap-1 text-[10px] font-semibold uppercase tracking-wide text-[#6557ff]">
+                    <svg
+                      className="h-3 w-3"
+                      viewBox="0 0 20 20"
+                      fill="currentColor"
+                      aria-hidden
+                    >
+                      <path
+                        fillRule="evenodd"
+                        d="M16.704 5.612a1 1 0 010 1.414l-7.25 7.25a1 1 0 01-1.414 0l-3.25-3.25a1 1 0 111.414-1.414L8.5 12.086l6.543-6.543a1 1 0 011.414 0z"
+                        clipRule="evenodd"
+                      />
+                    </svg>
+                    Top rated
+                  </span>
+                </div>
+                <p className="mt-1 text-xs text-stone-500">
+                  {service.vendor} · {service.category}
+                </p>
+                <p className="mt-2 text-sm text-stone-700">
+                  <span className="font-semibold text-[#6557ff]">
+                    {formatRating(service.review.rating)}
+                  </span>
+                  <span className="text-stone-400"> / 5</span>
+                  <span className="text-stone-500">
+                    {" "}
+                    ·{" "}
+                    {new Intl.NumberFormat("en-US").format(
+                      service.review.review_count,
+                    )}{" "}
+                    reviews
+                  </span>
+                </p>
+                <p className="mt-1.5">
+                  <a
+                    href={service.review.source_url}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="text-xs font-medium text-[#6557ff] hover:text-[#f74dc7]"
+                  >
+                    View on Trustpilot →
+                  </a>
+                </p>
+              </li>
+            ))}
+          </ul>
+        ) : (
+          <p className="mt-4 text-sm text-stone-500">
+            No services meet the top-rated thresholds yet. As we add verified
+            Trustpilot profiles with higher scores and review volume, they will
+            appear here and on their catalog cards.
+          </p>
+        )}
       </section>
 
       <section aria-labelledby="catalog-ratings-heading">

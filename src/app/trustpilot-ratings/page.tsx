@@ -22,8 +22,11 @@ export default async function TrustpilotRatingsPage() {
         </h1>
         <p className="mt-3 text-stone-600">
           Service cards show Trustpilot TrustScores when we have verified a
-          public profile for the vendor. This page explains what those stars mean,
-          how we find them, and what they do <strong>not</strong> prove.
+          public profile for the vendor. Services with a strong, well-reviewed
+          TrustScore earn a discrete <strong>Top rated</strong> badge and an
+          animated gradient ring around the logo. This page explains what those
+          signals mean, how we find them, and what they do <strong>not</strong>{" "}
+          prove.
         </p>
         <p className="mt-4 rounded-lg border border-amber-200/90 bg-amber-50/80 px-4 py-3 text-sm text-amber-950">
           <strong>Trustpilot only, verified domains.</strong> We do not mix in

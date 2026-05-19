@@ -104,3 +104,46 @@ body {
 .rating-stars-gradient stop:nth-child(3) {
   animation-delay: 1.2s;
 }
+
+/* Always-on gradient ring for top-rated service logos */
+.logo-gradient-ring {
+  position: relative;
+  display: inline-flex;
+  flex-shrink: 0;
+  padding: 2px;
+  border-radius: 0.875rem;
+}
+
+.logo-gradient-ring::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  border-radius: inherit;
+  padding: 2px;
+  background: conic-gradient(
+    from var(--brand-border-angle),
+    #6557ff,
+    #f74dc7,
+    #6557ff,
+    #f74dc7,
+    #6557ff
+  );
+  opacity: 1;
+  animation: brand-border-spin 2.5s linear infinite;
+  pointer-events: none;
+  -webkit-mask:
+    linear-gradient(#fff 0 0) content-box,
+    linear-gradient(#fff 0 0);
+  -webkit-mask-composite: xor;
+  mask:
+    linear-gradient(#fff 0 0) content-box,
+    linear-gradient(#fff 0 0);
+  mask-composite: exclude;
+}
+
+.logo-gradient-ring__inner {
+  position: relative;
+  z-index: 1;
+  border-radius: 0.75rem;
+  background: white;
+}
