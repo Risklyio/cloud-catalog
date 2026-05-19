@@ -100,6 +100,11 @@ const TOPICS: {
                 "UK baseline controls for organisations",
               ],
               ["fedramp", "FedRAMP", "US federal cloud authorization program"],
+              [
+                "m365-certified",
+                "M365 Certified",
+                "Microsoft 365 app certification via Microsoft Marketplace",
+              ],
             ] as const
           ).map(([id, label, desc]) => (
             <li
@@ -122,6 +127,7 @@ const FRAMEWORK_HINTS: Record<SecurityCertId, string> = {
   soc2: "Service organization controls",
   "cyber-essentials": "UK National Cyber Security Centre scheme",
   fedramp: "US government cloud authorization",
+  "m365-certified": "Microsoft 365 Certified SaaS on Microsoft Marketplace",
 };
 
 function Chevron({ open }: { open: boolean }) {
