@@ -8,6 +8,10 @@ const NAV_LINKS = [
   { href: "/cloud-definitions", label: "How cloud services are defined" },
   { href: "/verified-compliance", label: "Verified Compliance" },
   { href: "/trustpilot-ratings", label: "Trustpilot ratings" },
+  {
+    href: "/for-cloud-service-providers",
+    label: "For cloud service providers",
+  },
   { href: "/privacy", label: "Privacy Policy" },
   { href: "/terms", label: "Terms of Service" },
 ] as const;

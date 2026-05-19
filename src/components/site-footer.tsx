@@ -25,6 +25,12 @@ export function SiteFooter() {
             Trustpilot ratings
           </Link>
           <Link
+            href="/for-cloud-service-providers"
+            className="font-medium text-[#6557ff] transition hover:text-[#f74dc7]"
+          >
+            For providers
+          </Link>
+          <Link
             href="/privacy"
             className="font-medium text-[#6557ff] transition hover:text-[#f74dc7]"
           >
