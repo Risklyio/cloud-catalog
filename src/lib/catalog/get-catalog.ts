@@ -12,12 +12,12 @@ function mergeBySlug(services: CloudService[], extras: CloudService[]): CloudSer
   return [...map.values()].sort((a, b) => a.name.localeCompare(b.name));
 }
 
-function mergeGroups(groups: ServiceGroup[], extras: ServiceGroup[]): ServiceGroup[] {
-  const map = new Map(groups.map((g) => [g.slug, g]));
-  for (const group of extras) {
-    if (!map.has(group.slug)) map.set(group.slug, group);
-  }
-  return [...map.values()].sort((a, b) => a.title.localeCompare(b.title));
+/** Fallback groups define the canonical curated list; remote entries override by slug only. */
+function mergeGroups(remote: ServiceGroup[], canonical: ServiceGroup[]): ServiceGroup[] {
+  const remoteBySlug = new Map(remote.map((g) => [g.slug, g]));
+  return canonical
+    .map((group) => remoteBySlug.get(group.slug) ?? group)
+    .sort((a, b) => a.title.localeCompare(b.title));
 }
 
 export async function getCatalog(): Promise<CatalogData> {

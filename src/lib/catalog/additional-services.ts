@@ -99,4 +99,14 @@ export const additionalServices: CloudService[] = [
   createService("1005", "Linode", "Cloud compute and networking for developers, now part of Akamai.", "Akamai", "https://www.linode.com", ["compute", "vms", "networking"], { category: "IaaS", slug: "linode-akamai" }),
   createService("1006", "Vultr", "Global cloud infrastructure with VMs, bare metal, and GPU instances.", "Vultr", "https://www.vultr.com", ["compute", "bare-metal", "gpu"], { category: "IaaS" }),
   createService("1007", "Scaleway", "European cloud provider with instances, Kubernetes, and object storage.", "Scaleway", "https://www.scaleway.com", ["compute", "europe", "kubernetes"], { category: "IaaS" }),
+
+  // Cyber security (SaaS)
+  createService("1101", "Qualys VMDR", "Vulnerability Management, Detection and Response across your attack surface.", "Qualys", "https://www.qualys.com/apps/vulnerability-management-detection-response/", ["vulnerability-management", "vm", "edr"], { departments: ["cyber-security", "it"] }),
+  createService("1102", "Tenable.io", "Cloud-based vulnerability management for assets and web applications.", "Tenable", "https://www.tenable.com/products/tenable-io", ["vulnerability-scanning", "vm"], { departments: ["cyber-security", "it"] }),
+  createService("1103", "Rapid7 InsightVM", "Vulnerability management with live monitoring and risk prioritization.", "Rapid7", "https://www.rapid7.com/products/insightvm/", ["vulnerability-management", "vm"], { departments: ["cyber-security", "it"] }),
+  createService("1104", "Tenable One", "Exposure management platform unifying VM, cloud, and OT security.", "Tenable", "https://www.tenable.com/products/tenable-one", ["exposure-management", "vm", "cloud-security"], { departments: ["cyber-security", "it"] }),
+  createService("1105", "Hostedscan", "Automated vulnerability scanning for websites and external attack surfaces.", "Hostedscan", "https://hostedscan.com", ["vulnerability-scanning", "web-security"], { departments: ["cyber-security"] }),
+  createService("1106", "Snyk", "Developer security for code, dependencies, containers, and cloud configs.", "Snyk", "https://snyk.io", ["devsecops", "sca", "container-security"], { departments: ["cyber-security", "engineering"] }),
+  createService("1107", "GitHub Advanced Security", "Secret scanning, dependency review, and CodeQL analysis in GitHub.", "GitHub", "https://github.com/features/security", ["devsecops", "code-scanning", "secrets"], { departments: ["cyber-security", "engineering"] }),
+  createService("1108", "Checkmarx One", "Application security testing platform for SAST, SCA, and supply chain.", "Checkmarx", "https://checkmarx.com", ["appsec", "sast", "sca"], { departments: ["cyber-security", "engineering"] }),
 ];

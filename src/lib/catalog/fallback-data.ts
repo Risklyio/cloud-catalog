@@ -305,10 +305,10 @@ export const fallbackCatalog: CatalogData = {
   groups: [
     {
       id: "g1",
-      slug: "alternatives-to-snowflake",
-      title: "Alternatives to Snowflake",
-      description: "Comparable cloud data warehouses and lakehouse platforms.",
-      service_ids: ["1", "2", "3", "4"],
+      slug: "vulnerability-scanners",
+      title: "Vulnerability Scanners",
+      description: "Tools for finding, prioritizing, and remediating security vulnerabilities.",
+      service_ids: ["1101", "1102", "1103", "1104", "1105", "1106", "1107", "1108"],
       created_at: new Date().toISOString(),
     },
     {

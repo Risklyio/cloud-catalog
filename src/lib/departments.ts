@@ -14,7 +14,8 @@ export type SaasDepartment =
   | "operations"
   | "engineering"
   | "security-awareness-training"
-  | "compliance-platforms";
+  | "compliance-platforms"
+  | "cyber-security";
 
 export const SAAS_DEPARTMENTS: {
   id: SaasDepartment;
@@ -38,6 +39,7 @@ export const SAAS_DEPARTMENTS: {
     label: "Security awareness training",
   },
   { id: "compliance-platforms", label: "Compliance platforms" },
+  { id: "cyber-security", label: "Cyber security" },
 ];
 
 export const SAAS_DEPARTMENT_LABELS: Record<SaasDepartment, string> =
