@@ -1,9 +1,9 @@
 import type { ServiceReview } from "@/types/service-review";
 
-/** TrustScore must be strictly above this value (e.g. 4.1 qualifies, 4.0 does not). */
-export const TOP_RATED_MIN_RATING = 4;
+/** Minimum TrustScore (inclusive), e.g. 3.5 qualifies. */
+export const TOP_RATED_MIN_RATING = 3.5;
 
-/** Review count must be strictly above this value. */
+/** Minimum review count (inclusive), e.g. 50 qualifies. */
 export const TOP_RATED_MIN_REVIEW_COUNT = 50;
 
 export function isTopRatedTrustpilot(
@@ -11,7 +11,7 @@ export function isTopRatedTrustpilot(
 ): boolean {
   if (!review) return false;
   return (
-    review.rating > TOP_RATED_MIN_RATING &&
-    review.review_count > TOP_RATED_MIN_REVIEW_COUNT
+    review.rating >= TOP_RATED_MIN_RATING &&
+    review.review_count >= TOP_RATED_MIN_REVIEW_COUNT
   );
 }

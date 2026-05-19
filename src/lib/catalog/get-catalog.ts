@@ -1,5 +1,6 @@
 import { additionalServices } from "@/lib/catalog/additional-services";
 import { fallbackCatalog } from "@/lib/catalog/fallback-data";
+import { applyTopRatedGroup } from "@/lib/catalog/apply-top-rated-group";
 import { attachSecurityCertifications } from "@/lib/catalog/attach-security-certifications";
 import { attachServiceReviews } from "@/lib/catalog/attach-service-reviews";
 import { normalizeCatalogServices } from "@/lib/catalog/normalize-service";
@@ -45,20 +46,26 @@ function finalizeServices(services: CloudService[]): CloudService[] {
   );
 }
 
+function finalizeCatalog(
+  services: CloudService[],
+  groups: ServiceGroup[],
+): CatalogData {
+  const finalizedServices = finalizeServices(services);
+  return {
+    services: finalizedServices,
+    groups: applyTopRatedGroup(finalizedServices, groups),
+  };
+}
+
 export async function getCatalog(): Promise<CatalogData> {
   const remote = await fetchCatalogFromSupabase();
 
   if (remote) {
-    return {
-      services: finalizeServices(
-        mergeBySlug(remote.services, additionalServices),
-      ),
-      groups: mergeGroups(remote.groups, fallbackCatalog.groups),
-    };
+    return finalizeCatalog(
+      mergeBySlug(remote.services, additionalServices),
+      mergeGroups(remote.groups, fallbackCatalog.groups),
+    );
   }
 
-  return {
-    ...fallbackCatalog,
-    services: finalizeServices(fallbackCatalog.services),
-  };
+  return finalizeCatalog(fallbackCatalog.services, fallbackCatalog.groups);
 }

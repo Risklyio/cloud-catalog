@@ -59,7 +59,7 @@ function ServiceLogo({
     <span
       className="logo-gradient-ring"
       aria-label="Top rated on Trustpilot"
-      title="Top rated: TrustScore above 4 with more than 50 Trustpilot reviews"
+      title="Top rated: TrustScore 3.5+ with 50+ Trustpilot reviews"
     >
       <span className="logo-gradient-ring__inner">{avatar}</span>
     </span>

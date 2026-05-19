@@ -23,8 +23,8 @@ export default async function TrustpilotRatingsPage() {
         <p className="mt-3 text-stone-600">
           Service cards show Trustpilot TrustScores when we have verified a
           public profile for the vendor. Qualifying services earn a{" "}
-          <strong>Top rated</strong> mark when their TrustScore is above 4 and
-          they have more than 50 reviews—see below for the exact calculation.
+          <strong>Top rated</strong> mark when their TrustScore is 3.5+ with 50+
+          reviews—see below for the exact calculation and the curated group.
           This page explains what those signals mean, how we find them, and what
           they do <strong>not</strong> prove.
         </p>

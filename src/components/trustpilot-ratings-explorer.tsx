@@ -71,22 +71,20 @@ const TOPICS: {
             catalog (not <strong>No reviews found</strong>).
           </li>
           <li>
-            <strong>TrustScore is greater than 4</strong> — written as{" "}
-            <code className="text-xs">rating &gt; 4</code>. A score of exactly 4.0
-            does not qualify; 4.1 does.
+            <strong>TrustScore is 3.5 or higher</strong> — written as{" "}
+            <code className="text-xs">rating ≥ 3.5</code>.
           </li>
           <li>
-            <strong>Review count is greater than 50</strong> — written as{" "}
-            <code className="text-xs">review_count &gt; 50</code>. Exactly 50
-            reviews does not qualify; 51 does.
+            <strong>Review count is 50 or higher</strong> — written as{" "}
+            <code className="text-xs">review_count ≥ 50</code>.
           </li>
         </ol>
         <p className="mt-3 text-sm text-stone-600">
-          <strong>Examples:</strong> 4.2 stars with 1,200 reviews → Top rated. 4.0
-          with 200 reviews → not Top rated. 4.5 with 50 reviews → not Top rated.
+          <strong>Examples:</strong> 3.6 stars with 80 reviews → Top rated. 3.4
+          with 200 reviews → not Top rated. 4.5 with 49 reviews → not Top rated.
         </p>
         <h3 className="mt-4 text-sm font-semibold text-stone-900">
-          Where it appears on cards
+          Where it appears in the catalog
         </h3>
         <ul className="mt-2 list-inside list-disc space-y-1.5 text-stone-600">
           <li>
@@ -97,6 +95,11 @@ const TOPICS: {
           <li>
             The service logo keeps the same size as other cards and shows an
             always-on animated brand gradient ring around it (no larger footprint).
+          </li>
+          <li>
+            The <strong>Top rated</strong> curated group in the sidebar lists every
+            service that currently meets these thresholds (updated when catalog
+            data is refreshed).
           </li>
         </ul>
         <p className="mt-3 rounded-lg border border-violet-100 bg-violet-50/80 px-3 py-2.5 text-violet-950">
@@ -311,8 +314,8 @@ export function TrustpilotRatingsExplorer({
         </h2>
         <p className="mt-2 text-stone-600">
           {topRatedCount} service{topRatedCount === 1 ? "" : "s"} currently qualify:
-          TrustScore &gt; {topRatedMinRating} and review count &gt;{" "}
-          {topRatedMinReviewCount}. Browse the{" "}
+          TrustScore {topRatedMinRating}+ with {topRatedMinReviewCount}+ reviews.
+          Browse the{" "}
           <Link href="/" className="font-medium text-[#6557ff] hover:text-[#f74dc7]">
             catalog
           </Link>{" "}
