@@ -1,121 +1,158 @@
 "use client";
 
 import Link from "next/link";
-import { useCallback, useEffect, useId, useRef, useState } from "react";
+import { usePathname } from "next/navigation";
+import { useEffect, useId } from "react";
 
-const NAV_LINKS = [
-  { href: "/", label: "Catalog" },
-  { href: "/cloud-definitions", label: "How cloud services are defined" },
-  { href: "/verified-compliance", label: "Verified Compliance" },
-  { href: "/trustpilot-ratings", label: "Trustpilot ratings" },
-  {
-    href: "/for-cloud-service-providers",
-    label: "For cloud service providers",
-  },
-  { href: "/privacy", label: "Privacy Policy" },
-  { href: "/terms", label: "Terms of Service" },
-] as const;
+export type NavLink = { href: string; label: string };
 
-type SiteNavMenuProps = {
-  align?: "left" | "right";
+export type NavGroup = {
+  title: string;
+  links: NavLink[];
 };
 
-export function SiteNavMenu({ align = "right" }: SiteNavMenuProps) {
-  const [open, setOpen] = useState(false);
-  const menuId = useId();
-  const panelRef = useRef<HTMLDivElement>(null);
-  const buttonRef = useRef<HTMLButtonElement>(null);
+export const NAV_GROUPS: NavGroup[] = [
+  {
+    title: "Catalog",
+    links: [{ href: "/", label: "Browse all services" }],
+  },
+  {
+    title: "Reference",
+    links: [
+      { href: "/cloud-definitions", label: "How cloud services are defined" },
+      { href: "/verified-compliance", label: "Verified Compliance" },
+      { href: "/trustpilot-ratings", label: "Trustpilot ratings" },
+    ],
+  },
+  {
+    title: "Providers",
+    links: [
+      {
+        href: "/for-cloud-service-providers",
+        label: "For cloud service providers",
+      },
+    ],
+  },
+  {
+    title: "Legal",
+    links: [
+      { href: "/privacy", label: "Privacy Policy" },
+      { href: "/terms", label: "Terms of Service" },
+    ],
+  },
+];
 
-  const close = useCallback(() => setOpen(false), []);
+type SiteNavMenuButtonProps = {
+  open: boolean;
+  onToggle: () => void;
+  controlsId: string;
+};
+
+export function SiteNavMenuButton({
+  open,
+  onToggle,
+  controlsId,
+}: SiteNavMenuButtonProps) {
+  return (
+    <button
+      type="button"
+      className={`flex h-9 w-9 shrink-0 items-center justify-center rounded-full border transition focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#6557ff]/40 focus-visible:ring-offset-2 ${
+        open
+          ? "border-[#6557ff]/40 bg-gradient-to-br from-[#6557ff]/12 to-[#f74dc7]/10 text-[#6557ff] shadow-inner"
+          : "border-stone-200/90 bg-stone-50/90 text-stone-700 hover:border-[#6557ff]/30 hover:bg-white hover:text-[#6557ff]"
+      }`}
+      aria-expanded={open}
+      aria-controls={controlsId}
+      aria-haspopup="true"
+      aria-label={open ? "Close menu" : "Open menu"}
+      onClick={onToggle}
+    >
+      <span className="sr-only">{open ? "Close" : "Menu"}</span>
+      <span className="relative block h-3.5 w-4" aria-hidden>
+        <span
+          className={`absolute left-0 top-0 block h-0.5 w-4 rounded-full bg-current transition-all duration-200 ${
+            open ? "top-[6px] rotate-45" : ""
+          }`}
+        />
+        <span
+          className={`absolute left-0 top-[6px] block h-0.5 w-4 rounded-full bg-current transition-all duration-200 ${
+            open ? "scale-x-0 opacity-0" : ""
+          }`}
+        />
+        <span
+          className={`absolute left-0 top-3 block h-0.5 w-4 rounded-full bg-current transition-all duration-200 ${
+            open ? "top-[6px] -rotate-45" : ""
+          }`}
+        />
+      </span>
+    </button>
+  );
+}
+
+type SiteNavMenuPanelProps = {
+  open: boolean;
+  onClose: () => void;
+  panelId: string;
+};
+
+export function SiteNavMenuPanel({ open, onClose, panelId }: SiteNavMenuPanelProps) {
+  const pathname = usePathname();
 
   useEffect(() => {
     if (!open) return;
 
     const onKeyDown = (e: KeyboardEvent) => {
-      if (e.key === "Escape") close();
-    };
-
-    const onPointerDown = (e: MouseEvent) => {
-      const target = e.target as Node;
-      if (
-        panelRef.current?.contains(target) ||
-        buttonRef.current?.contains(target)
-      ) {
-        return;
-      }
-      close();
+      if (e.key === "Escape") onClose();
     };
 
     document.addEventListener("keydown", onKeyDown);
-    document.addEventListener("mousedown", onPointerDown);
-    return () => {
-      document.removeEventListener("keydown", onKeyDown);
-      document.removeEventListener("mousedown", onPointerDown);
-    };
-  }, [open, close]);
+    return () => document.removeEventListener("keydown", onKeyDown);
+  }, [open, onClose]);
 
-  const panelPosition =
-    align === "left" ? "left-0 origin-top-left" : "right-0 origin-top-right";
+  if (!open) return null;
 
   return (
-    <div className="relative shrink-0">
-      <button
-        ref={buttonRef}
-        type="button"
-        className="flex h-9 w-9 items-center justify-center rounded-full border border-stone-200/90 bg-stone-50/90 text-stone-700 transition hover:border-[#6557ff]/30 hover:bg-white hover:text-[#6557ff] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#6557ff]/40 focus-visible:ring-offset-2"
-        aria-expanded={open}
-        aria-controls={menuId}
-        aria-haspopup="true"
-        aria-label={open ? "Close menu" : "Open menu"}
-        onClick={() => setOpen((v) => !v)}
-      >
-        <span className="sr-only">{open ? "Close" : "Menu"}</span>
-        <span className="relative block h-3.5 w-4" aria-hidden>
-          <span
-            className={`absolute left-0 top-0 block h-0.5 w-4 rounded-full bg-current transition-all duration-200 ${
-              open ? "top-[6px] rotate-45" : ""
-            }`}
-          />
-          <span
-            className={`absolute left-0 top-[6px] block h-0.5 w-4 rounded-full bg-current transition-all duration-200 ${
-              open ? "scale-x-0 opacity-0" : ""
-            }`}
-          />
-          <span
-            className={`absolute left-0 top-3 block h-0.5 w-4 rounded-full bg-current transition-all duration-200 ${
-              open ? "top-[6px] -rotate-45" : ""
-            }`}
-          />
-        </span>
-      </button>
-
-      {open && (
-        <div
-          ref={panelRef}
-          id={menuId}
-          role="menu"
-          className={`absolute z-50 mt-2 w-[min(100vw-2rem,18rem)] ${panelPosition}`}
-        >
-          <div className="brand-gradient-border brand-gradient-border--active overflow-hidden rounded-2xl shadow-lg">
-            <nav
-              className="rounded-[calc(1rem-2px)] bg-white py-2"
-              aria-label="Site"
+    <nav
+      id={panelId}
+      aria-label="Site"
+      className="border-t border-stone-200/80 px-4 py-5 sm:px-6 sm:py-6"
+    >
+      <div className="grid gap-8 sm:grid-cols-2 lg:grid-cols-4 lg:gap-x-12 lg:gap-y-8">
+        {NAV_GROUPS.map((group) => (
+          <section key={group.title} aria-labelledby={`nav-${group.title}`}>
+            <h2
+              id={`nav-${group.title}`}
+              className="text-[11px] font-semibold uppercase tracking-wider text-[#6557ff]"
             >
-              {NAV_LINKS.map((link) => (
-                <Link
-                  key={link.href}
-                  href={link.href}
-                  role="menuitem"
-                  className="block px-4 py-2.5 text-sm font-medium text-stone-700 transition hover:bg-stone-50 hover:text-[#6557ff]"
-                  onClick={close}
-                >
-                  {link.label}
-                </Link>
-              ))}
-            </nav>
-          </div>
-        </div>
-      )}
-    </div>
+              {group.title}
+            </h2>
+            <ul className="mt-3 space-y-0.5">
+              {group.links.map((link) => {
+                const active =
+                  link.href === "/"
+                    ? pathname === "/"
+                    : pathname === link.href ||
+                      pathname.startsWith(`${link.href}/`);
+                return (
+                  <li key={link.href}>
+                    <Link
+                      href={link.href}
+                      onClick={onClose}
+                      className={`block rounded-lg px-3 py-2.5 text-sm font-medium leading-snug transition ${
+                        active
+                          ? "bg-gradient-to-r from-[#6557ff]/10 to-[#f74dc7]/10 text-[#6557ff]"
+                          : "text-stone-700 hover:bg-stone-50 hover:text-[#6557ff]"
+                      }`}
+                    >
+                      {link.label}
+                    </Link>
+                  </li>
+                );
+              })}
+            </ul>
+          </section>
+        ))}
+      </div>
+    </nav>
   );
 }
