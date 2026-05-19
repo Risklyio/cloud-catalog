@@ -1,0 +1,118 @@
+import { createService } from "@/lib/catalog/service-factory";
+import type { CloudService } from "@/types";
+
+export const SAAS_CYBER_ENDPOINT_IDS = [
+  "1401",
+  "1402",
+  "1403",
+  "1404",
+  "1405",
+  "1406",
+  "1407",
+  "1408",
+  "1409",
+] as const;
+
+export const saasCyberEndpointServices: CloudService[] = [
+  createService(
+    "1401",
+    "Microsoft Defender for Endpoint",
+    "Enterprise endpoint detection and response across Windows, macOS, Linux, and mobile.",
+    "Microsoft",
+    "https://www.microsoft.com/security/business/endpoint-security/microsoft-defender-endpoint",
+    ["edr", "endpoint", "threat-protection"],
+    {
+      departments: ["cyber-security", "it"],
+      saas_segment: "cyber-security",
+      slug: "microsoft-defender-for-endpoint",
+    },
+  ),
+  createService(
+    "1402",
+    "CrowdStrike Falcon",
+    "Cloud-native endpoint protection, threat intelligence, and incident response.",
+    "CrowdStrike",
+    "https://www.crowdstrike.com/platform/",
+    ["edr", "endpoint", "threat-intel"],
+    { departments: ["cyber-security"], saas_segment: "cyber-security" },
+  ),
+  createService(
+    "1403",
+    "SentinelOne Singularity",
+    "AI-powered autonomous endpoint protection and XDR across the enterprise.",
+    "SentinelOne",
+    "https://www.sentinelone.com/platform/",
+    ["edr", "xdr", "endpoint"],
+    {
+      departments: ["cyber-security"],
+      saas_segment: "cyber-security",
+      slug: "sentinelone-singularity",
+    },
+  ),
+  createService(
+    "1404",
+    "Sophos Intercept X Advanced",
+    "Next-gen antivirus, EDR, and threat hunting for endpoints and servers.",
+    "Sophos",
+    "https://www.sophos.com/products/endpoint-antivirus",
+    ["edr", "antivirus", "endpoint"],
+    {
+      departments: ["cyber-security", "it"],
+      saas_segment: "cyber-security",
+      slug: "sophos-intercept-x-advanced",
+    },
+  ),
+  createService(
+    "1405",
+    "Trend Micro Apex One",
+    "Automated threat detection and response for endpoints, servers, and workloads.",
+    "Trend Micro",
+    "https://www.trendmicro.com/en_us/business/products/user-protection.html",
+    ["edr", "endpoint", "workload-security"],
+    {
+      departments: ["cyber-security", "it"],
+      saas_segment: "cyber-security",
+      slug: "trend-micro-apex-one",
+    },
+  ),
+  createService(
+    "1406",
+    "Mimecast Cloud Security",
+    "Email and collaboration security with threat protection and data loss prevention.",
+    "Mimecast",
+    "https://www.mimecast.com/products/cloud-security/",
+    ["email-security", "dlp", "collaboration"],
+    { departments: ["cyber-security", "it"], saas_segment: "cyber-security" },
+  ),
+  createService(
+    "1407",
+    "Barracuda Email Security Service",
+    "Cloud-based email protection against phishing, malware, and impersonation.",
+    "Barracuda",
+    "https://www.barracuda.com/products/email-protection",
+    ["email-security", "phishing", "malware"],
+    {
+      departments: ["cyber-security", "it"],
+      saas_segment: "cyber-security",
+      slug: "barracuda-email-security-service",
+    },
+  ),
+  createService(
+    "1408",
+    "Zscaler Internet Access",
+    "Cloud security platform for secure web gateway and zero trust access.",
+    "Zscaler",
+    "https://www.zscaler.com/products/zscaler-internet-access",
+    ["sase", "zero-trust", "web-security"],
+    { departments: ["cyber-security", "it"], saas_segment: "cyber-security" },
+  ),
+  createService(
+    "1409",
+    "Cisco Umbrella",
+    "DNS-layer security and secure web gateway for internet-bound traffic.",
+    "Cisco",
+    "https://umbrella.cisco.com/",
+    ["dns-security", "swg", "zero-trust"],
+    { departments: ["cyber-security", "it"], saas_segment: "cyber-security" },
+  ),
+];

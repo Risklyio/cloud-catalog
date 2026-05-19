@@ -3,6 +3,7 @@
 import type { ReactNode } from "react";
 import { SAAS_DEPARTMENTS } from "@/lib/departments";
 import { PAAS_PROVIDERS } from "@/lib/paas-providers";
+import { SAAS_SEGMENTS } from "@/lib/saas-segments";
 import { useCatalogStore } from "@/store/catalog-store";
 import type { ServiceCategory } from "@/types";
 
@@ -19,6 +20,14 @@ const paasProviderInactiveStyles = {
   aws: "border-orange-200 bg-orange-50/80 text-orange-900 hover:bg-orange-100",
   azure: "border-sky-200 bg-sky-50/80 text-sky-900 hover:bg-sky-100",
   gcp: "border-blue-200 bg-blue-50/80 text-blue-900 hover:bg-blue-100",
+} as const;
+
+const saasSegmentInactiveStyles = {
+  it: "border-stone-200 bg-stone-50/80 text-stone-800 hover:bg-stone-100",
+  "cyber-security":
+    "border-rose-200 bg-rose-50/80 text-rose-900 hover:bg-rose-100",
+  compliance:
+    "border-emerald-200 bg-emerald-50/80 text-emerald-900 hover:bg-emerald-100",
 } as const;
 
 function FilterChip({
@@ -68,6 +77,7 @@ export function FilterPanel() {
   const toggleVendor = useCatalogStore((s) => s.toggleVendor);
   const toggleDepartment = useCatalogStore((s) => s.toggleDepartment);
   const togglePaasProvider = useCatalogStore((s) => s.togglePaasProvider);
+  const toggleSaasSegment = useCatalogStore((s) => s.toggleSaasSegment);
   const clearFilters = useCatalogStore((s) => s.clearFilters);
 
   const saasSelected = filters.categories.includes("SaaS");
@@ -78,7 +88,8 @@ export function FilterPanel() {
     filters.tags.length > 0 ||
     filters.vendors.length > 0 ||
     filters.departments.length > 0 ||
-    filters.paasProviders.length > 0;
+    filters.paasProviders.length > 0 ||
+    filters.saasSegments.length > 0;
 
   return (
     <aside className="space-y-6 rounded-2xl border border-stone-200 bg-white p-5 shadow-sm">
@@ -128,6 +139,27 @@ export function FilterPanel() {
                 inactiveClassName={paasProviderInactiveStyles[provider.id]}
               >
                 {provider.label}
+              </FilterChip>
+            ))}
+          </ul>
+        </section>
+      )}
+
+      {saasSelected && (
+        <section>
+          <h3 className="mb-1 text-xs font-medium text-stone-500">Solution area</h3>
+          <p className="mb-2 text-xs text-stone-400">
+            Filter SaaS by IT, security, or compliance focus
+          </p>
+          <ul className="flex flex-wrap gap-2">
+            {SAAS_SEGMENTS.map((segment) => (
+              <FilterChip
+                key={segment.id}
+                active={filters.saasSegments.includes(segment.id)}
+                onClick={() => toggleSaasSegment(segment.id)}
+                inactiveClassName={saasSegmentInactiveStyles[segment.id]}
+              >
+                {segment.label}
               </FilterChip>
             ))}
           </ul>

@@ -22,6 +22,8 @@ function mergeGroups(remote: ServiceGroup[], canonical: ServiceGroup[]): Service
       return {
         ...fromRemote,
         parent_slug: group.parent_slug ?? fromRemote.parent_slug,
+        collapsible: group.collapsible ?? fromRemote.collapsible,
+        default_collapsed: group.default_collapsed ?? fromRemote.default_collapsed,
         service_ids: group.service_ids,
         title: group.title,
         description: group.description,

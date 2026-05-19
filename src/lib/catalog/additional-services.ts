@@ -1,5 +1,6 @@
 import { createService } from "@/lib/catalog/service-factory";
 import { paasCloudServices } from "@/lib/catalog/paas-services";
+import { saasCyberEndpointServices } from "@/lib/catalog/saas-cyber-services";
 import type { CloudService } from "@/types";
 
 /** Additional catalog entries (finance, marketing, HR, AI, etc.). */
@@ -122,4 +123,5 @@ export const additionalServices: CloudService[] = [
   createService("1208", "AuditBoard", "Connected risk platform for audit, compliance, and ESG programs.", "AuditBoard", "https://www.auditboard.com", ["grc", "audit", "risk"], { departments: ["compliance-platforms", "legal", "finance"] }),
 
   ...paasCloudServices,
+  ...saasCyberEndpointServices,
 ];

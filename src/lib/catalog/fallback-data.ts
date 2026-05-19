@@ -5,6 +5,12 @@ import {
   PAAS_CLOUD_SERVICE_IDS,
   PAAS_GCP_IDS,
 } from "@/lib/catalog/paas-services";
+import {
+  SAAS_COMPLIANCE_IDS,
+  SAAS_CYBER_IDS,
+  SAAS_IT_IDS,
+  SAAS_SOLUTION_IDS,
+} from "@/lib/catalog/saas-segment-ids";
 import type { CatalogData } from "@/types";
 
 const none: CatalogData["services"][0]["departments"] = [];
@@ -315,6 +321,43 @@ export const fallbackCatalog: CatalogData = {
       title: "Vulnerability Scanners",
       description: "Tools for finding, prioritizing, and remediating security vulnerabilities.",
       service_ids: ["1101", "1102", "1103", "1104", "1105", "1106", "1107", "1108"],
+      created_at: new Date().toISOString(),
+    },
+    {
+      id: "g8",
+      slug: "saas-solutions",
+      title: "SaaS Solutions",
+      description: "IT operations, cyber security, and compliance software.",
+      service_ids: [...SAAS_SOLUTION_IDS],
+      collapsible: true,
+      default_collapsed: true,
+      created_at: new Date().toISOString(),
+    },
+    {
+      id: "g8-it",
+      slug: "saas-it",
+      parent_slug: "saas-solutions",
+      title: "IT",
+      description: "Observability, data platforms, and core IT SaaS.",
+      service_ids: [...SAAS_IT_IDS],
+      created_at: new Date().toISOString(),
+    },
+    {
+      id: "g8-cyber",
+      slug: "saas-cyber-security",
+      parent_slug: "saas-solutions",
+      title: "Cyber Security",
+      description: "Endpoint, email, network security, and AppSec tools.",
+      service_ids: [...SAAS_CYBER_IDS],
+      created_at: new Date().toISOString(),
+    },
+    {
+      id: "g8-compliance",
+      slug: "saas-compliance",
+      parent_slug: "saas-solutions",
+      title: "Compliance",
+      description: "GRC, privacy, and audit automation platforms.",
+      service_ids: [...SAAS_COMPLIANCE_IDS],
       created_at: new Date().toISOString(),
     },
     {
