@@ -2,6 +2,7 @@
 
 import { useCatalogStore } from "@/store/catalog-store";
 import { useVisibleServices } from "@/hooks/use-visible-services";
+import { ExportServicesButton } from "@/components/export-services-button";
 import { ServiceCard } from "@/components/service-card";
 
 export function ServiceGrid() {
@@ -30,16 +31,19 @@ export function ServiceGrid() {
   return (
     <section>
       <header className="mb-6">
-        <h2 className="text-xl font-semibold text-slate-900 dark:text-slate-100">
-          {activeGroup ? activeGroup.title : "All cloud services"}
-        </h2>
-        <p className="mt-1 text-sm text-slate-500">
+        <div className="flex items-start justify-between gap-4">
+          <h2 className="text-xl font-semibold text-stone-900">
+            {activeGroup ? activeGroup.title : "All cloud services"}
+          </h2>
+          <ExportServicesButton services={services} activeGroup={activeGroup} />
+        </div>
+        <p className="mt-1 text-sm text-stone-500">
           {activeGroup
             ? activeGroup.description
             : "Discover SaaS, PaaS, IaaS, and AI offerings across vendors."}
           {query.trim() ? ` · Searching for “${query.trim()}”` : ""}
         </p>
-        <p className="mt-2 text-xs font-medium text-slate-400">
+        <p className="mt-2 text-xs font-medium text-stone-400">
           {services.length} {services.length === 1 ? "service" : "services"}
         </p>
       </header>
