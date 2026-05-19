@@ -1,3 +1,4 @@
+import { additionalServices } from "@/lib/catalog/additional-services";
 import type { CatalogData } from "@/types";
 
 const none: CatalogData["services"][0]["departments"] = [];
@@ -299,6 +300,7 @@ export const fallbackCatalog: CatalogData = {
       departments: ["hr", "finance", "recruitment", "procurement"],
       created_at: new Date().toISOString(),
     },
+    ...additionalServices,
   ],
   groups: [
     {
@@ -331,6 +333,22 @@ export const fallbackCatalog: CatalogData = {
       title: "Developer Platforms",
       description: "PaaS and backend platforms for shipping apps faster.",
       service_ids: ["9", "10", "16"],
+      created_at: new Date().toISOString(),
+    },
+    {
+      id: "g5",
+      slug: "generative-ai",
+      title: "Generative AI",
+      description: "Leading LLMs, copilots, and creative AI platforms.",
+      service_ids: ["901", "902", "903", "904", "905", "906", "907", "908", "909", "910", "911", "912"],
+      created_at: new Date().toISOString(),
+    },
+    {
+      id: "g6",
+      slug: "marketing-stack",
+      title: "Marketing Stack",
+      description: "CRM, analytics, design, and campaign tools for growth teams.",
+      service_ids: ["201", "213", "214", "218", "219", "220", "222"],
       created_at: new Date().toISOString(),
     },
   ],

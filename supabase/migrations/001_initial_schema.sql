@@ -1,6 +1,6 @@
 -- Cloud Catalog schema (read-only public access)
 
-create type service_category as enum ('SaaS', 'PaaS', 'IaaS');
+create type service_category as enum ('SaaS', 'PaaS', 'IaaS', 'AI');
 
 create table if not exists public.services (
   id uuid primary key default gen_random_uuid(),

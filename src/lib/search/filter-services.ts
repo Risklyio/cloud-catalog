@@ -35,7 +35,7 @@ export function filterServices(
     }
 
     if (filters.departments.length > 0) {
-      if (service.category !== "SaaS") return false;
+      if (service.category !== "SaaS" || service.departments.length === 0) return false;
       if (!filters.departments.some((d) => service.departments.includes(d))) {
         return false;
       }

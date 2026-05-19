@@ -1,6 +1,6 @@
 import type { SaasDepartment } from "@/lib/departments";
 
-export type ServiceCategory = "SaaS" | "PaaS" | "IaaS";
+export type ServiceCategory = "SaaS" | "PaaS" | "IaaS" | "AI";
 
 export interface CloudService {
   id: string;

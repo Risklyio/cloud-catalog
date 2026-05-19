@@ -5,37 +5,50 @@ import { SAAS_DEPARTMENTS } from "@/lib/departments";
 import { useCatalogStore } from "@/store/catalog-store";
 import type { ServiceCategory } from "@/types";
 
-const CATEGORIES: ServiceCategory[] = ["SaaS", "PaaS", "IaaS"];
+const CATEGORIES: ServiceCategory[] = ["SaaS", "PaaS", "IaaS", "AI"];
 
-const categoryStyles: Record<ServiceCategory, string> = {
-  SaaS: "border-violet-200 bg-violet-50 text-violet-800 dark:border-violet-800 dark:bg-violet-950/50 dark:text-violet-200",
-  PaaS: "border-sky-200 bg-sky-50 text-sky-800 dark:border-sky-800 dark:bg-sky-950/50 dark:text-sky-200",
-  IaaS: "border-amber-200 bg-amber-50 text-amber-800 dark:border-amber-800 dark:bg-amber-950/50 dark:text-amber-200",
+const categoryInactiveStyles: Record<ServiceCategory, string> = {
+  SaaS: "border-violet-200 bg-violet-50/80 text-violet-800 hover:bg-violet-100",
+  PaaS: "border-sky-200 bg-sky-50/80 text-sky-800 hover:bg-sky-100",
+  IaaS: "border-amber-200 bg-amber-50/80 text-amber-800 hover:bg-amber-100",
+  AI: "border-fuchsia-200 bg-fuchsia-50/80 text-fuchsia-800 hover:bg-fuchsia-100",
 };
 
-function Chip({
+function FilterChip({
   active,
   onClick,
   children,
-  className = "",
+  inactiveClassName = "border-stone-200 bg-white text-stone-600 hover:bg-stone-50",
 }: {
   active: boolean;
   onClick: () => void;
   children: ReactNode;
-  className?: string;
+  inactiveClassName?: string;
 }) {
+  if (active) {
+    return (
+      <li className="brand-gradient-border brand-gradient-border--active rounded-full">
+        <button
+          type="button"
+          onClick={onClick}
+          className="rounded-full bg-white px-3 py-1 text-sm font-semibold text-[#6557ff]"
+        >
+          {children}
+        </button>
+      </li>
+    );
+  }
+
   return (
-    <button
-      type="button"
-      onClick={onClick}
-      className={`rounded-full border px-3 py-1 text-sm font-medium transition ${
-        active
-          ? "border-sky-500 bg-sky-500 text-white shadow-sm dark:border-sky-400 dark:bg-sky-500"
-          : "border-slate-200 bg-white text-slate-600 hover:border-slate-300 hover:bg-slate-50 dark:border-slate-700 dark:bg-slate-900 dark:text-slate-300 dark:hover:bg-slate-800"
-      } ${className}`}
-    >
-      {children}
-    </button>
+    <li>
+      <button
+        type="button"
+        onClick={onClick}
+        className={`rounded-full border px-3 py-1 text-sm font-medium transition ${inactiveClassName}`}
+      >
+        {children}
+      </button>
+    </li>
   );
 }
 
@@ -60,14 +73,14 @@ export function FilterPanel() {
   return (
     <aside className="space-y-6 rounded-2xl border border-stone-200 bg-white p-5 shadow-sm">
       <section className="flex items-center justify-between">
-        <h2 className="text-sm font-semibold uppercase tracking-wide text-slate-500">
+        <h2 className="text-sm font-semibold uppercase tracking-wide text-stone-500">
           Filters
         </h2>
         {hasFilters && (
           <button
             type="button"
             onClick={clearFilters}
-            className="text-xs font-medium text-sky-600 hover:text-sky-700 dark:text-sky-400"
+            className="text-xs font-medium text-[#6557ff] hover:text-[#f74dc7]"
           >
             Clear all
           </button>
@@ -75,71 +88,67 @@ export function FilterPanel() {
       </section>
 
       <section>
-        <h3 className="mb-2 text-xs font-medium text-slate-500">Category</h3>
+        <h3 className="mb-2 text-xs font-medium text-stone-500">Category</h3>
         <ul className="flex flex-wrap gap-2">
           {CATEGORIES.map((cat) => (
-            <li key={cat}>
-              <Chip
-                active={filters.categories.includes(cat)}
-                onClick={() => toggleCategory(cat)}
-                className={filters.categories.includes(cat) ? "" : categoryStyles[cat]}
-              >
-                {cat}
-              </Chip>
-            </li>
+            <FilterChip
+              key={cat}
+              active={filters.categories.includes(cat)}
+              onClick={() => toggleCategory(cat)}
+              inactiveClassName={categoryInactiveStyles[cat]}
+            >
+              {cat}
+            </FilterChip>
           ))}
         </ul>
       </section>
 
       {saasSelected && (
         <section>
-          <h3 className="mb-1 text-xs font-medium text-slate-500">Department</h3>
-          <p className="mb-2 text-xs text-slate-400">
+          <h3 className="mb-1 text-xs font-medium text-stone-500">Department</h3>
+          <p className="mb-2 text-xs text-stone-400">
             Filter SaaS apps by the teams that use them
           </p>
           <ul className="flex max-h-52 flex-wrap gap-2 overflow-y-auto">
             {SAAS_DEPARTMENTS.map((dept) => (
-              <li key={dept.id}>
-                <Chip
-                  active={filters.departments.includes(dept.id)}
-                  onClick={() => toggleDepartment(dept.id)}
-                >
-                  {dept.label}
-                </Chip>
-              </li>
+              <FilterChip
+                key={dept.id}
+                active={filters.departments.includes(dept.id)}
+                onClick={() => toggleDepartment(dept.id)}
+              >
+                {dept.label}
+              </FilterChip>
             ))}
           </ul>
         </section>
       )}
 
       <section>
-        <h3 className="mb-2 text-xs font-medium text-slate-500">Vendor</h3>
+        <h3 className="mb-2 text-xs font-medium text-stone-500">Vendor</h3>
         <ul className="flex max-h-36 flex-wrap gap-2 overflow-y-auto">
           {allVendors.map((vendor) => (
-            <li key={vendor}>
-              <Chip
-                active={filters.vendors.includes(vendor)}
-                onClick={() => toggleVendor(vendor)}
-              >
-                {vendor}
-              </Chip>
-            </li>
+            <FilterChip
+              key={vendor}
+              active={filters.vendors.includes(vendor)}
+              onClick={() => toggleVendor(vendor)}
+            >
+              {vendor}
+            </FilterChip>
           ))}
         </ul>
       </section>
 
       <section>
-        <h3 className="mb-2 text-xs font-medium text-slate-500">Tags</h3>
+        <h3 className="mb-2 text-xs font-medium text-stone-500">Tags</h3>
         <ul className="flex max-h-48 flex-wrap gap-2 overflow-y-auto">
           {allTags.map((tag) => (
-            <li key={tag}>
-              <Chip
-                active={filters.tags.includes(tag)}
-                onClick={() => toggleTag(tag)}
-              >
-                #{tag}
-              </Chip>
-            </li>
+            <FilterChip
+              key={tag}
+              active={filters.tags.includes(tag)}
+              onClick={() => toggleTag(tag)}
+            >
+              #{tag}
+            </FilterChip>
           ))}
         </ul>
       </section>

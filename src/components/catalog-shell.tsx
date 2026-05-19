@@ -14,8 +14,8 @@ export function CatalogShell() {
             Discover the right cloud stack
           </h1>
           <p className="mt-2 max-w-2xl text-stone-600">
-            Browse SaaS, PaaS, and IaaS offerings with instant fuzzy search,
-            filters, and curated groups — read-only, no sign-in required.
+            Your gateway to discovering, evaluating, and adopting the right cloud
+            services for every business need.
           </p>
         </section>
         <SearchBar />

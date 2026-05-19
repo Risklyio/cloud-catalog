@@ -7,7 +7,7 @@ export function SiteHeader() {
       <section className="mx-auto flex h-16 max-w-7xl items-center px-4 sm:px-6 lg:px-8">
         <Link
           href="/"
-          className="rounded-lg outline-none ring-sky-500 focus-visible:ring-2"
+          className="-ml-2 rounded-lg outline-none ring-sky-500 focus-visible:ring-2 sm:-ml-3"
         >
           <Image
             src="/logo.png"
