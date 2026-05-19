@@ -90,4 +90,13 @@ export const additionalServices: CloudService[] = [
   createService("910", "Amazon Bedrock", "Managed foundation models and agents on AWS.", "AWS", "https://aws.amazon.com/bedrock/", ["genai", "llm", "cloud"], { category: "AI" }),
   createService("911", "Azure OpenAI Service", "OpenAI models with enterprise security on Microsoft Azure.", "Microsoft", "https://azure.microsoft.com/products/ai-services/openai-service", ["genai", "llm", "enterprise"], { category: "AI", slug: "azure-openai" }),
   createService("912", "Jasper", "Generative AI marketing copilot for brand content at scale.", "Jasper", "https://www.jasper.ai", ["genai", "marketing"], { category: "AI" }),
+
+  // IaaS — additional providers
+  createService("1001", "IBM Cloud", "Enterprise cloud with compute, storage, Kubernetes, and AI services.", "IBM", "https://www.ibm.com/cloud", ["compute", "kubernetes", "enterprise"], { category: "IaaS" }),
+  createService("1002", "Oracle Cloud Infrastructure", "High-performance cloud with VMs, networking, databases, and bare metal.", "Oracle", "https://www.oracle.com/cloud/", ["compute", "vms", "networking"], { category: "IaaS", slug: "oracle-cloud-infrastructure" }),
+  createService("1003", "HPE GreenLake", "Edge-to-cloud platform delivering infrastructure as a service with pay-per-use.", "Hewlett Packard Enterprise", "https://www.hpe.com/greenlake", ["hybrid-cloud", "infrastructure", "edge"], { category: "IaaS", slug: "hpe-greenlake" }),
+  createService("1004", "DigitalOcean", "Developer-friendly cloud with simple VMs, Kubernetes, and managed databases.", "DigitalOcean", "https://www.digitalocean.com", ["compute", "droplets", "kubernetes"], { category: "IaaS" }),
+  createService("1005", "Linode", "Cloud compute and networking for developers, now part of Akamai.", "Akamai", "https://www.linode.com", ["compute", "vms", "networking"], { category: "IaaS", slug: "linode-akamai" }),
+  createService("1006", "Vultr", "Global cloud infrastructure with VMs, bare metal, and GPU instances.", "Vultr", "https://www.vultr.com", ["compute", "bare-metal", "gpu"], { category: "IaaS" }),
+  createService("1007", "Scaleway", "European cloud provider with instances, Kubernetes, and object storage.", "Scaleway", "https://www.scaleway.com", ["compute", "europe", "kubernetes"], { category: "IaaS" }),
 ];

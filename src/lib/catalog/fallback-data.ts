@@ -324,7 +324,7 @@ export const fallbackCatalog: CatalogData = {
       slug: "cloud-compute-iaas",
       title: "Cloud Compute (IaaS)",
       description: "Virtual machine and bare-metal compute from major clouds.",
-      service_ids: ["11", "12", "13"],
+      service_ids: ["11", "12", "13", "1001", "1002", "1003", "1004", "1005", "1006", "1007"],
       created_at: new Date().toISOString(),
     },
     {
