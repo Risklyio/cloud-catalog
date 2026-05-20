@@ -20,13 +20,35 @@ export function hasVerifiedCompliance(service: CloudService): boolean {
   return (service.security_certifications?.length ?? 0) > 0;
 }
 
+function categoryFilterActive(filters: ServiceFilters): boolean {
+  return filters.categories.length > 0;
+}
+
+function appliesPaasProviderFilter(filters: ServiceFilters): boolean {
+  if (filters.paasProviders.length === 0) return false;
+  if (!categoryFilterActive(filters)) return true;
+  return filters.categories.includes("PaaS");
+}
+
+function appliesSaasSegmentFilter(filters: ServiceFilters): boolean {
+  if (filters.saasSegments.length === 0) return false;
+  if (!categoryFilterActive(filters)) return true;
+  return filters.categories.includes("SaaS");
+}
+
+function appliesDepartmentFilter(filters: ServiceFilters): boolean {
+  if (filters.departments.length === 0) return false;
+  if (!categoryFilterActive(filters)) return true;
+  return filters.categories.includes("SaaS");
+}
+
 export function filterServices(
   services: CloudService[],
   filters: ServiceFilters,
 ): CloudService[] {
   return services.filter((service) => {
     if (
-      filters.categories.length > 0 &&
+      categoryFilterActive(filters) &&
       !filters.categories.includes(service.category)
     ) {
       return false;
@@ -39,21 +61,21 @@ export function filterServices(
       return false;
     }
 
-    if (filters.departments.length > 0) {
+    if (appliesDepartmentFilter(filters)) {
       if (service.category !== "SaaS" || service.departments.length === 0) return false;
       if (!filters.departments.some((d) => service.departments.includes(d))) {
         return false;
       }
     }
 
-    if (filters.paasProviders.length > 0) {
+    if (appliesPaasProviderFilter(filters)) {
       if (service.category !== "PaaS" || !service.paas_provider) return false;
       if (!filters.paasProviders.includes(service.paas_provider)) {
         return false;
       }
     }
 
-    if (filters.saasSegments.length > 0) {
+    if (appliesSaasSegmentFilter(filters)) {
       if (service.category !== "SaaS" || !service.saas_segment) return false;
       if (!filters.saasSegments.includes(service.saas_segment)) {
         return false;

@@ -4,7 +4,7 @@ import type { CloudService } from "@/types";
 /** DNS and domain registration providers. */
 export const dnsProviders: CloudService[] = [
   createService(
-    "1301",
+    "1401",
     "GoDaddy",
     "Domain registration, DNS hosting, and website services for businesses worldwide.",
     "GoDaddy",
@@ -13,7 +13,7 @@ export const dnsProviders: CloudService[] = [
     { category: "DNS" },
   ),
   createService(
-    "1302",
+    "1402",
     "Namecheap",
     "Affordable domains, DNS, and privacy protection for individuals and teams.",
     "Namecheap",
@@ -22,7 +22,7 @@ export const dnsProviders: CloudService[] = [
     { category: "DNS" },
   ),
   createService(
-    "1303",
+    "1403",
     "Google Domains",
     "Domain registration and DNS management (now Squarespace Domains, formerly Google Domains).",
     "Squarespace",
@@ -31,7 +31,7 @@ export const dnsProviders: CloudService[] = [
     { category: "DNS", slug: "google-domains" },
   ),
   createService(
-    "1304",
+    "1404",
     "IONOS (1&1 IONOS)",
     "Domains, DNS, email, and hosting from 1&1 IONOS for European and global customers.",
     "IONOS",
@@ -40,7 +40,7 @@ export const dnsProviders: CloudService[] = [
     { category: "DNS", slug: "ionos" },
   ),
   createService(
-    "1305",
+    "1405",
     "Bluehost",
     "Domain names, DNS, and WordPress-focused hosting for small businesses.",
     "Bluehost",
@@ -49,7 +49,7 @@ export const dnsProviders: CloudService[] = [
     { category: "DNS" },
   ),
   createService(
-    "1306",
+    "1406",
     "Gandi.net",
     "Ethical domain registrar with DNS, SSL, and cloud hosting options.",
     "Gandi",
@@ -58,7 +58,7 @@ export const dnsProviders: CloudService[] = [
     { category: "DNS", slug: "gandi-net" },
   ),
   createService(
-    "1307",
+    "1407",
     "123 Reg",
     "UK-focused domain registration, DNS, and business hosting services.",
     "123 Reg",
@@ -67,7 +67,7 @@ export const dnsProviders: CloudService[] = [
     { category: "DNS", slug: "123-reg" },
   ),
   createService(
-    "1308",
+    "1408",
     "Fasthosts",
     "UK domains, DNS, email, and hosting for startups and growing companies.",
     "Fasthosts",
@@ -76,7 +76,7 @@ export const dnsProviders: CloudService[] = [
     { category: "DNS" },
   ),
   createService(
-    "1309",
+    "1409",
     "Names.co.uk",
     "British domain registrar offering DNS, email, and web hosting packages.",
     "Names.co.uk",

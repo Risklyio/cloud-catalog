@@ -3,6 +3,7 @@
 /** Curated top-level groups — listings unchanged; only nav section changes. */
 export const CURATED_ROOT_GROUP_SLUGS = [
   "top-rated",
+  "financial-management",
   "vulnerability-scanners",
   "compliance-platforms",
   "generative-ai",

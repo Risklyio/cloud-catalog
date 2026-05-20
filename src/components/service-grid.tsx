@@ -40,7 +40,7 @@ export function ServiceGrid() {
         <p className="mt-1 text-sm text-stone-500">
           {activeGroup
             ? activeGroup.description
-            : "Discover SaaS, PaaS, IaaS, and AI offerings across vendors."}
+            : "Discover SaaS, PaaS, IaaS, AI, and DNS offerings across vendors."}
           {query.trim() ? ` · Searching for “${query.trim()}”` : ""}
         </p>
         <p className="mt-2 text-xs font-medium text-stone-400">

@@ -1,5 +1,6 @@
 import { additionalServices } from "@/lib/catalog/additional-services";
 import { DNS_PROVIDER_IDS } from "@/lib/catalog/dns-services";
+import { FINANCIAL_MANAGEMENT_IDS } from "@/lib/catalog/financial-management-services";
 import {
   PAAS_AWS_IDS,
   PAAS_AZURE_IDS,
@@ -487,6 +488,15 @@ export const fallbackCatalog: CatalogData = {
       title: "DNS & domains",
       description: "Domain registrars and DNS hosting for global and UK markets.",
       service_ids: [...DNS_PROVIDER_IDS],
+      created_at: new Date().toISOString(),
+    },
+    {
+      id: "g10",
+      slug: "financial-management",
+      title: "Financial management",
+      description:
+        "Federal financial management vendors and technology solutions from the U.S. Treasury FM QSMO Marketplace Catalog.",
+      service_ids: [...FINANCIAL_MANAGEMENT_IDS],
       created_at: new Date().toISOString(),
     },
   ],

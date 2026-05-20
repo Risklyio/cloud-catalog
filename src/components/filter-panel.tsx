@@ -1,6 +1,6 @@
 "use client";
 
-import type { ReactNode } from "react";
+import { useState, type ReactNode } from "react";
 import { SAAS_DEPARTMENTS } from "@/lib/departments";
 import { PAAS_PROVIDERS } from "@/lib/paas-providers";
 import { SAAS_SEGMENTS } from "@/lib/saas-segments";
@@ -69,6 +69,65 @@ function FilterChip({
   );
 }
 
+function FilterChevron({ open }: { open: boolean }) {
+  return (
+    <svg
+      className={`h-4 w-4 shrink-0 text-stone-500 transition-transform duration-200 ${
+        open ? "rotate-90" : ""
+      }`}
+      viewBox="0 0 20 20"
+      fill="currentColor"
+      aria-hidden
+    >
+      <path
+        fillRule="evenodd"
+        d="M7.21 14.77a.75.75 0 01.02-1.06L11.168 10 7.23 6.29a.75.75 0 111.04-1.08l4.5 4.25a.75.75 0 010 1.08l-4.5 4.25a.75.75 0 01-1.06-.02z"
+        clipRule="evenodd"
+      />
+    </svg>
+  );
+}
+
+function CollapsibleFilterSection({
+  title,
+  summary,
+  defaultOpen = false,
+  forceOpen = false,
+  children,
+}: {
+  title: string;
+  summary?: string;
+  defaultOpen?: boolean;
+  forceOpen?: boolean;
+  children: ReactNode;
+}) {
+  const [open, setOpen] = useState(defaultOpen || forceOpen);
+
+  return (
+    <section className="border-t border-stone-100 pt-4 first:border-t-0 first:pt-0">
+      <button
+        type="button"
+        onClick={() => setOpen((v) => !v)}
+        aria-expanded={open || forceOpen}
+        className="flex w-full items-center gap-2 text-left"
+      >
+        <FilterChevron open={open || forceOpen} />
+        <span className="min-w-0 flex-1">
+          <span className="block text-xs font-semibold uppercase tracking-wide text-stone-500">
+            {title}
+          </span>
+          {summary && (
+            <span className="mt-0.5 block text-xs font-normal normal-case text-stone-400">
+              {summary}
+            </span>
+          )}
+        </span>
+      </button>
+      {(open || forceOpen) && <div className="mt-3 pl-6">{children}</div>}
+    </section>
+  );
+}
+
 const RATING_OPTIONS = [
   { value: 4, label: "4+ stars" },
   { value: 4.5, label: "4.5+ stars" },
@@ -88,6 +147,10 @@ export function FilterPanel() {
 
   const saasSelected = filters.categories.includes("SaaS");
   const paasSelected = filters.categories.includes("PaaS");
+  const vendorSummary =
+    filters.vendors.length > 0
+      ? `${filters.vendors.length} selected`
+      : `${allVendors.length} available`;
 
   const hasFilters =
     filters.categories.length > 0 ||
@@ -99,8 +162,8 @@ export function FilterPanel() {
     filters.verifiedCompliance !== null;
 
   return (
-    <aside className="space-y-6 rounded-2xl border border-stone-200 bg-white p-5 shadow-sm">
-      <section className="flex items-center justify-between">
+    <aside className="rounded-2xl border border-stone-200 bg-white p-4 shadow-sm">
+      <section className="flex items-center justify-between pb-4">
         <h2 className="text-sm font-semibold uppercase tracking-wide text-stone-500">
           Filters
         </h2>
@@ -115,142 +178,135 @@ export function FilterPanel() {
         )}
       </section>
 
-      <section>
-        <h3 className="mb-2 text-xs font-medium text-stone-500">Category</h3>
-        <ul className="flex flex-wrap gap-2">
-          {CATEGORIES.map((cat) => (
-            <FilterChip
-              key={cat}
-              active={filters.categories.includes(cat)}
-              onClick={() => toggleCategory(cat)}
-              inactiveClassName={categoryInactiveStyles[cat]}
-            >
-              {cat}
-            </FilterChip>
-          ))}
-        </ul>
-      </section>
-
-      {paasSelected && (
+      <div className="space-y-4">
         <section>
-          <h3 className="mb-1 text-xs font-medium text-stone-500">Cloud provider</h3>
+          <h3 className="mb-2 text-xs font-semibold uppercase tracking-wide text-stone-500">
+            Category
+          </h3>
+          <ul className="flex flex-wrap gap-2">
+            {CATEGORIES.map((cat) => (
+              <FilterChip
+                key={cat}
+                active={filters.categories.includes(cat)}
+                onClick={() => toggleCategory(cat)}
+                inactiveClassName={categoryInactiveStyles[cat]}
+              >
+                {cat}
+              </FilterChip>
+            ))}
+          </ul>
+        </section>
+
+        {paasSelected && (
+          <section className="border-t border-stone-100 pt-4">
+            <h3 className="mb-1 text-xs font-semibold uppercase tracking-wide text-stone-500">
+              Cloud provider
+            </h3>
+            <p className="mb-2 text-xs text-stone-400">PaaS hyperscaler</p>
+            <ul className="flex flex-wrap gap-2">
+              {PAAS_PROVIDERS.map((provider) => (
+                <FilterChip
+                  key={provider.id}
+                  active={filters.paasProviders.includes(provider.id)}
+                  onClick={() => togglePaasProvider(provider.id)}
+                  inactiveClassName={paasProviderInactiveStyles[provider.id]}
+                >
+                  {provider.label}
+                </FilterChip>
+              ))}
+            </ul>
+          </section>
+        )}
+
+        {saasSelected && (
+          <>
+            <section className="border-t border-stone-100 pt-4">
+              <h3 className="mb-1 text-xs font-semibold uppercase tracking-wide text-stone-500">
+                Solution area
+              </h3>
+              <ul className="flex flex-wrap gap-2">
+                {SAAS_SEGMENTS.map((segment) => (
+                  <FilterChip
+                    key={segment.id}
+                    active={filters.saasSegments.includes(segment.id)}
+                    onClick={() => toggleSaasSegment(segment.id)}
+                    inactiveClassName={saasSegmentInactiveStyles[segment.id]}
+                  >
+                    {segment.label}
+                  </FilterChip>
+                ))}
+              </ul>
+            </section>
+            <section className="border-t border-stone-100 pt-4">
+              <h3 className="mb-1 text-xs font-semibold uppercase tracking-wide text-stone-500">
+                Department
+              </h3>
+              <ul className="flex max-h-40 flex-wrap gap-2 overflow-y-auto">
+                {SAAS_DEPARTMENTS.map((dept) => (
+                  <FilterChip
+                    key={dept.id}
+                    active={filters.departments.includes(dept.id)}
+                    onClick={() => toggleDepartment(dept.id)}
+                  >
+                    {dept.label}
+                  </FilterChip>
+                ))}
+              </ul>
+            </section>
+          </>
+        )}
+
+        <CollapsibleFilterSection title="Vendor" summary={vendorSummary}>
+          <ul className="flex max-h-44 flex-wrap gap-2 overflow-y-auto">
+            {allVendors.map((vendor) => (
+              <FilterChip
+                key={vendor}
+                active={filters.vendors.includes(vendor)}
+                onClick={() => toggleVendor(vendor)}
+              >
+                {vendor}
+              </FilterChip>
+            ))}
+          </ul>
+        </CollapsibleFilterSection>
+
+        <CollapsibleFilterSection title="Gartner rating">
           <p className="mb-2 text-xs text-stone-400">
-            Filter PaaS services by hyperscaler
+            Services without Gartner data are hidden when a minimum is set.
           </p>
           <ul className="flex flex-wrap gap-2">
-            {PAAS_PROVIDERS.map((provider) => (
+            {RATING_OPTIONS.map((option) => (
               <FilterChip
-                key={provider.id}
-                active={filters.paasProviders.includes(provider.id)}
-                onClick={() => togglePaasProvider(provider.id)}
-                inactiveClassName={paasProviderInactiveStyles[provider.id]}
+                key={option.value}
+                active={filters.minRating === option.value}
+                onClick={() => setMinRating(option.value)}
+                inactiveClassName="border-amber-200 bg-amber-50/80 text-amber-900 hover:bg-amber-100"
               >
-                {provider.label}
+                {option.label}
               </FilterChip>
             ))}
           </ul>
-        </section>
-      )}
+        </CollapsibleFilterSection>
 
-      {saasSelected && (
-        <section>
-          <h3 className="mb-1 text-xs font-medium text-stone-500">Solution area</h3>
-          <p className="mb-2 text-xs text-stone-400">
-            Filter SaaS by IT, security, or compliance focus
-          </p>
+        <CollapsibleFilterSection title="Verified compliance">
           <ul className="flex flex-wrap gap-2">
-            {SAAS_SEGMENTS.map((segment) => (
-              <FilterChip
-                key={segment.id}
-                active={filters.saasSegments.includes(segment.id)}
-                onClick={() => toggleSaasSegment(segment.id)}
-                inactiveClassName={saasSegmentInactiveStyles[segment.id]}
-              >
-                {segment.label}
-              </FilterChip>
-            ))}
-          </ul>
-        </section>
-      )}
-
-      {saasSelected && (
-        <section>
-          <h3 className="mb-1 text-xs font-medium text-stone-500">Department</h3>
-          <p className="mb-2 text-xs text-stone-400">
-            Filter SaaS apps by the teams that use them
-          </p>
-          <ul className="flex max-h-52 flex-wrap gap-2 overflow-y-auto">
-            {SAAS_DEPARTMENTS.map((dept) => (
-              <FilterChip
-                key={dept.id}
-                active={filters.departments.includes(dept.id)}
-                onClick={() => toggleDepartment(dept.id)}
-              >
-                {dept.label}
-              </FilterChip>
-            ))}
-          </ul>
-        </section>
-      )}
-
-      <section>
-        <h3 className="mb-2 text-xs font-medium text-stone-500">Vendor</h3>
-        <ul className="flex max-h-36 flex-wrap gap-2 overflow-y-auto">
-          {allVendors.map((vendor) => (
             <FilterChip
-              key={vendor}
-              active={filters.vendors.includes(vendor)}
-              onClick={() => toggleVendor(vendor)}
+              active={filters.verifiedCompliance === "yes"}
+              onClick={() => setVerifiedCompliance("yes")}
+              inactiveClassName="border-emerald-200 bg-emerald-50/80 text-emerald-900 hover:bg-emerald-100"
             >
-              {vendor}
+              Yes
             </FilterChip>
-          ))}
-        </ul>
-      </section>
-
-      <section>
-        <h3 className="mb-1 text-xs font-medium text-stone-500">Gartner rating</h3>
-        <p className="mb-2 text-xs text-stone-400">
-          Minimum Gartner score (services without Gartner data are hidden)
-        </p>
-        <ul className="flex flex-wrap gap-2">
-          {RATING_OPTIONS.map((option) => (
             <FilterChip
-              key={option.value}
-              active={filters.minRating === option.value}
-              onClick={() => setMinRating(option.value)}
-              inactiveClassName="border-amber-200 bg-amber-50/80 text-amber-900 hover:bg-amber-100"
+              active={filters.verifiedCompliance === "no"}
+              onClick={() => setVerifiedCompliance("no")}
+              inactiveClassName="border-stone-200 bg-stone-50/80 text-stone-700 hover:bg-stone-100"
             >
-              {option.label}
+              No
             </FilterChip>
-          ))}
-        </ul>
-      </section>
-
-      <section>
-        <h3 className="mb-1 text-xs font-medium text-stone-500">
-          Verified compliance
-        </h3>
-        <p className="mb-2 text-xs text-stone-400">
-          Services with public compliance badges on the card
-        </p>
-        <ul className="flex flex-wrap gap-2">
-          <FilterChip
-            active={filters.verifiedCompliance === "yes"}
-            onClick={() => setVerifiedCompliance("yes")}
-            inactiveClassName="border-emerald-200 bg-emerald-50/80 text-emerald-900 hover:bg-emerald-100"
-          >
-            Yes
-          </FilterChip>
-          <FilterChip
-            active={filters.verifiedCompliance === "no"}
-            onClick={() => setVerifiedCompliance("no")}
-            inactiveClassName="border-stone-200 bg-stone-50/80 text-stone-700 hover:bg-stone-100"
-          >
-            No
-          </FilterChip>
-        </ul>
-      </section>
+          </ul>
+        </CollapsibleFilterSection>
+      </div>
     </aside>
   );
 }
