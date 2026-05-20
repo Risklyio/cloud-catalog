@@ -2,7 +2,6 @@ import "server-only";
 
 import {
   GARTNER_VERIFIED_BY_SLUG,
-  HOST_TO_GARTNER_PRODUCT_SLUG,
   SLUG_TO_GARTNER_PRODUCT_SLUG,
 } from "@/lib/catalog/gartner-verified-products";
 import {
