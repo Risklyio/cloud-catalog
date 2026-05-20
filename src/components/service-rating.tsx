@@ -2,7 +2,10 @@
 
 import { useId } from "react";
 import { TopRatedBadge } from "@/components/top-rated-badge";
-import { trustpilotDomainFromWebsite, trustpilotReviewUrl } from "@/lib/trustpilot-url";
+import {
+  gartnerProductFromWebsite,
+  gartnerProductReviewUrl,
+} from "@/lib/gartner-url";
 import type { ServiceReview } from "@/types/service-review";
 
 function StarIcon({
@@ -83,16 +86,18 @@ export function ServiceRating({
   topRated?: boolean;
 }) {
   const gradientId = useId().replace(/:/g, "");
-  const domain = trustpilotDomainFromWebsite(websiteUrl);
-  const trustpilotHref = review?.source_url ?? (domain ? trustpilotReviewUrl(domain) : null);
+  const productSlug = gartnerProductFromWebsite(websiteUrl);
+  const gartnerHref =
+    review?.source_url ??
+    (productSlug ? gartnerProductReviewUrl(productSlug) : null);
 
   return (
     <section
       className="mt-3 rounded-lg border border-stone-100 bg-stone-50/60 px-3 py-2.5"
       aria-label={
         review
-          ? `${review.rating} out of 5 on Trustpilot`
-          : "No Trustpilot reviews found"
+          ? `${review.rating} out of 5 on Gartner Peer Insights`
+          : "No Gartner reviews found"
       }
     >
       <svg width={0} height={0} className="absolute" aria-hidden>
@@ -114,7 +119,7 @@ export function ServiceRating({
 
       <div className="flex items-center justify-between gap-2">
         <p className="text-[10px] font-medium uppercase tracking-wide text-stone-400">
-          Trustpilot
+          Gartner
         </p>
         {topRated && <TopRatedBadge />}
       </div>
@@ -132,7 +137,7 @@ export function ServiceRating({
               rel="noopener noreferrer"
               className="font-medium text-[#6557ff] hover:text-[#f74dc7]"
             >
-              View on Trustpilot
+              View on Gartner
             </a>
           </p>
         </>
@@ -143,17 +148,17 @@ export function ServiceRating({
           </div>
           <p className="mt-1.5 text-[11px] text-stone-500">
             No reviews found
-            {trustpilotHref && (
+            {gartnerHref && (
               <>
                 {" "}
                 ·{" "}
                 <a
-                  href={trustpilotHref}
+                  href={gartnerHref}
                   target="_blank"
                   rel="noopener noreferrer"
                   className="font-medium text-[#6557ff] hover:text-[#f74dc7]"
                 >
-                  Search Trustpilot
+                  Search Gartner
                 </a>
               </>
             )}

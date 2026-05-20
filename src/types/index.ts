@@ -27,7 +27,7 @@ export interface CloudService {
   saas_segment?: SaasSegment | null;
   /** Publicly documented frameworks with links to provider evidence. */
   security_certifications?: SecurityCertification[];
-  /** Aggregate rating from Trustpilot or Google Reviews when available. */
+  /** Gartner Peer Insights vendor rating when available. */
   review?: ServiceReview | null;
   created_at: string;
 }

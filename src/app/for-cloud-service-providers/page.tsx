@@ -6,7 +6,7 @@ import { SiteFooter } from "@/components/site-footer";
 export const metadata: Metadata = {
   title: "For cloud service providers — Cloudiscover.io",
   description:
-    "How cloud vendors can request catalog listing changes, amend Trustpilot and compliance data, and improve visibility on Cloudiscover.io.",
+    "How cloud vendors can request catalog listing changes, amend Gartner and compliance data, and improve visibility on Cloudiscover.io.",
 };
 
 export default function ForCloudServiceProvidersPage() {
@@ -19,7 +19,7 @@ export default function ForCloudServiceProvidersPage() {
         </h1>
         <p className="mt-3 text-stone-600">
           If you represent a vendor listed in the catalog, you can request changes
-          to your listing, Trustpilot display, and compliance badges. This page
+          to your listing, Gartner display, and compliance badges. This page
           explains what we can update and how a complete, trustworthy public
           profile helps buyers discover your service.
         </p>

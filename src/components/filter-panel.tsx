@@ -69,7 +69,6 @@ function FilterChip({
 }
 
 const RATING_OPTIONS = [
-  { value: 3.5, label: "3.5+ stars" },
   { value: 4, label: "4+ stars" },
   { value: 4.5, label: "4.5+ stars" },
 ] as const;
@@ -209,9 +208,9 @@ export function FilterPanel() {
       </section>
 
       <section>
-        <h3 className="mb-1 text-xs font-medium text-stone-500">Trustpilot rating</h3>
+        <h3 className="mb-1 text-xs font-medium text-stone-500">Gartner rating</h3>
         <p className="mb-2 text-xs text-stone-400">
-          Minimum TrustScore (services without Trustpilot data are hidden)
+          Minimum Gartner score (services without Gartner data are hidden)
         </p>
         <ul className="flex flex-wrap gap-2">
           {RATING_OPTIONS.map((option) => (

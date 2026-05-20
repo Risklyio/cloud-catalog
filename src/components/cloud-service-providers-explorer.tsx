@@ -7,7 +7,7 @@ type TopicId =
   | "overview"
   | "catalog-listings"
   | "catalog-details"
-  | "trustpilot"
+  | "gartner"
   | "verified-compliance"
   | "visibility";
 
@@ -64,7 +64,7 @@ const TOPICS: {
         </p>
         <p className="mt-3 rounded-lg border border-stone-200 bg-stone-50/80 px-3 py-2.5 text-sm text-stone-700">
           Removal hides the service from Cloudiscover.io; it does not affect your
-          website, Trustpilot profile, or certifications elsewhere.
+          website, Gartner profile, or certifications elsewhere.
         </p>
       </>
     ),
@@ -94,36 +94,35 @@ const TOPICS: {
     ),
   },
   {
-    id: "trustpilot",
-    title: "Trustpilot information",
-    subtitle: "Corrections and removal of TrustScore on the card",
+    id: "gartner",
+    title: "Gartner Peer Insights information",
+    subtitle: "Corrections and removal of Gartner rating on the card",
     body: (
       <>
         <p>
-          Cards may show a <strong>Trustpilot</strong> TrustScore when we have
-          verified a public profile for your domain. See our{" "}
+          Cards may show a <strong>Gartner</strong> rating when we have verified a
+          public Peer Insights product page for your vendor. See our{" "}
           <Link
-            href="/trustpilot-ratings"
+            href="/gartner-reviews"
             className="font-medium text-[#6557ff] hover:text-[#f74dc7]"
           >
-            Trustpilot ratings
+            Gartner reviews
           </Link>{" "}
-          page for how scores are sourced and what <strong>Top rated</strong>{" "}
-          means.
+          page for how scores are sourced and what <strong>Top rated</strong> means.
         </p>
         <p className="mt-3">
-          <strong>Amend.</strong> If the wrong Trustpilot domain is linked, or our
-          verified snapshot is out of date, send the correct trustpilot.com/review
-          URL and the TrustScore you believe should be shown. We update from
-          public Trustpilot pages—we do not accept private spreadsheets or
-          unverifiable figures.
+          <strong>Amend.</strong> If the wrong Gartner product is linked, or our
+          verified snapshot is out of date, send the correct{" "}
+          <code className="text-xs">gartner.com/reviews/product/…</code> URL and
+          the rating and review count you believe should be shown. We update from
+          public Gartner pages—we do not accept private spreadsheets or unverifiable
+          figures.
         </p>
         <p className="mt-3">
           <strong>Remove the score from Cloudiscover.io.</strong> You may request
-          that we stop showing Trustpilot data on your card entirely. We will
-          display <strong>No reviews found</strong> in the Trustpilot section
-          instead of a score. This does not change your Trustpilot profile or
-          reviews on trustpilot.com.
+          that we stop showing Gartner data on your card entirely. We will display{" "}
+          <strong>No reviews found</strong> in the Gartner section instead of a
+          score. This does not change your Gartner profile or reviews on gartner.com.
         </p>
       </>
     ),
@@ -162,7 +161,7 @@ const TOPICS: {
   {
     id: "visibility",
     title: "How the catalog helps providers improve visibility",
-    subtitle: "Trustpilot, certifications, and clicks from the site",
+    subtitle: "Gartner, certifications, and clicks from the site",
     body: (
       <>
         <p>
@@ -172,15 +171,15 @@ const TOPICS: {
           <strong>Top rated</strong>.
         </p>
         <h3 className="mt-4 text-sm font-semibold text-stone-900">
-          Trustpilot TrustScore
+          Gartner Peer Insights rating
         </h3>
         <p className="mt-2 text-stone-600">
-          Services with a verified TrustScore of <strong>3.5+</strong> and{" "}
-          <strong>50+ reviews</strong> can earn the Top rated mark and appear in
-          the Top rated curated group, with a badge in the Trustpilot box on the
-          card. Improving genuine customer reviews on your official Trustpilot
-          profile is the path to better visibility here—we reflect Trustpilot; we
-          do not sell placement.
+          Services with a verified Gartner rating <strong>above 4</strong> and{" "}
+          <strong>more than 500 reviews</strong> can earn the Top rated mark and
+          appear in the Top rated curated group, with a badge in the Gartner box on
+          the card. Improving genuine reviews on your official Gartner product page
+          is the path to better visibility here—we reflect Gartner; we do not sell
+          placement.
         </p>
         <h3 className="mt-4 text-sm font-semibold text-stone-900">
           Security certifications
@@ -331,8 +330,8 @@ export function CloudServiceProvidersExplorer() {
         <ul className="mt-3 list-inside list-disc space-y-1.5 text-sm text-stone-600">
           <li>Your name, role, and company</li>
           <li>Catalog service name or URL on Cloudiscover.io</li>
-          <li>What you want changed (add, remove, amend, or hide Trustpilot / compliance)</li>
-          <li>Links to official sources (website, Trustpilot, trust center) where relevant</li>
+          <li>What you want changed (add, remove, amend, or hide Gartner / compliance)</li>
+          <li>Links to official sources (website, Gartner, trust center) where relevant</li>
         </ul>
         <p className="mt-3 text-xs text-stone-500">
           We aim to respond within a few business days. Complex or disputed

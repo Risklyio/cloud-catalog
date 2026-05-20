@@ -21,7 +21,7 @@ export const NAV_GROUPS: NavGroup[] = [
     links: [
       { href: "/cloud-definitions", label: "How cloud services are defined" },
       { href: "/verified-compliance", label: "Verified Compliance" },
-      { href: "/trustpilot-ratings", label: "Trustpilot ratings" },
+      { href: "/gartner-reviews", label: "Gartner reviews" },
     ],
   },
   {

@@ -5,7 +5,7 @@ import { SecurityComplianceMarkers } from "@/components/security-compliance-mark
 import { ServiceRating } from "@/components/service-rating";
 import { SAAS_DEPARTMENT_LABELS } from "@/lib/departments";
 import { resolveServiceLogoUrl } from "@/lib/logo-url";
-import { isTopRatedTrustpilot } from "@/lib/trustpilot-top-rated";
+import { isTopRatedGartner } from "@/lib/gartner-top-rated";
 import type { CloudService } from "@/types";
 
 const categoryBadge: Record<CloudService["category"], string> = {
@@ -58,8 +58,8 @@ function ServiceLogo({
   return (
     <span
       className="logo-gradient-ring"
-      aria-label="Top rated on Trustpilot"
-      title="Top rated: TrustScore 3.5+ with 50+ Trustpilot reviews"
+      aria-label="Top rated on Gartner Peer Insights"
+      title="Top rated: Gartner rating above 4 with more than 500 reviews"
     >
       <span className="logo-gradient-ring__inner">{avatar}</span>
     </span>
@@ -68,7 +68,7 @@ function ServiceLogo({
 
 function CardBody({ service }: { service: CloudService }) {
   const logoSrc = resolveServiceLogoUrl(service.website_url, service.logo_url);
-  const topRated = isTopRatedTrustpilot(service.review);
+  const topRated = isTopRatedGartner(service.review);
 
   return (
     <>

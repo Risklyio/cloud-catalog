@@ -4,12 +4,12 @@ import { getCatalog } from "@/lib/catalog/get-catalog";
 import {
   TOP_RATED_MIN_RATING,
   TOP_RATED_MIN_REVIEW_COUNT,
-  isTopRatedTrustpilot,
-} from "@/lib/trustpilot-top-rated";
+  isTopRatedGartner,
+} from "@/lib/gartner-top-rated";
 import type { ServiceCategory } from "@/types";
 import type { ServiceReview } from "@/types/service-review";
 
-export type VendorTrustpilotGroup = {
+export type VendorGartnerGroup = {
   vendor: string;
   services: {
     slug: string;
@@ -27,8 +27,8 @@ export type TopRatedService = {
   review: ServiceReview;
 };
 
-export type TrustpilotRatingsPageData = {
-  vendorGroups: VendorTrustpilotGroup[];
+export type GartnerRatingsPageData = {
+  vendorGroups: VendorGartnerGroup[];
   topRatedServices: TopRatedService[];
   servicesWithRating: number;
   servicesWithoutRating: number;
@@ -38,12 +38,12 @@ export type TrustpilotRatingsPageData = {
   topRatedMinReviewCount: number;
 };
 
-export async function getTrustpilotRatingsPageData(): Promise<TrustpilotRatingsPageData> {
+export async function getGartnerRatingsPageData(): Promise<GartnerRatingsPageData> {
   const catalog = await getCatalog();
   const withRating = catalog.services.filter((s) => s.review != null);
   const withoutRating = catalog.services.length - withRating.length;
 
-  const byVendor = new Map<string, VendorTrustpilotGroup["services"]>();
+  const byVendor = new Map<string, VendorGartnerGroup["services"]>();
 
   for (const service of withRating) {
     const review = service.review;
@@ -58,7 +58,7 @@ export async function getTrustpilotRatingsPageData(): Promise<TrustpilotRatingsP
     byVendor.set(service.vendor, list);
   }
 
-  const vendorGroups: VendorTrustpilotGroup[] = [...byVendor.entries()]
+  const vendorGroups: VendorGartnerGroup[] = [...byVendor.entries()]
     .map(([vendor, services]) => ({
       vendor,
       services: services.sort((a, b) => a.name.localeCompare(b.name)),
@@ -66,7 +66,7 @@ export async function getTrustpilotRatingsPageData(): Promise<TrustpilotRatingsP
     .sort((a, b) => a.vendor.localeCompare(b.vendor));
 
   const topRatedServices: TopRatedService[] = withRating
-    .filter((service) => isTopRatedTrustpilot(service.review))
+    .filter((service) => isTopRatedGartner(service.review))
     .map((service) => ({
       slug: service.slug,
       name: service.name,

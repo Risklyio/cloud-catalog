@@ -114,7 +114,7 @@ export function ExportServicesButton({
           <p className="font-semibold text-stone-800">Export to PDF</p>
           <p className="mt-1">
             Downloads a PDF of the services currently shown (based on your filters
-            and search), with a branded header bar, category-coloured cards, Trustpilot
+            and search), with a branded header bar, category-coloured cards, Gartner
             ratings, compliance status, vendor logos, and descriptions.
           </p>
         </div>

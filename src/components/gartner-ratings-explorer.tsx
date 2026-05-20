@@ -3,14 +3,14 @@
 import Link from "next/link";
 import { useState } from "react";
 import { TopRatedBadge } from "@/components/top-rated-badge";
-import type { TrustpilotRatingsPageData } from "@/lib/catalog/get-trustpilot-ratings-page-data";
+import type { GartnerRatingsPageData } from "@/lib/catalog/get-gartner-ratings-page-data";
 
 type TopicId =
   | "what"
   | "top-rated"
   | "how-discovered"
   | "limitations"
-  | "trustscore";
+  | "gartner-rating";
 
 const TOPICS: {
   id: TopicId;
@@ -19,29 +19,30 @@ const TOPICS: {
 }[] = [
   {
     id: "what",
-    title: "What is the Trustpilot rating?",
+    title: "What is the Gartner rating?",
     body: (
       <>
         <p>
-          Every catalog service card includes a <strong>Trustpilot</strong>{" "}
+          Every catalog service card includes a <strong>Gartner</strong>{" "}
           section. When we have verified data, it shows the provider&apos;s public{" "}
-          <strong>TrustScore</strong> (1–5 stars) and review count, with a link to
+          <strong>Gartner rating</strong> (1–5 stars) and review count, with a link to
           their profile on{" "}
           <a
-            href="https://www.trustpilot.com"
+            href="https://www.gartner.com/reviews"
             target="_blank"
             rel="noopener noreferrer"
             className="font-medium text-[#6557ff] hover:text-[#f74dc7]"
           >
-            trustpilot.com
+            Gartner Peer Insights
           </a>
           .
         </p>
         <p className="mt-3">
-          We use <strong>Trustpilot only</strong> so every service is compared the
-          same way. If we do not have a verified TrustScore for that vendor, the
-          card shows <strong>No reviews found</strong>—not a score invented by
-          Cloudiscover.io.
+          Scores are <strong>vendor-level</strong> on Gartner (e.g. AWS EC2 uses the
+          Amazon Web Services product page). We use <strong>Gartner Peer Insights
+          only</strong> so every service is compared the same way. If we do not have
+          verified data for that vendor, the card shows <strong>No reviews found</strong>
+          —not a score invented by Cloudiscover.io.
         </p>
       </>
     ),
@@ -53,35 +54,35 @@ const TOPICS: {
       <>
         <p>
           <strong>Top rated</strong> is a Cloudiscover.io label for catalog
-          services whose <strong>verified</strong> Trustpilot data shows a
+          services whose <strong>verified</strong> Gartner data shows a
           consistently strong public score with enough reviews to be meaningful.
-          It is not a Trustpilot badge or award.
+          It is not a Gartner badge or award.
         </p>
         <h3 className="mt-4 text-sm font-semibold text-stone-900">
           How the mark is calculated
         </h3>
         <p className="mt-2 text-stone-600">
           We apply the mark only when <strong>all</strong> of the following are
-          true for the TrustScore and review count we display on the card (sourced
-          from the linked Trustpilot profile):
+          true for the Gartner rating and review count we display on the card (sourced
+          from the linked Gartner profile):
         </p>
         <ol className="mt-3 list-inside list-decimal space-y-2 text-stone-600">
           <li>
-            The service has a <strong>verified Trustpilot mapping</strong> in our
+            The service has a <strong>verified Gartner mapping</strong> in our
             catalog (not <strong>No reviews found</strong>).
           </li>
           <li>
-            <strong>TrustScore is 3.5 or higher</strong> — written as{" "}
-            <code className="text-xs">rating ≥ 3.5</code>.
+            <strong>Gartner rating is above 4</strong> — written as{" "}
+            <code className="text-xs">rating &gt; 4</code>.
           </li>
           <li>
-            <strong>Review count is 50 or higher</strong> — written as{" "}
-            <code className="text-xs">review_count ≥ 50</code>.
+            <strong>Review count is more than 500</strong> — written as{" "}
+            <code className="text-xs">review_count &gt; 500</code>.
           </li>
         </ol>
         <p className="mt-3 text-sm text-stone-600">
-          <strong>Examples:</strong> 3.6 stars with 80 reviews → Top rated. 3.4
-          with 200 reviews → not Top rated. 4.5 with 49 reviews → not Top rated.
+          <strong>Examples:</strong> 4.1 stars with 600 reviews → Top rated. 4.0
+          with 800 reviews → not Top rated. 4.6 with 500 reviews → not Top rated.
         </p>
         <h3 className="mt-4 text-sm font-semibold text-stone-900">
           Where it appears in the catalog
@@ -89,7 +90,7 @@ const TOPICS: {
         <ul className="mt-2 list-inside list-disc space-y-1.5 text-stone-600">
           <li>
             A <strong>Top rated</strong> pill with a checkmark sits on the same
-            row as the <strong>Trustpilot</strong> title inside the Trustpilot box
+            row as the <strong>Gartner</strong> title inside the Gartner box
             on the card.
           </li>
           <li>
@@ -104,7 +105,7 @@ const TOPICS: {
         </ul>
         <p className="mt-3 rounded-lg border border-violet-100 bg-violet-50/80 px-3 py-2.5 text-violet-950">
           Scores are updated periodically, not in real time. A service can lose or
-          gain Top rated when Trustpilot or our verified catalog data changes.
+          gain Top rated when Gartner or our verified catalog data changes.
         </p>
       </>
     ),
@@ -115,28 +116,30 @@ const TOPICS: {
     body: (
       <>
         <p>
-          We do not run our own customer surveys. Ratings are taken from public
-          Trustpilot company pages, matched to each service like this:
+          We do not run our own customer surveys. Ratings come from public{" "}
+          <strong>Gartner Peer Insights</strong> product pages, matched to each
+          service like this:
         </p>
         <ul className="mt-3 list-inside list-disc space-y-1.5 text-stone-600">
           <li>
-            The service&apos;s website URL is used to find the matching Trustpilot
-            review domain (e.g. <code className="text-xs">stripe.com</code>)
+            The service&apos;s website hostname maps to a Gartner product slug when
+            known (e.g. <code className="text-xs">aws.amazon.com</code> →{" "}
+            <code className="text-xs">amazon-web-services</code>)
           </li>
           <li>
-            A curated list of <strong>verified</strong> TrustScores is maintained
-            in our catalog—only domains we have checked on Trustpilot are shown
-            with stars
+            A curated list of <strong>verified</strong> vendor scores is maintained
+            in our catalog—only products we have checked on Gartner are shown with
+            stars
           </li>
           <li>
-            Some products map to a parent company domain when their Trustpilot
-            profile lives under the vendor brand (e.g. Auth0 → Okta&apos;s domain)
+            Some catalog entries map to a parent vendor product (e.g. AWS EC2 →
+            Amazon Web Services on Gartner)
           </li>
         </ul>
         <p className="mt-3">
-          The star display on each card reflects Trustpilot&apos;s published
-          TrustScore. Click <strong>View on Trustpilot</strong> to read reviews and
-          confirm the score yourself.
+          The star display on each card reflects Gartner&apos;s published average
+          rating. Click <strong>View on Gartner</strong> to read reviews and confirm
+          the score yourself.
         </p>
       </>
     ),
@@ -147,44 +150,54 @@ const TOPICS: {
     body: (
       <>
         <p className="rounded-lg border border-amber-200/90 bg-amber-50/90 px-3 py-2.5 text-amber-950">
-          <strong>Scores may be out of date.</strong> Trustpilot changes as new
+          <strong>Scores may be out of date.</strong> Gartner changes as new
           reviews are posted. Our catalog is updated periodically, not in real
           time.
         </p>
         <ul className="mt-3 list-inside list-disc space-y-2 text-stone-600">
           <li>
             <strong>No reviews found does not mean a product is poor.</strong> The
-            vendor may have no Trustpilot profile, use a different domain, or not
+            vendor may have no Gartner profile, use a different domain, or not
             yet be in our verified list.
           </li>
           <li>
-            Trustpilot reviews are often left by consumers or small businesses—not
-            always enterprise buyers—so scores may not reflect your procurement
-            experience.
+            Gartner scores are <strong>vendor-level</strong>, not per SKU—EC2 and
+            Redshift share the same Amazon Web Services benchmark.
           </li>
           <li>
-            A low TrustScore on Trustpilot does not replace technical due
-            diligence, security review, or contractual assessment.
+            Peer Insights reviews come from IT professionals, but they still may not
+            match your procurement context or product line.
+          </li>
+          <li>
+            A low Gartner rating does not replace technical due diligence, security
+            review, or contractual assessment.
           </li>
         </ul>
       </>
     ),
   },
   {
-    id: "trustscore",
-    title: "What is a TrustScore?",
+    id: "gartner-rating",
+    title: "What is a Gartner rating?",
     body: (
       <>
         <p>
-          Trustpilot&apos;s <strong>TrustScore</strong> is an aggregate rating from
-          1 to 5 stars based on reviews on that company&apos;s Trustpilot profile.
-          Trustpilot describes it as a measure of customer trust built from recent
-          reviews, with more weight on newer reviews.
+          On{" "}
+          <a
+            href="https://www.gartner.com/reviews/product/amazon-web-services"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="font-medium text-[#6557ff] hover:text-[#f74dc7]"
+          >
+            Gartner Peer Insights
+          </a>
+          , each vendor product has an average rating from 1 to 5 stars and a total
+          review count from verified IT professionals.
         </p>
         <p className="mt-3">
-          Cloudiscover.io shows the TrustScore and total review count exactly as
-          published on the linked Trustpilot page—we do not adjust, average across
-          other sites, or apply our own grading.
+          Cloudiscover.io shows that average and count exactly as published on the
+          linked Gartner product page—we do not adjust, average across other sites,
+          or apply our own grading.
         </p>
       </>
     ),
@@ -253,7 +266,7 @@ function formatRating(rating: number): string {
   return rating.toFixed(1);
 }
 
-export function TrustpilotRatingsExplorer({
+export function GartnerRatingsExplorer({
   vendorGroups,
   topRatedServices,
   servicesWithRating,
@@ -262,18 +275,18 @@ export function TrustpilotRatingsExplorer({
   vendorCount,
   topRatedMinRating,
   topRatedMinReviewCount,
-}: TrustpilotRatingsPageData) {
+}: GartnerRatingsPageData) {
   const [openTopic, setOpenTopic] = useState<TopicId | null>("what");
   const [openVendor, setOpenVendor] = useState<string | null>(null);
 
   return (
     <div className="max-w-3xl space-y-12">
-      <section aria-labelledby="trustpilot-overview-heading">
+      <section aria-labelledby="gartner-overview-heading">
         <h2
-          id="trustpilot-overview-heading"
+          id="gartner-overview-heading"
           className="text-xl font-semibold tracking-tight text-stone-900"
         >
-          Understanding Trustpilot on cards
+          Understanding Gartner on cards
         </h2>
         <p className="mt-2 text-stone-600">
           Expand a topic below for how ratings appear in the catalog, how we
@@ -314,12 +327,13 @@ export function TrustpilotRatingsExplorer({
         </h2>
         <p className="mt-2 text-stone-600">
           {topRatedCount} service{topRatedCount === 1 ? "" : "s"} currently qualify:
-          TrustScore {topRatedMinRating}+ with {topRatedMinReviewCount}+ reviews.
+          Gartner rating above {topRatedMinRating} with more than{" "}
+          {topRatedMinReviewCount} reviews.
           Browse the{" "}
           <Link href="/" className="font-medium text-[#6557ff] hover:text-[#f74dc7]">
             catalog
           </Link>{" "}
-          to see the Top rated mark in each card&apos;s Trustpilot box and the
+          to see the Top rated mark in each card&apos;s Gartner box and the
           logo gradient ring.
         </p>
         {topRatedServices.length > 0 ? (
@@ -362,7 +376,7 @@ export function TrustpilotRatingsExplorer({
                     rel="noopener noreferrer"
                     className="text-xs font-medium text-[#6557ff] hover:text-[#f74dc7]"
                   >
-                    View on Trustpilot →
+                    View on Gartner →
                   </a>
                 </p>
               </li>
@@ -371,7 +385,7 @@ export function TrustpilotRatingsExplorer({
         ) : (
           <p className="mt-4 text-sm text-stone-500">
             No services meet the top-rated thresholds yet. As we add verified
-            Trustpilot profiles with higher scores and review volume, they will
+            Gartner profiles with higher scores and review volume, they will
             appear here and on their catalog cards.
           </p>
         )}
@@ -382,13 +396,13 @@ export function TrustpilotRatingsExplorer({
           id="catalog-ratings-heading"
           className="text-xl font-semibold tracking-tight text-stone-900"
         >
-          Services with verified Trustpilot data
+          Services with verified Gartner data
         </h2>
         <p className="mt-2 text-stone-600">
           {servicesWithRating} services across {vendorCount} vendors show a
-          verified TrustScore. {servicesWithoutRating} other services show{" "}
-          <strong>No reviews found</strong> until we add a checked Trustpilot
-          profile. Select a vendor to see services and Trustpilot links.
+          verified Gartner rating. {servicesWithoutRating} other services show{" "}
+          <strong>No reviews found</strong> until we add a checked Gartner
+          profile. Select a vendor to see services and Gartner links.
         </p>
         <ul className="mt-6 space-y-3">
           {vendorGroups.map((group) => {
@@ -445,7 +459,7 @@ export function TrustpilotRatingsExplorer({
                             rel="noopener noreferrer"
                             className="text-xs font-medium text-[#6557ff] hover:text-[#f74dc7]"
                           >
-                            View on Trustpilot →
+                            View on Gartner →
                           </a>
                         </p>
                       </li>
@@ -458,7 +472,7 @@ export function TrustpilotRatingsExplorer({
         </ul>
         {vendorGroups.length === 0 && (
           <p className="mt-4 text-sm text-stone-500">
-            No verified Trustpilot mappings yet. Browse the{" "}
+            No verified Gartner mappings yet. Browse the{" "}
             <Link href="/" className="font-medium text-[#6557ff]">
               catalog
             </Link>{" "}

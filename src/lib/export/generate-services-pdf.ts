@@ -1,7 +1,7 @@
 import { jsPDF } from "jspdf";
 import {
   formatComplianceExportLine,
-  formatTrustpilotExportLine,
+  formatGartnerExportLine,
 } from "@/lib/export/format-service-export-meta";
 import {
   PDF_BRAND,
@@ -236,7 +236,7 @@ async function drawServiceCard(
 
   doc.setFontSize(8.5);
   doc.setTextColor(101, 87, 255);
-  const trustLine = formatTrustpilotExportLine(service);
+  const trustLine = formatGartnerExportLine(service);
   doc.text(trustLine, contentX, textY, { maxWidth: contentW });
   textY += 4.5;
 
@@ -315,7 +315,7 @@ export async function generateServicesPdf(options: {
   doc.setFontSize(8);
   doc.setTextColor(168, 162, 158);
   doc.text(
-    "cloudiscover.io · Catalog export includes Trustpilot and compliance status as displayed on cards",
+    "cloudiscover.io · Catalog export includes Gartner and compliance status as displayed on cards",
     pageWidth / 2,
     doc.internal.pageSize.getHeight() - 10,
     { align: "center" },

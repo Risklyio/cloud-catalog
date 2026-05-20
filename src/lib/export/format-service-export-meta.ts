@@ -1,15 +1,15 @@
 import { hasVerifiedCompliance } from "@/lib/search/filter-services";
-import { isTopRatedTrustpilot } from "@/lib/trustpilot-top-rated";
+import { isTopRatedGartner } from "@/lib/gartner-top-rated";
 import type { CloudService } from "@/types";
 
-export function formatTrustpilotExportLine(service: CloudService): string {
+export function formatGartnerExportLine(service: CloudService): string {
   const review = service.review;
   if (!review) {
-    return "Trustpilot: No reviews found";
+    return "Gartner: No reviews found";
   }
   const count = new Intl.NumberFormat("en-US").format(review.review_count);
-  const topRated = isTopRatedTrustpilot(review) ? " · Top rated" : "";
-  return `Trustpilot: ${review.rating.toFixed(1)} / 5 · ${count} reviews${topRated}`;
+  const topRated = isTopRatedGartner(review) ? " · Top rated" : "";
+  return `Gartner: ${review.rating.toFixed(1)} / 5 · ${count} reviews${topRated}`;
 }
 
 export function formatComplianceExportLine(service: CloudService): string {
