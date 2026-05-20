@@ -56,10 +56,10 @@ export function SiteNavMenuButton({
   return (
     <button
       type="button"
-      className={`flex h-9 w-9 shrink-0 items-center justify-center rounded-full border transition focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#6557ff]/40 focus-visible:ring-offset-2 ${
+      className={`flex h-9 w-9 shrink-0 items-center justify-center border transition-[color,background-color,border-color,box-shadow] duration-200 ease-out focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#6557ff]/40 focus-visible:ring-offset-2 ${
         open
-          ? "border-[#6557ff]/40 bg-gradient-to-br from-[#6557ff]/12 to-[#f74dc7]/10 text-[#6557ff] shadow-inner"
-          : "border-stone-200/90 bg-stone-50/90 text-stone-700 hover:border-[#6557ff]/30 hover:bg-white hover:text-[#6557ff]"
+          ? "rounded-xl border-[#6557ff]/40 bg-gradient-to-br from-[#6557ff]/12 to-[#f74dc7]/10 text-[#6557ff] shadow-inner"
+          : "rounded-full border-stone-200/90 bg-stone-50/90 text-stone-700 hover:border-[#6557ff]/30 hover:bg-white hover:text-[#6557ff]"
       }`}
       aria-expanded={open}
       aria-controls={controlsId}
@@ -68,20 +68,26 @@ export function SiteNavMenuButton({
       onClick={onToggle}
     >
       <span className="sr-only">{open ? "Close" : "Menu"}</span>
-      <span className="relative block h-3.5 w-4" aria-hidden>
+      <span className="relative block h-4 w-4" aria-hidden>
         <span
-          className={`absolute left-0 top-0 block h-0.5 w-4 rounded-full bg-current transition-all duration-200 ${
-            open ? "top-[6px] rotate-45" : ""
+          className={`absolute left-1/2 top-1/2 block h-0.5 w-4 -translate-x-1/2 rounded-full bg-current transition-[transform,opacity] duration-300 ease-in-out ${
+            open
+              ? "-translate-y-1/2 rotate-45"
+              : "-translate-y-[5px]"
           }`}
         />
         <span
-          className={`absolute left-0 top-[6px] block h-0.5 w-4 rounded-full bg-current transition-all duration-200 ${
-            open ? "scale-x-0 opacity-0" : ""
+          className={`absolute left-1/2 top-1/2 block h-0.5 w-4 -translate-x-1/2 rounded-full bg-current transition-[transform,opacity] duration-300 ease-in-out ${
+            open
+              ? "-translate-y-1/2 scale-x-0 opacity-0"
+              : "-translate-y-1/2 opacity-100"
           }`}
         />
         <span
-          className={`absolute left-0 top-3 block h-0.5 w-4 rounded-full bg-current transition-all duration-200 ${
-            open ? "top-[6px] -rotate-45" : ""
+          className={`absolute left-1/2 top-1/2 block h-0.5 w-4 -translate-x-1/2 rounded-full bg-current transition-[transform,opacity] duration-300 ease-in-out ${
+            open
+              ? "-translate-y-1/2 -rotate-45"
+              : "-translate-x-1/2 translate-y-[5px]"
           }`}
         />
       </span>
@@ -115,11 +121,17 @@ export function SiteNavMenuPanel({ open, onClose, panelId }: SiteNavMenuPanelPro
     <nav
       id={panelId}
       aria-label="Site"
-      className="border-t border-stone-200/80 px-4 py-5 sm:px-6 sm:py-6"
+      className="rounded-b-[calc(1rem-2px)] border-t border-stone-200/80 bg-white/95 px-4 py-2 backdrop-blur-md sm:px-6 sm:py-3"
     >
-      <div className="grid gap-8 sm:grid-cols-2 lg:grid-cols-4 lg:gap-x-12 lg:gap-y-8">
-        {NAV_GROUPS.map((group) => (
-          <section key={group.title} aria-labelledby={`nav-${group.title}`}>
+      <div className="flex flex-col divide-y divide-stone-200/90 lg:grid lg:grid-cols-4 lg:divide-x lg:divide-y-0">
+        {NAV_GROUPS.map((group, index) => (
+          <section
+            key={group.title}
+            aria-labelledby={`nav-${group.title}`}
+            className={`py-5 sm:py-6 ${
+              index > 0 ? "lg:pl-6" : ""
+            } ${index < NAV_GROUPS.length - 1 ? "lg:pr-6" : ""}`}
+          >
             <h2
               id={`nav-${group.title}`}
               className="text-[11px] font-semibold uppercase tracking-wider text-[#6557ff]"
