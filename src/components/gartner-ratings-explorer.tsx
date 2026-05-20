@@ -123,8 +123,8 @@ const TOPICS: {
         <ul className="mt-3 list-inside list-disc space-y-1.5 text-stone-600">
           <li>
             The service&apos;s website hostname maps to a Gartner product slug when
-            known (e.g. <code className="text-xs">aws.amazon.com</code> →{" "}
-            <code className="text-xs">amazon-web-services</code>)
+            known (e.g. <code className="text-xs">datadoghq.com</code> →{" "}
+            <code className="text-xs">datadog-534048731</code>)
           </li>
           <li>
             A curated list of <strong>verified</strong> vendor scores is maintained
