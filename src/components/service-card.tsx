@@ -13,6 +13,7 @@ const categoryBadge: Record<CloudService["category"], string> = {
   PaaS: "bg-sky-500/15 text-sky-700 ring-sky-500/25",
   IaaS: "bg-amber-500/15 text-amber-800 ring-amber-500/25",
   AI: "bg-gradient-to-r from-[#6557ff]/20 to-[#f74dc7]/20 text-fuchsia-800 ring-fuchsia-500/25",
+  DNS: "bg-teal-500/15 text-teal-800 ring-teal-500/25",
 };
 
 function ServiceLogo({

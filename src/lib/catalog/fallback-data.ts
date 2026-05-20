@@ -1,4 +1,5 @@
 import { additionalServices } from "@/lib/catalog/additional-services";
+import { DNS_PROVIDER_IDS } from "@/lib/catalog/dns-services";
 import {
   PAAS_AWS_IDS,
   PAAS_AZURE_IDS,
@@ -478,6 +479,14 @@ export const fallbackCatalog: CatalogData = {
       title: "Marketing Stack",
       description: "CRM, analytics, design, and campaign tools for growth teams.",
       service_ids: ["201", "213", "214", "218", "219", "220", "222"],
+      created_at: new Date().toISOString(),
+    },
+    {
+      id: "g9",
+      slug: "dns-providers",
+      title: "DNS & domains",
+      description: "Domain registrars and DNS hosting for global and UK markets.",
+      service_ids: [...DNS_PROVIDER_IDS],
       created_at: new Date().toISOString(),
     },
   ],

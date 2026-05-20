@@ -7,13 +7,14 @@ import { SAAS_SEGMENTS } from "@/lib/saas-segments";
 import { useCatalogStore } from "@/store/catalog-store";
 import type { ServiceCategory } from "@/types";
 
-const CATEGORIES: ServiceCategory[] = ["SaaS", "PaaS", "IaaS", "AI"];
+const CATEGORIES: ServiceCategory[] = ["SaaS", "PaaS", "IaaS", "AI", "DNS"];
 
 const categoryInactiveStyles: Record<ServiceCategory, string> = {
   SaaS: "border-violet-200 bg-violet-50/80 text-violet-800 hover:bg-violet-100",
   PaaS: "border-sky-200 bg-sky-50/80 text-sky-800 hover:bg-sky-100",
   IaaS: "border-amber-200 bg-amber-50/80 text-amber-800 hover:bg-amber-100",
   AI: "border-fuchsia-200 bg-fuchsia-50/80 text-fuchsia-800 hover:bg-fuchsia-100",
+  DNS: "border-teal-200 bg-teal-50/80 text-teal-800 hover:bg-teal-100",
 };
 
 const paasProviderInactiveStyles = {

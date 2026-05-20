@@ -27,7 +27,7 @@ const TOPICS: {
       <>
         <p>
           Cloudiscover.io is a read-only discovery catalog. If you represent a{" "}
-          <strong>cloud service provider</strong>—SaaS, PaaS, IaaS, or AI—we
+          <strong>cloud service provider</strong>—SaaS, PaaS, IaaS, AI, or DNS—we
           want your public listing to be accurate, fair, and useful to buyers.
         </p>
         <p className="mt-3">
@@ -52,7 +52,7 @@ const TOPICS: {
         <p>
           <strong>Add a service.</strong> If your product is a genuine cloud
           offering and not already listed, you can request inclusion. Include
-          the product name, category (SaaS, PaaS, IaaS, or AI), vendor, website
+          the product name, category (SaaS, PaaS, IaaS, AI, or DNS), vendor, website
           URL, a short description, and why it belongs in a cloud services
           catalog.
         </p>

@@ -19,7 +19,7 @@ const geistMono = Geist_Mono({
 export const revalidate = 3600;
 
 export const metadata: Metadata = {
-  title: "Cloudiscover.io — Discover SaaS, PaaS & IaaS",
+  title: "Cloudiscover.io — Discover SaaS, PaaS, IaaS & DNS",
   description:
     "A fast, read-only catalog for discovering cloud services with search, filters, and curated groups.",
   icons: {

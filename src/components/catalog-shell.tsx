@@ -15,8 +15,9 @@ export function CatalogShell() {
           Search, compare, and adopt{" "}
           <span className="font-medium text-[#6557ff]">SaaS</span>,{" "}
           <span className="font-medium text-sky-600">PaaS</span>,{" "}
-          <span className="font-medium text-amber-700">IaaS</span>, and{" "}
-          <span className="font-medium text-[#f74dc7]">AI</span>
+          <span className="font-medium text-amber-700">IaaS</span>,{" "}
+          <span className="font-medium text-[#f74dc7]">AI</span>, and{" "}
+          <span className="font-medium text-teal-700">DNS</span>
           —curated for every team, in one place.
         </p>
       </header>

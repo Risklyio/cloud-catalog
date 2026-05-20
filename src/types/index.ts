@@ -7,7 +7,7 @@ import type { ServiceReview } from "@/types/service-review";
 export type { SecurityCertId, SecurityCertification } from "@/types/security-certification";
 export type { ServiceReview } from "@/types/service-review";
 
-export type ServiceCategory = "SaaS" | "PaaS" | "IaaS" | "AI";
+export type ServiceCategory = "SaaS" | "PaaS" | "IaaS" | "AI" | "DNS";
 
 export interface CloudService {
   id: string;

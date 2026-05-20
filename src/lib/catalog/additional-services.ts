@@ -1,4 +1,5 @@
 import { createService } from "@/lib/catalog/service-factory";
+import { dnsProviders } from "@/lib/catalog/dns-services";
 import { paasCloudServices } from "@/lib/catalog/paas-services";
 import { saasCyberEndpointServices } from "@/lib/catalog/saas-cyber-services";
 import type { CloudService } from "@/types";
@@ -124,4 +125,5 @@ export const additionalServices: CloudService[] = [
 
   ...paasCloudServices,
   ...saasCyberEndpointServices,
+  ...dnsProviders,
 ];

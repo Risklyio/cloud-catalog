@@ -38,6 +38,13 @@ export const PDF_CATEGORY_THEME: Record<ServiceCategory, PdfCategoryTheme> = {
     badgeText: [134, 25, 143],
     metaText: [112, 26, 117],
   },
+  DNS: {
+    cardFill: [240, 253, 250],
+    cardStroke: [153, 246, 228],
+    badgeFill: [204, 251, 241],
+    badgeText: [15, 118, 110],
+    metaText: [17, 94, 89],
+  },
 };
 
 export const PDF_BRAND = {
