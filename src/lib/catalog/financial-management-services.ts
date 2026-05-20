@@ -12,7 +12,7 @@ type FmEntry = {
   name: string;
   vendor: string;
   url: string;
-  tags: string[];
+  tags?: string[];
   slug?: string;
 };
 
@@ -90,7 +90,7 @@ function toFmService(entry: FmEntry): CloudService {
     `${FM_NOTE} Source: ${FM_CATALOG_URL}.`,
     entry.vendor,
     entry.url,
-    [...entry.tags, "financial-management", "fm-qsmo"],
+    [...(entry.tags ?? ["fm", "federal"]), "financial-management", "fm-qsmo"],
     { departments: ["finance"], slug: entry.slug },
   );
 }
